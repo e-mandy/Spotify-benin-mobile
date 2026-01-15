@@ -13,7 +13,7 @@ import "../styles/global.css";
 
 SplashScreen.preventAutoHideAsync();
 
-import { useColorScheme } from "@/hooks/use-color-scheme";
+import { useColorScheme } from "@/src/hooks/use-color-scheme";
 
 export const unstable_settings = {
   anchor: "(tabs)",
@@ -22,10 +22,11 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded, error] = useFonts({
-    "spline-sans-bold": require("../assets/fonts/SplineSans_700Bold.ttf"),
-    "spline-sans-light": require("../assets/fonts/SplineSans_300Light.ttf"),
-    "noto-sans": require("../assets/fonts/noto-sans.ttf"),
-    "spline-sans-regular": require("../assets/fonts/SplineSans_400Regular.ttf")
+    "spline-sans-bold": require("@/assets/fonts/SplineSans_700Bold.ttf"),
+    "spline-sans-light": require("@/assets/fonts/SplineSans_300Light.ttf"),
+    "noto-sans": require("@/assets/fonts/noto-sans.ttf"),
+    "spline-sans-regular": require("@/assets/fonts/SplineSans_400Regular.ttf"),
+    "Material Icons": ""
   });
 
   useEffect(() => {

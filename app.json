@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Spotify-Benin-App",
-    "slug": "Spotify-Benin-App",
+    "name": "BeninMusicApp",
+    "slug": "BeninMusicApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
