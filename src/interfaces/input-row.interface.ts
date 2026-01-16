@@ -2,7 +2,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { ComponentProps } from "react";
 
 // This extracts the 'name' prop type specifically
-type MaterialIconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
+export type MaterialIconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
 
 export interface InputRowProps {
   className?: string;

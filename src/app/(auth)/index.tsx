@@ -7,9 +7,10 @@ import {
   StyledText,
   Title,
 } from "@/src/components/ui/common";
+import Divider from "@/src/components/ui/common/Divider";
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
 import React from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 const Login = () => {
   const formFields: InputRowProps[] = [
@@ -53,7 +54,7 @@ const Login = () => {
             Créez votre compte
           </Title>
         </View>
-        <View className="mt-4 flex gap-y-8 w-[95%] max-w-[400px] mx-auto">
+        <View className="mt-4 flex gap-y-6 w-[95%] max-w-[400px] mx-auto">
           {formFields.map((field) => (
             <InputRow
               key={field.prefixIcon}
@@ -63,7 +64,18 @@ const Login = () => {
             />
           ))}
           <View className="mt-5">
-            <Button>S'inscrire</Button>
+            <Button prefixIcon="arrow-right-thin">S'inscrire</Button>
+          </View>
+
+          <Divider />
+
+          <View className="flex flex-row text-[15px] items-center mx-auto">
+            <StyledText className="flex flex-row text-[15px] items-center">
+              Vous avez déjà un compte ?{" "}
+            </StyledText>
+            <TouchableOpacity>
+              <StyledText className="text-[15px] text-red-500 ms-2">Se connecter</StyledText>
+            </TouchableOpacity>{" "}
           </View>
         </View>
       </KeyboardPrevent>
