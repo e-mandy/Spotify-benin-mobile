@@ -24,7 +24,7 @@ const InputRow = ({
         onChangeText={onChange}
         secureTextEntry={isPassword}
         placeholder={placeholder}
-        className={`bg-surface-dark/80 w-full text-muted rounded-full p-5  mx-auto placeholder:text-xl font-spline-bold placeholder:text-muted ${className}`}
+        className={`bg-surface-dark/80  w-full text-muted rounded-full p-5  mx-auto placeholder:text-xl font-spline-bold placeholder:text-muted ${className}`}
       ></TextInput>
     </View>
   );

@@ -3,7 +3,7 @@ import { Text } from "react-native";
 
 const StyledText = ({children, className}:IProps) => {
   return (
-    <Text className={`text-2xl text-light font-spline-sans-regular ${className}`}>
+    <Text className={`text-2xl text-light  ${className}`}>
       { children }
     </Text>
   );

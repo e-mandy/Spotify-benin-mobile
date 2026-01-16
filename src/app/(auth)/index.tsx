@@ -7,12 +7,14 @@ import {
   StyledText,
   Title,
 } from "@/src/components/ui/common";
-import Divider from "@/src/components/ui/common/Divider";
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
+import { useRouter } from "expo-router";
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 
 const Login = () => {
+  const router = useRouter();
+
   const formFields: InputRowProps[] = [
     {
       prefixIcon: "account",
@@ -46,7 +48,7 @@ const Login = () => {
 
         <View>
           <Title className="text-center text-4xl"> Spotify Bénin </Title>
-          <StyledText className="text-[16px] max-w-[85%]  mx-auto mt-4 text-muted font-spline-sans-regular text-center">
+          <StyledText className="text-[16px] max-w-[85%]  mx-auto mt-4 text-muted font-spline-sans-regular text-center py-1">
             Le rythme de notre culture, directement dans vos oreilles.
           </StyledText>
 
@@ -67,15 +69,19 @@ const Login = () => {
             <Button prefixIcon="arrow-right-thin">S'inscrire</Button>
           </View>
 
-          <Divider />
+          {/* <Divider /> */}
 
           <View className="flex flex-row text-[15px] items-center mx-auto">
             <StyledText className="flex flex-row text-[15px] items-center">
               Vous avez déjà un compte ?{" "}
             </StyledText>
-            <TouchableOpacity>
-              <StyledText className="text-[15px] text-red-500 ms-2">Se connecter</StyledText>
-            </TouchableOpacity>{" "}
+            <StyledText>
+              <TouchableOpacity onPress={() => router.push("/(auth)/register")}>
+                <StyledText className="text-[15px] text-red-500 ms-2">
+                  Se connecter
+                </StyledText>
+              </TouchableOpacity>{" "}
+            </StyledText>
           </View>
         </View>
       </KeyboardPrevent>
