@@ -2,12 +2,12 @@ import AppWrapper from '@/src/components/ui/common/AppWrapper';
 import StyledText from '@/src/components/ui/common/StyledText';
 import React from 'react';
 
-const Login = () => {
+const Register = () => {
   return (
     <AppWrapper>
-      <StyledText> Hello world </StyledText>
+      <StyledText> Register </StyledText>
     </AppWrapper>
   );
 };
 
-export default Login;
+export default Register;
