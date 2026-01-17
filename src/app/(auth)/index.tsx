@@ -41,7 +41,7 @@ const Login = () => {
   ];
 
   return (
-    <AppWrapper className="flex flex-col items-center justify-center">
+    <AppWrapper>
       <KeyboardPrevent>
         <View>
           <AppBrand />

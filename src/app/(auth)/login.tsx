@@ -10,7 +10,7 @@ import {
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Pressable, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 const Login = () => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const Login = () => {
   ];
 
   return (
-    <AppWrapper className="flex flex-col items-center justify-center relative">
+    <AppWrapper>
       <KeyboardPrevent>
         <View>
           <AppBrand />
@@ -53,6 +53,15 @@ const Login = () => {
               secureTextEntry={field.secureTextEntry}
             />
           ))}
+          <View className="flex flex-row justify-end -mt-2">
+            <TouchableOpacity
+              onPress={() => router.push("/(auth)/send-forgot-pass-mail")}
+            >
+              <StyledText className="text-[16px] font-spline-sans-regular text-muted">
+                Mot de passe oublié ?
+              </StyledText>
+            </TouchableOpacity>
+          </View>
           <View className="mt-5">
             <Button prefixIcon="login">Se connecter</Button>
           </View>
@@ -64,14 +73,14 @@ const Login = () => {
               Vous n'avez pas de compte ?{" "}
             </StyledText>
             <StyledText className="py-2">
-              <Pressable
+              <TouchableOpacity
                 className="block mt-2"
                 onPress={() => router.push("/(auth)")}
               >
                 <StyledText className="text-[15px] text-red-500 ms-2">
                   S'inscrire
                 </StyledText>
-              </Pressable>{" "}
+              </TouchableOpacity>{" "}
             </StyledText>
           </View>
         </View>

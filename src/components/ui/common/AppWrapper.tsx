@@ -4,9 +4,11 @@ import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../../../styles/global.css";
 
-const AppWrapper = ({ children }: IProps) => {
+const AppWrapper = ({ children, className }: IProps) => {
   return (
-    <SafeAreaView className="min-h-screen p-2 bg-background-dark">
+    <SafeAreaView
+      className={`min-h-screen p-2 bg-background-dark ${className}`}
+    >
       <ScrollView>{children}</ScrollView>
     </SafeAreaView>
   );
