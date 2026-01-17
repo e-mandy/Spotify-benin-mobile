@@ -10,7 +10,7 @@ import {
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
 import { useRouter } from "expo-router";
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Pressable, View } from "react-native";
 
 const Login = () => {
   const router = useRouter();
@@ -21,21 +21,21 @@ const Login = () => {
       placeholder: "Adresse e-mail",
     },
     {
-      prefixIcon: "eye-off",
+      prefixIcon: "lock",
       placeholder: "Mot de passe",
-      isPassword: true,
+      secureTextEntry: true,
     },
   ];
 
   return (
-    <AppWrapper className="flex flex-col items-center justify-center">
+    <AppWrapper className="flex flex-col items-center justify-center relative">
       <KeyboardPrevent>
         <View>
           <AppBrand />
         </View>
 
         <View>
-          <Title className="text-center text-4xl"> Spotify Bénin </Title>
+          <Title className="text-center text-4xl"> M19 </Title>
           <StyledText className="text-[16px] max-w-[85%]  mx-auto mt-4 text-muted font-spline-sans-regular text-center py-1">
             Le rythme de notre culture, directement dans vos oreilles.
           </StyledText>
@@ -50,7 +50,7 @@ const Login = () => {
               key={field.prefixIcon}
               placeholder={field.placeholder}
               prefixIcon={field.prefixIcon}
-              isPassword={field.isPassword}
+              secureTextEntry={field.secureTextEntry}
             />
           ))}
           <View className="mt-5">
@@ -60,15 +60,18 @@ const Login = () => {
           {/* <Divider /> */}
 
           <View className="flex flex-row text-[15px] items-center justify-center mx-auto">
-            <StyledText className="flex flex-row text-[15px] items-center">
+            <StyledText className="text-[15px]">
               Vous n'avez pas de compte ?{" "}
             </StyledText>
-            <StyledText>
-              <TouchableOpacity onPress={() => router.push("/(auth)")}>
+            <StyledText className="py-2">
+              <Pressable
+                className="block mt-2"
+                onPress={() => router.push("/(auth)")}
+              >
                 <StyledText className="text-[15px] text-red-500 ms-2">
                   S'inscrire
                 </StyledText>
-              </TouchableOpacity>{" "}
+              </Pressable>{" "}
             </StyledText>
           </View>
         </View>

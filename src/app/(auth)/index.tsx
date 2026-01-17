@@ -31,11 +31,12 @@ const Login = () => {
     {
       prefixIcon: "calendar",
       placeholder: "Date de naissance",
+      isDateField: true,
     },
     {
-      prefixIcon: "eye-off",
+      prefixIcon: "lock",
       placeholder: "Mot de passe",
-      isPassword: true,
+      secureTextEntry: true,
     },
   ];
 
@@ -47,7 +48,7 @@ const Login = () => {
         </View>
 
         <View>
-          <Title className="text-center text-4xl"> Spotify Bénin </Title>
+          <Title className="text-center text-4xl"> M19 </Title>
           <StyledText className="text-[16px] max-w-[85%]  mx-auto mt-4 text-muted font-spline-sans-regular text-center py-1">
             Le rythme de notre culture, directement dans vos oreilles.
           </StyledText>
@@ -58,12 +59,7 @@ const Login = () => {
         </View>
         <View className="mt-4 flex gap-y-6 w-[95%] max-w-[400px] mx-auto">
           {formFields.map((field) => (
-            <InputRow
-              key={field.prefixIcon}
-              placeholder={field.placeholder}
-              prefixIcon={field.prefixIcon}
-              isPassword={field.isPassword}
-            />
+            <InputRow key={field.prefixIcon} {...field} />
           ))}
           <View className="mt-5">
             <Button prefixIcon="arrow-right-thin">S'inscrire</Button>
@@ -71,17 +67,22 @@ const Login = () => {
 
           {/* <Divider /> */}
 
-          <View className="flex flex-row text-[15px] items-center mx-auto">
-            <StyledText className="flex flex-row text-[15px] items-center">
-              Vous avez déjà un compte ?{" "}
-            </StyledText>
-            <StyledText>
-              <TouchableOpacity onPress={() => router.push("/(auth)/register")}>
-                <StyledText className="text-[15px] text-red-500 ms-2">
-                  Se connecter
-                </StyledText>
-              </TouchableOpacity>{" "}
-            </StyledText>
+          <View>
+            <View className="flex flex-row text-[15px] items-center mx-auto">
+              <StyledText className="flex flex-row text-[15px] items-center">
+                Vous avez déjà un compte ?{" "}
+              </StyledText>
+              <StyledText>
+                <TouchableOpacity
+                  className="mt-2"
+                  onPress={() => router.push("/(auth)/login")}
+                >
+                  <StyledText className="text-[15px] text-red-500 ms-2">
+                    Se connecter
+                  </StyledText>
+                </TouchableOpacity>{" "}
+              </StyledText>
+            </View>
           </View>
         </View>
       </KeyboardPrevent>
