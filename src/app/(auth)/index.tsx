@@ -8,8 +8,9 @@ import {
   Title,
 } from "@/src/components/ui/common";
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
+import { signupSchema } from "@/src/schema/signup.schema";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 const Login = () => {
@@ -19,26 +20,54 @@ const Login = () => {
     {
       prefixIcon: "account",
       placeholder: "Nom complet",
+      name: "username",
     },
     {
       prefixIcon: "email",
       placeholder: "Adresse e-mail",
+      name: "email",
     },
     {
       prefixIcon: "earth",
       placeholder: "Ethnie",
+      name: "ethnicity",
     },
     {
       prefixIcon: "calendar",
       placeholder: "Date de naissance",
       isDateField: true,
+      name: "birthday",
     },
     {
       prefixIcon: "lock",
       placeholder: "Mot de passe",
       secureTextEntry: true,
+      name: "password",
     },
   ];
+
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+    username: "",
+    ethnicity: "",
+    birthday: null,
+  });
+
+  const onChange = (fieldName, value) =>
+    setUserInfo({ ...userInfo, [fieldName]: value });
+
+  const handleSubmit = () => {
+    const { error, success } = signupSchema.safeParse(userInfo);
+    console.log(userInfo);
+
+    if (success) {
+      //handle submit here
+    } else {
+      const currentError = Object.values(error.flatten().fieldErrors)[0][0];
+      console.log(currentError);
+    }
+  };
 
   return (
     <AppWrapper>
@@ -59,10 +88,16 @@ const Login = () => {
         </View>
         <View className="mt-4 flex gap-y-6 w-[95%] max-w-[400px] mx-auto">
           {formFields.map((field) => (
-            <InputRow key={field.prefixIcon} {...field} />
+            <InputRow
+              onChangeText={onChange}
+              key={field.prefixIcon}
+              {...field}
+            />
           ))}
           <View className="mt-5">
-            <Button prefixIcon="arrow-right-thin">S'inscrire</Button>
+            <Button onPress={handleSubmit} prefixIcon="arrow-right-thin">
+              S'inscrire
+            </Button>
           </View>
 
           {/* <Divider /> */}

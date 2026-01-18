@@ -24,6 +24,7 @@ const InputRow = (props: InputRowProps) => {
       ) : (
         <TextInput
           {...props}
+          onChangeText={(text) => props.onChangeText(props.name, text)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           className={`${defaultInputClass}  ${isFocused ? " border border-red-500" : ""}`}

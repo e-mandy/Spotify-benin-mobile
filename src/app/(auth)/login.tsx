@@ -18,10 +18,12 @@ const Login = () => {
   const formFields: InputRowProps[] = [
     {
       prefixIcon: "email",
+      name: "email",
       placeholder: "Adresse e-mail",
     },
     {
       prefixIcon: "lock",
+      name: "password",
       placeholder: "Mot de passe",
       secureTextEntry: true,
     },
@@ -46,12 +48,7 @@ const Login = () => {
         </View>
         <View className="mt-4 flex gap-y-6 w-[95%] max-w-[400px] mx-auto">
           {formFields.map((field) => (
-            <InputRow
-              key={field.prefixIcon}
-              placeholder={field.placeholder}
-              prefixIcon={field.prefixIcon}
-              secureTextEntry={field.secureTextEntry}
-            />
+            <InputRow key={field.prefixIcon} {...field} />
           ))}
           <View className="flex flex-row justify-end -mt-2">
             <TouchableOpacity

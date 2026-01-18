@@ -16,6 +16,7 @@ export const DateInput = (props: InputRowProps) => {
     setDate(currentDate);
     setDateSelected(true);
     dateRef.current?.blur();
+    props.onChangeText(props.name, new Date(selectedDate).toISOString());
   };
 
   const handleFocus = () => {

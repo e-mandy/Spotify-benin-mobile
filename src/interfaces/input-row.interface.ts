@@ -7,10 +7,11 @@ export type MaterialIconName = ComponentProps<
 >["name"];
 
 export interface InputRowProps {
+  name: string;
   className?: string;
   prefixIcon?: MaterialIconName;
   placeholder?: string;
   secureTextEntry?: boolean;
   isDateField?: boolean;
-  onChangeText?: (text: string) => void;
+  onChangeText?: (fieldName: string, text: string) => void;
 }
