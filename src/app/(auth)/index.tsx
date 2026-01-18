@@ -9,12 +9,15 @@ import {
 } from "@/src/components/ui/common";
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
 import { signupSchema } from "@/src/schema/signup.schema";
+import useAuth from "@/src/store/auth.store";
+import { notifError, notifSuccess } from "@/src/utils/react-toast";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 const Login = () => {
   const router = useRouter();
+  const login = useAuth((state) => state.login);
 
   const formFields: InputRowProps[] = [
     {
@@ -59,13 +62,11 @@ const Login = () => {
 
   const handleSubmit = () => {
     const { error, success } = signupSchema.safeParse(userInfo);
-    console.log(userInfo);
-
     if (success) {
-      //handle submit here
+      notifSuccess("Formulaire soumis!");
     } else {
       const currentError = Object.values(error.flatten().fieldErrors)[0][0];
-      console.log(currentError);
+      notifError(currentError);
     }
   };
 

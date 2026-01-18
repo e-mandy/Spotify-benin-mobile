@@ -8,6 +8,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import FlashMessage from "react-native-flash-message";
 import "react-native-reanimated";
 import useAuth from "../store/auth.store";
 import "../styles/global.css";
@@ -49,10 +50,7 @@ export default function RootLayout() {
       {!isLogged ? (
         //Public routes that does not required authentication
         <Stack>
-          <Stack.Screen
-            name="(auth)"
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         </Stack>
       ) : (
         <Stack>
@@ -64,6 +62,7 @@ export default function RootLayout() {
         </Stack>
       )}
       <StatusBar style="auto" />
+      <FlashMessage position="top" />
     </ThemeProvider>
   );
 }
