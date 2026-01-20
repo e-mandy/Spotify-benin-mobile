@@ -17,7 +17,8 @@ import { TouchableOpacity, View } from "react-native";
 
 const Login = () => {
   const router = useRouter();
-  const login = useAuth((state) => state.login);
+  const register = useAuth((state) => state.handleRegister);
+  const login = useAuth((state) => state.handleLogin);
 
   const formFields: InputRowProps[] = [
     {
@@ -60,10 +61,19 @@ const Login = () => {
   const onChange = (fieldName, value) =>
     setUserInfo({ ...userInfo, [fieldName]: value });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { error, success } = signupSchema.safeParse(userInfo);
     if (success) {
-      notifSuccess("Formulaire soumis!");
+      const { success: successfulRegister, data } = await register(userInfo);
+      if (successfulRegister) {
+        notifSuccess(
+          "Veuillez renseignez le code reçu par email pour valider votre compte",
+        );
+
+        router.push(
+          `/(auth)/verify-account?email=${userInfo.email}&tempToken=${data.tempToken}`,
+        );
+      }
     } else {
       const currentError = Object.values(error.flatten().fieldErrors)[0][0];
       notifError(currentError);
