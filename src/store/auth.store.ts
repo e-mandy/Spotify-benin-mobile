@@ -5,38 +5,55 @@ import {
 } from "@/src/interfaces/user-auth.interface";
 import { create } from "zustand";
 import { getAxiosInstance } from "../lib/axios.config";
+import { setItemInStorage } from "../lib/secure-storage";
 import { notifError } from "../utils/react-toast";
+
+type PartialIAuthState = Partial<IAuthState>;
 
 interface IAuthState {
   isLogged: boolean;
+  isLoadingAppState: boolean;
   user: {};
-  handleLogin: (user: IUserLogin) => Promise<void>;
+  handleLogin: (user: IUserLogin) => Promise<IResponse>;
   handleRegister: (user: IUserRegister) => Promise<IResponse>;
+  fetchUser: () => Promise<PartialIAuthState>;
 }
 
 const useAuth = create<IAuthState>((set, get) => ({
   isLogged: false,
+  isLoadingAppState: true,
+  accessToken: "",
   user: {},
   handleLogin: async (user: IUserLogin) => {
-    const userInfo = await login(user);
-    set(userInfo);
+    const response = await login(user);
+    return response;
   },
   handleRegister: async (user: IUserRegister) => await register(user),
+  fetchUser: async () => fetchUser(set),
 }));
 
-const login = async (user: IUserLogin): Promise<Partial<IAuthState>> => {
+const login = async (user: IUserLogin): Promise<IResponse> => {
   try {
     const http = getAxiosInstance();
     const { data } = await http.post("/auth/login", user);
+    await setItemInStorage("refreshToken", data.refreshToken);
+    await setItemInStorage("accessToken", data.accessToken);
     return {
-      isLogged: true,
-      user: data.user,
+      success: true,
+      data: {
+        isLogged: true,
+        user: data.user,
+      },
     };
   } catch (error) {
-    notifError(error?.response?.data?.error);
+    console.log(error?.response?.data);
+    notifError(error?.response?.data?.message);
     return {
-      isLogged: false,
-      user: {},
+      success: false,
+      data: {
+        isLogged: false,
+        user: {},
+      },
     };
   }
 };
@@ -51,6 +68,21 @@ const register = async (user: IUserRegister): Promise<IResponse> => {
     notifError(error?.response?.data?.error);
     return { success: false };
   }
+};
+
+const fetchUser = async (set: (auth: PartialIAuthState) => void) => {
+  try {
+    const http = getAxiosInstance();
+    set({ isLoadingAppState: true });
+    const { data } = await http.get("/users/profile/me");
+    set({ user: data.user });
+  } catch (error) {
+    console.log(error.response.data);
+    set({ isLogged: false, user: {} });
+  } finally {
+    set({ isLoadingAppState: false });
+  }
+  return {};
 };
 
 function logout() {}
