@@ -15,10 +15,10 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
-const Login = () => {
+const Register = () => {
   const router = useRouter();
   const register = useAuth((state) => state.handleRegister);
-  const login = useAuth((state) => state.handleLogin);
+  const [isLoading, setLoading] = useState(false);
 
   const formFields: InputRowProps[] = [
     {
@@ -64,12 +64,13 @@ const Login = () => {
   const handleSubmit = async () => {
     const { error, success } = signupSchema.safeParse(userInfo);
     if (success) {
+      setLoading(true);
       const { success: successfulRegister, data } = await register(userInfo);
+      setLoading(false);
       if (successfulRegister) {
         notifSuccess(
           "Veuillez renseignez le code reçu par email pour valider votre compte",
         );
-
         router.push(
           `/(auth)/verify-account?email=${userInfo.email}&tempToken=${data.tempToken}`,
         );
@@ -106,7 +107,11 @@ const Login = () => {
             />
           ))}
           <View className="mt-5">
-            <Button onPress={handleSubmit} prefixIcon="arrow-right-thin">
+            <Button
+              isLoading={isLoading}
+              onPress={handleSubmit}
+              prefixIcon="arrow-right-thin"
+            >
               S'inscrire
             </Button>
           </View>
@@ -136,4 +141,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

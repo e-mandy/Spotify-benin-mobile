@@ -8,12 +8,16 @@ import {
   Title,
 } from "@/src/components/ui/common";
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
+import { signInSchema } from "@/src/schema/signin.schema";
+import useAuth from "@/src/store/auth.store";
+import { notifError } from "@/src/utils/react-toast";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 const Login = () => {
   const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
 
   const formFields: InputRowProps[] = [
     {
@@ -28,6 +32,29 @@ const Login = () => {
       secureTextEntry: true,
     },
   ];
+
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+  });
+
+  const login = useAuth((state) => state.handleLogin);
+
+  const onChange = (fieldName, value) =>
+    setUserInfo({ ...userInfo, [fieldName]: value });
+
+  const handleSubmit = async () => {
+    const { error, success } = signInSchema.safeParse(userInfo);
+    if (success) {
+      setLoading(true);
+      const { success: successfulLogin } = await login(userInfo);
+      setLoading(false);
+      if (successfulLogin) router.push("/(tabs)");
+    } else {
+      const currentError = Object.values(error.flatten().fieldErrors)[0][0];
+      notifError(currentError);
+    }
+  };
 
   return (
     <AppWrapper>
@@ -48,7 +75,11 @@ const Login = () => {
         </View>
         <View className="mt-4 flex gap-y-6 w-[95%] max-w-[400px] mx-auto">
           {formFields.map((field) => (
-            <InputRow key={field.prefixIcon} {...field} />
+            <InputRow
+              key={field.prefixIcon}
+              onChangeText={onChange}
+              {...field}
+            />
           ))}
           <View className="flex flex-row justify-end -mt-2">
             <TouchableOpacity
@@ -60,7 +91,13 @@ const Login = () => {
             </TouchableOpacity>
           </View>
           <View className="mt-5">
-            <Button prefixIcon="login">Se connecter</Button>
+            <Button
+              isLoading={isLoading}
+              onPress={handleSubmit}
+              prefixIcon="login"
+            >
+              Se connecter
+            </Button>
           </View>
 
           {/* <Divider /> */}
