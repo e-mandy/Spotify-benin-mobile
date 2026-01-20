@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export function getAxiosInstance() {
-  console.log(process.env.EXPO_API_URL);
+const axiosInstance = axios.create({
+  baseURL: `${process.env.EXPO_PUBLIC_API_URL}/api`,
+});
 
-  return axios.create({
-    baseURL: process.env.EXPO_API_URL,
-  });
+export function getAxiosInstance() {
+  return axiosInstance;
 }
