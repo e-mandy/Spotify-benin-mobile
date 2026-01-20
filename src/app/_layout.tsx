@@ -25,6 +25,8 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   const isLogged = useAuth((state) => state.isLogged);
+  const isLoadingAppState = useAuth((state) => state.isLoadingAppState);
+  const fetchUser = useAuth((state) => state.fetchUser);
 
   //load app fonts
   const [loaded, error] = useFonts({
@@ -36,10 +38,14 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded || error) {
+    fetchUser();
+  }, [isLogged]);
+
+  useEffect(() => {
+    if ((loaded || error) && !isLoadingAppState) {
       SplashScreen.hideAsync();
     }
-  }, [loaded, error]);
+  }, [loaded, error, isLoadingAppState]);
 
   if (!loaded && !error) {
     return null;
