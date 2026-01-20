@@ -6,7 +6,7 @@ import { DateInput } from "./DateInput";
 
 const InputRow = (props: InputRowProps) => {
   const defaultInputClass =
-    "bg-surface-dark/80  w-full text-muted rounded-full p-5  mx-auto placeholder:text-xl font-spline-bold placeholder:text-muted";
+    "bg-surface-dark/80  w-full text-muted rounded-full p-5  mx-auto placeholder:text-xl  placeholder:text-muted";
   const [isFocused, setFocused] = useState(false);
 
   return (
