@@ -1,19 +1,58 @@
-import { IUserLogin } from "@/src/interfaces/user-login.interface";
+import {
+  IResponse,
+  IUserLogin,
+  IUserRegister,
+} from "@/src/interfaces/user-auth.interface";
 import { create } from "zustand";
+import { getAxiosInstance } from "../lib/axios.config";
+import { notifError } from "../utils/react-toast";
 
 interface IAuthState {
   isLogged: boolean;
   user: {};
-  login: (user: IUserLogin) => void;
+  handleLogin: (user: IUserLogin) => Promise<void>;
+  handleRegister: (user: IUserRegister) => Promise<IResponse>;
 }
 
-const useAuth = create<IAuthState>((set) => ({
+const useAuth = create<IAuthState>((set, get) => ({
   isLogged: false,
   user: {},
-  login: (user: IUserLogin) => set((state) => login(user, state)),
+  handleLogin: async (user: IUserLogin) => {
+    const userInfo = await login(user);
+    set(userInfo);
+  },
+  handleRegister: async (user: IUserRegister) => await register(user),
 }));
 
-const login = (user: IUserLogin, state) => void function register() {};
+const login = async (user: IUserLogin): Promise<Partial<IAuthState>> => {
+  try {
+    const http = getAxiosInstance();
+    const { data } = await http.post("/auth/login", user);
+    return {
+      isLogged: true,
+      user: data.user,
+    };
+  } catch (error) {
+    notifError(error?.response?.data?.error);
+    return {
+      isLogged: false,
+      user: {},
+    };
+  }
+};
+
+const register = async (user: IUserRegister): Promise<IResponse> => {
+  try {
+    const http = getAxiosInstance();
+    const res = await http.post("/auth/register", user);
+    return { success: true, data: { tempToken: res.data?.tempToken } };
+  } catch (error) {
+    console.log(error.response?.data);
+    notifError(error?.response?.data?.error);
+    return { success: false };
+  }
+};
+
 function logout() {}
 
 export default useAuth;
