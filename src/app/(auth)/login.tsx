@@ -47,9 +47,13 @@ const Login = () => {
     const { error, success } = signInSchema.safeParse(userInfo);
     if (success) {
       setLoading(true);
-      const { success: successfulLogin } = await login(userInfo);
+      const res = await login(userInfo);
+      if (res.data.tempToken) {
+        router.push(
+          `/(auth)/send-forgot-pass-mail?tempToken=${res.data.tempToken}`,
+        );
+      }
       setLoading(false);
-      if (successfulLogin) router.push("/(tabs)");
     } else {
       const currentError = Object.values(error.flatten().fieldErrors)[0][0];
       notifError(currentError);

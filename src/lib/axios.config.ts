@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async function (config) {
-  config.headers.Authorization = await getItemFromStorage("accessToken");
+  config.headers.Authorization = `Bearer ${await getItemFromStorage("accessToken")}`;
   return config;
 });
 

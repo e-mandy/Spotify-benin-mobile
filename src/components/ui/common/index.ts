@@ -1,5 +1,6 @@
 import AppBrand from "./AppBrand";
 import AppWrapper from "./AppWrapper";
+import Avatar from "./Avatar";
 import Button from "./Button";
 import CircleBrand from "./CircleBrand";
 import GoBack from "./GoBack";
@@ -10,10 +11,12 @@ import Title from "./Title";
 
 export {
   AppBrand,
-  AppWrapper,
-  Button,
+  AppWrapper, Avatar, Button,
   CircleBrand,
-  GoBack, InputRow, OtpFormInput, StyledText,
+  GoBack,
+  InputRow,
+  OtpFormInput,
+  StyledText,
   Title
 };
 

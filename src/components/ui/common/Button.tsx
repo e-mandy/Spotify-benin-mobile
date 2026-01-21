@@ -11,13 +11,15 @@ const Button = ({
   prefixIcon,
   onPress,
   isLoading,
+  textStyle,
+  colorIcon,
 }: IButtonProps) => {
   return (
     <View>
       <Pressable
         disabled={isLoading}
         onPress={onPress}
-        className={`rounded-full bg-red-500/80 hover:bg-[#372a2a] border border-[#372a2a] flex flex-row items-center justify-center transition-colors py-4 ${className}`}
+        className={`rounded-full bg-red-500/80  border border-[#372a2a] flex flex-row items-center justify-center  py-4 ${className}`}
       >
         {isLoading ? (
           <View className="animate-spin">
@@ -25,11 +27,13 @@ const Button = ({
           </View>
         ) : (
           <>
-            <StyledText className="font-bold"> {children} </StyledText>
+            <StyledText className={`font-bold ${textStyle}`}>
+              {children}
+            </StyledText>
             {prefixIcon && (
               <MaterialCommunityIcons
                 size={25}
-                color="#fff"
+                color={colorIcon || "#fff"}
                 name={prefixIcon}
               />
             )}

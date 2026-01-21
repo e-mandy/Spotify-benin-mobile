@@ -1,4 +1,5 @@
 import StyledText from "@/src/components/ui/common/StyledText";
+import useAuth from "@/src/store/auth.store";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { usePathname } from "expo-router";
 import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
@@ -7,8 +8,6 @@ import { View } from "react-native";
 // Defining the layout of the custom tab navigator
 export default function Layout() {
   const pathname = usePathname();
-
-  console.log(pathname);
 
   const tabElements = [
     {
@@ -33,10 +32,13 @@ export default function Layout() {
     },
   ] as const;
 
+  const isLogged = useAuth((state) => state.isLogged);
+  // if (false) return <Redirect href="/(auth)" />;
+
   return (
-    <Tabs className="bg-background-dark">
+    <Tabs className="bg-background-dark backdrop-blur-sm">
       <TabSlot />
-      <TabList className="pointer-events-auto mx-auto w-[90%] rounded-3xl bg-black/50 border border-white/5 px-3 py-4  relative -top-5">
+      <TabList className="pointer-events-auto mx-auto  w-[90%] rounded-3xl bg-black/30 border border-white/5 px-3 py-4  relative -top-10">
         {tabElements.map((tab) => {
           const isCurrentPath = tab.path == pathname;
           return (

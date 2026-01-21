@@ -5,4 +5,6 @@ export interface IButtonProps extends IProps {
   prefixIcon?: MaterialCommunityIcons;
   onPress?: () => void;
   isLoading?: boolean;
+  textStyle?: string;
+  colorIcon?: string;
 }

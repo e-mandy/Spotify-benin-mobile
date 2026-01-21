@@ -4,7 +4,7 @@
     "slug": "BeninMusicApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/splash-screen.png",
+    "icon": "./assets/images/splash-icon.png",
     "scheme": "spotifybeninapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

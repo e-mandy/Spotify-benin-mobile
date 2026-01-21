@@ -5,5 +5,6 @@ export async function getItemFromStorage(key: string) {
 }
 
 export async function setItemInStorage(key: string, data) {
-  await SecureStore.setItem(key, JSON.stringify(data));
+  let formattedData = typeof data === "string" ? data : JSON.stringify(data);
+  await SecureStore.setItem(key, formattedData);
 }

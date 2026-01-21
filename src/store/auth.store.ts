@@ -4,6 +4,7 @@ import {
   IUserRegister,
 } from "@/src/interfaces/user-auth.interface";
 import { create } from "zustand";
+import { IUser } from "../interfaces/user.interface";
 import { getAxiosInstance } from "../lib/axios.config";
 import { setItemInStorage } from "../lib/secure-storage";
 import { notifError } from "../utils/react-toast";
@@ -13,7 +14,7 @@ type PartialIAuthState = Partial<IAuthState>;
 interface IAuthState {
   isLogged: boolean;
   isLoadingAppState: boolean;
-  user: {};
+  user: IUser;
   handleLogin: (user: IUserLogin) => Promise<IResponse>;
   handleRegister: (user: IUserRegister) => Promise<IResponse>;
   fetchUser: () => Promise<PartialIAuthState>;
@@ -22,10 +23,10 @@ interface IAuthState {
 const useAuth = create<IAuthState>((set, get) => ({
   isLogged: false,
   isLoadingAppState: true,
-  accessToken: "",
   user: {},
   handleLogin: async (user: IUserLogin) => {
     const response = await login(user);
+    set(response.data);
     return response;
   },
   handleRegister: async (user: IUserRegister) => await register(user),
@@ -36,6 +37,17 @@ const login = async (user: IUserLogin): Promise<IResponse> => {
   try {
     const http = getAxiosInstance();
     const { data } = await http.post("/auth/login", user);
+
+    if (data.tempToken) {
+      return {
+        success: false,
+        data: {
+          isLogged: false,
+          tempToken: data.tempToken,
+        },
+      };
+    }
+
     await setItemInStorage("refreshToken", data.refreshToken);
     await setItemInStorage("accessToken", data.accessToken);
     return {
@@ -46,7 +58,7 @@ const login = async (user: IUserLogin): Promise<IResponse> => {
       },
     };
   } catch (error) {
-    console.log(error?.response?.data);
+    console.log(error?.response?.data, error?.response);
     notifError(error?.response?.data?.message);
     return {
       success: false,
