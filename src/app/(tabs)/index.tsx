@@ -1,5 +1,6 @@
 import { AppWrapper } from "@/src/components/ui/common";
 import BenineseLegends from "@/src/components/ui/home/BenineseLegends";
+import Discoveries from "@/src/components/ui/home/Discoveries";
 import MixDuJour from "@/src/components/ui/home/MixDuJour";
 import Patrimoine from "@/src/components/ui/home/Patrimoine";
 import TopBar from "@/src/components/ui/home/TopBar";
@@ -16,6 +17,7 @@ export default function HomeScreen() {
         <Patrimoine />
         <MixDuJour />
         <BenineseLegends />
+        <Discoveries />
       </ScrollView>
     </AppWrapper>
   );

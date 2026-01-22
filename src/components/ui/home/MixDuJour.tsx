@@ -1,29 +1,10 @@
+import { useFetch } from "@/src/hooks/use-fetch-api";
 import { truncate } from "@/src/utils/truncate";
 import { Image } from "expo-image";
 import React from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { StyledText } from "../common";
-
-const mixes = [
-  {
-    title: "Afrobeat Daily",
-    subtitle: "Fela, Wizkid...",
-    cover:
-      "https://acute-going-expired-map.trycloudflare.com/static/img/mix-2-cover.png",
-  },
-  {
-    title: "Cotonou Chill",
-    subtitle: "Détente au bord de l'eau",
-    cover:
-      "https://acute-going-expired-map.trycloudflare.com/static/img/mix-3-cover.png",
-  },
-  {
-    title: "Highlife Classics",
-    subtitle: "Les rois de la guitare",
-    cover:
-      "https://acute-going-expired-map.trycloudflare.com/static/img/mix-1-cover.png",
-  },
-];
+import ShowData from "../common/ShowData";
 
 const styles = StyleSheet.create({
   container: {
@@ -43,6 +24,10 @@ const styles = StyleSheet.create({
 });
 
 const MixDuJour = () => {
+  const { isLoading, data: mixes } = useFetch(
+    `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix`,
+  );
+
   return (
     <>
       <View className="flex flex-row items-center justify-between">
@@ -53,32 +38,30 @@ const MixDuJour = () => {
           </StyledText>
         </Pressable>
       </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        className="mb-8"
-      >
-        {mixes.map((item, index) => (
-          <Pressable key={index}>
-            <View className="w-36 mr-4 mt-4">
-              <View className="h-40  mb-2">
-                <Image
-                  className="rounded-[35px]"
-                  style={styles.image}
-                  source={item.cover}
-                  contentFit="cover"
-                />
+      <ShowData isLoading={isLoading}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {mixes.map((item, index) => (
+            <Pressable key={index}>
+              <View className="w-36 mr-4 mt-4">
+                <View className="h-40  mb-2">
+                  <Image
+                    className="rounded-[35px]"
+                    style={styles.image}
+                    source={item.coverImage}
+                    contentFit="cover"
+                  />
+                </View>
+                <StyledText className="font-spline-bold text-xl">
+                  {truncate(item.title, 14)}
+                </StyledText>
+                <StyledText className="font-bold truncate text-gray-700 text-sm">
+                  {truncate(item.subtitle, 15)}
+                </StyledText>
               </View>
-              <StyledText className="font-spline-bold text-xl">
-                {truncate(item.title, 14)}
-              </StyledText>
-              <StyledText className="font-bold truncate text-gray-700 text-sm">
-                {truncate(item.subtitle, 15)}
-              </StyledText>
-            </View>
-          </Pressable>
-        ))}
-      </ScrollView>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </ShowData>
     </>
   );
 };

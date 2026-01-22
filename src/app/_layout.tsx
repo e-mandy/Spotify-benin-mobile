@@ -23,8 +23,6 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-
-  const isLogged = useAuth((state) => state.isLogged);
   const isLoadingAppState = useAuth((state) => state.isLoadingAppState);
   const fetchUser = useAuth((state) => state.fetchUser);
 
@@ -39,7 +37,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     fetchUser();
-  }, [isLogged]);
+  }, []);
 
   useEffect(() => {
     if ((loaded || error) && !isLoadingAppState) {

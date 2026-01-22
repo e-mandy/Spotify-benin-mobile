@@ -4,7 +4,7 @@ import { Redirect, Stack } from "expo-router";
 export default function StackLayout() {
   const isLogged = useAuth((state) => state.isLogged);
 
-  return false ? (
+  return !isLogged ? (
     <Stack screenOptions={{ headerShown: false }} />
   ) : (
     <Redirect href="/(tabs)" />

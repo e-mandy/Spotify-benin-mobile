@@ -87,9 +87,9 @@ const fetchUser = async (set: (auth: PartialIAuthState) => void) => {
     const http = getAxiosInstance();
     set({ isLoadingAppState: true });
     const { data } = await http.get("/users/profile/me");
-    set({ user: data.user });
+    set({ user: data.user, isLogged: true });
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error.response?.data);
     set({ isLogged: false, user: {} });
   } finally {
     set({ isLoadingAppState: false });
