@@ -1,23 +1,27 @@
+import { truncate } from "@/src/utils/truncate";
 import { Image } from "expo-image";
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { StyledText } from "../common";
 
 const mixes = [
   {
     title: "Afrobeat Daily",
     subtitle: "Fela, Wizkid...",
-    cover: "http://localhost:9999/static/img/mix-2-cover.png",
+    cover:
+      "https://acute-going-expired-map.trycloudflare.com/static/img/mix-2-cover.png",
   },
   {
     title: "Cotonou Chill",
     subtitle: "Détente au bord de l'eau",
-    cover: "http://localhost:9999/static/img/mix-3-cover.png",
+    cover:
+      "https://acute-going-expired-map.trycloudflare.com/static/img/mix-3-cover.png",
   },
   {
     title: "Highlife Classics",
     subtitle: "Les rois de la guitare",
-    cover: "http://localhost:9999/static/img/mix-1-cover.png",
+    cover:
+      "https://acute-going-expired-map.trycloudflare.com/static/img/mix-1-cover.png",
   },
 ];
 
@@ -30,7 +34,9 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: "75%",
+    width: "100%",
+    height: "100%",
+    borderRadius: 25,
     margin: "auto",
     backgroundColor: "#0553",
   },
@@ -41,9 +47,11 @@ const MixDuJour = () => {
     <>
       <View className="flex flex-row items-center justify-between">
         <StyledText className="font-spline-bold">Mix du Jour</StyledText>
-        <StyledText className="text-gray-600 text-sm font-bold ">
-          VOIR TOUT
-        </StyledText>
+        <Pressable>
+          <StyledText className="text-gray-700 text-sm font-bold ">
+            VOIR TOUT
+          </StyledText>
+        </Pressable>
       </View>
       <ScrollView
         horizontal
@@ -51,21 +59,24 @@ const MixDuJour = () => {
         className="mb-8"
       >
         {mixes.map((item, index) => (
-          <View key={index} className="w-40 mr-8 mt-4">
-            <View className="h-40 rounded-[35px] bg-[#251e1e] mb-2 p-3">
-              <Image
-                style={styles.image}
-                source={item.cover}
-                contentFit="cover"
-              />
+          <Pressable key={index}>
+            <View className="w-36 mr-4 mt-4">
+              <View className="h-40  mb-2">
+                <Image
+                  className="rounded-[35px]"
+                  style={styles.image}
+                  source={item.cover}
+                  contentFit="cover"
+                />
+              </View>
+              <StyledText className="font-spline-bold text-xl">
+                {truncate(item.title, 14)}
+              </StyledText>
+              <StyledText className="font-bold truncate text-gray-700 text-sm">
+                {truncate(item.subtitle, 15)}
+              </StyledText>
             </View>
-            <StyledText className="font-spline-bold text-xl">
-              {item.title}
-            </StyledText>
-            <StyledText className="font-spline-light  text-gray-500 text-sm">
-              {item.subtitle}
-            </StyledText>
-          </View>
+          </Pressable>
         ))}
       </ScrollView>
     </>
