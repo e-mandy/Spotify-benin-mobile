@@ -1,6 +1,7 @@
 import { AppWrapper, GoBack } from "@/src/components/ui/common";
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import { useFetch } from "@/src/hooks/use-fetch-api";
+import { IMixeItem } from "@/src/interfaces/mixe-item.interface";
 import { notifSuccess } from "@/src/utils/react-toast";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -11,8 +12,6 @@ const AllMixes = () => {
   const { isLoading, data: mixes } = useFetch(
     `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix`,
   );
-
-  const router = useRouter();
 
   return (
     <View>
@@ -30,6 +29,7 @@ const AllMixes = () => {
               <View className="flex-1 p-2">
                 <SingleMixe
                   mixe={{
+                    id: item.id,
                     coverImage: item.coverImage,
                     title: item.title,
                     subtitle: item.subtitle,
@@ -50,9 +50,14 @@ const AllMixes = () => {
   );
 };
 
-function SingleMixe({ mixe }: { mixe: any }) {
+function SingleMixe({ mixe }: { mixe: IMixeItem }) {
+  const router = useRouter();
+
   return (
-    <TouchableOpacity className="mb-4">
+    <TouchableOpacity
+      onPress={() => router.push(`/day-mix-details?mixeId=${mixe.id}`)}
+      className="mb-4"
+    >
       <View className="aspect-square bg-[#2D1B19] rounded-[32px] p-4 items-center justify-center shadow-lg">
         <Image
           source={{ uri: mixe.coverImage }}
