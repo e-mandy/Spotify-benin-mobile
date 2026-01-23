@@ -36,7 +36,7 @@ const Login = () => {
   const onModalClose = () => setShowEmailSentModal(false);
 
   return (
-    <AppWrapper>
+    <AppWrapper withScrollView={false}>
       <KeyboardPrevent>
         <View>
           <AppBrand />
@@ -51,7 +51,11 @@ const Login = () => {
 
         <View className="mt-4 flex gap-y-6 w-[95%] max-w-[400px] mx-auto">
           <View>
-            <InputRow onChangeText={onChange} placeholder="Adresse e-mail" />
+            <InputRow
+              name="email"
+              onChangeText={onChange}
+              placeholder="Adresse e-mail"
+            />
           </View>
 
           <View className="mt-5">
@@ -59,25 +63,22 @@ const Login = () => {
               <StyledText>Envoyer</StyledText>
             </Button>
           </View>
-
-          <View className="flex flex-row text-[15px] items-center justify-center mx-auto">
-            <StyledText className="py-2">
-              <TouchableOpacity
-                className="flex flex-row items-center"
-                onPress={() => router.push("/(auth)/login")}
-              >
-                <MaterialCommunityIcons
-                  color="#ef4444"
-                  name="arrow-down-left"
-                />
-                <StyledText className="text-[15px] text-red-500 ms-2">
-                  Retourner à la page de connexion
-                </StyledText>
-              </TouchableOpacity>{" "}
-            </StyledText>
-          </View>
         </View>
       </KeyboardPrevent>
+
+      <View className="flex flex-row text-[15px] items-center justify-center mx-auto">
+        <StyledText className="py-2">
+          <TouchableOpacity
+            className="flex flex-row items-center"
+            onPress={() => router.push("/(auth)/login")}
+          >
+            <MaterialCommunityIcons color="#ef4444" name="arrow-down-left" />
+            <StyledText className="text-[15px] text-red-500 ms-2">
+              Retourner à la page de connexion
+            </StyledText>
+          </TouchableOpacity>{" "}
+        </StyledText>
+      </View>
       <ModalEmailSent showModal={showEmailSentModal} onClose={onModalClose} />
     </AppWrapper>
   );
