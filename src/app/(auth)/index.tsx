@@ -82,7 +82,7 @@ const Register = () => {
   };
 
   return (
-    <AppWrapper>
+    <AppWrapper className="!bg-black/90">
       <KeyboardPrevent>
         <View>
           <AppBrand />

@@ -3,7 +3,7 @@ import React from "react";
 import { View } from "react-native";
 import { StyledText } from "../common";
 import ShowData from "../common/ShowData";
-import { TrackItem } from "../common/StartPlay";
+import { TrackItem } from "../common/TrackItem";
 
 const Discoveries = () => {
   const { isLoading, data: discoveries } = useFetch(

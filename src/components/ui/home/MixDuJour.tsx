@@ -28,6 +28,7 @@ const MixDuJour = () => {
             <SingleMixe
               key={index}
               mixe={{
+                id: item.id,
                 coverImage: item.coverImage,
                 title: item.title,
                 subtitle: item.subtitle,

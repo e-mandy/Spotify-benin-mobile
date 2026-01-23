@@ -73,7 +73,7 @@ const VerifyAccount = () => {
   }
 
   return (
-    <AppWrapper>
+    <AppWrapper className="!bg-black/90">
       <GoBack />
       <View>
         <CircleBrand

@@ -36,7 +36,7 @@ const Login = () => {
   const onModalClose = () => setShowEmailSentModal(false);
 
   return (
-    <AppWrapper withScrollView={false}>
+    <AppWrapper withScrollView={false} className="!bg-black/90">
       <KeyboardPrevent>
         <View>
           <AppBrand />

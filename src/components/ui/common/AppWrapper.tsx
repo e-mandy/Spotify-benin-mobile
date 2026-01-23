@@ -14,7 +14,9 @@ const AppWrapper = ({
   withScrollView = true,
 }: IAppProps): ReactNode => {
   return (
-    <SafeAreaView className={`min-h-screen p-2 bg-black/90 ${className}`}>
+    <SafeAreaView
+      className={`min-h-screen p-2 bg-background-dark ${className}`}
+    >
       {withScrollView ? (
         <ScrollView showsVerticalScrollIndicator={false}>{children}</ScrollView>
       ) : (

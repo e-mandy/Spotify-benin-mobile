@@ -1,35 +1,18 @@
+import { styles } from "@/src/constants/styles";
+import { IMixeItem } from "@/src/interfaces/mixe-item.interface";
 import { truncate } from "@/src/utils/truncate";
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import React from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, View } from "react-native";
 import StyledText from "./StyledText";
 
-interface IMixeItem {
-  coverImage: string;
-  title: string;
-  subtitle: string;
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  image: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    borderRadius: 25,
-    margin: "auto",
-    backgroundColor: "#0553",
-  },
-});
-
 const SingleMixe = ({ mixe }: { mixe: IMixeItem }) => {
+  const router = useRouter();
   return (
-    <Pressable>
+    <Pressable
+      onPress={() => router.push(`/(common)/day-mix-details?mixeId=${mixe.id}`)}
+    >
       <View className="w-36 mr-4 mt-4">
         <View className="h-40  mb-2">
           <Image

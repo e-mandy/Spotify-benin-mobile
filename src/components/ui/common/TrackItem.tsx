@@ -16,7 +16,7 @@ export const TrackItem = ({
     >
       <Image
         source={{ uri: photo }}
-        className="h-14 w-14 rounded-md"
+        className="h-14 w-14 rounded-md bg-black"
         resizeMode="cover"
       />
 

@@ -16,7 +16,7 @@ const AllMixes = () => {
 
   return (
     <View>
-      <AppWrapper withScrollView={false} className="!bg-background-dark">
+      <AppWrapper withScrollView={false}>
         <GoBack pageTitle="Toutes vos mixes du jour" />
 
         <SafeAreaView className="flex-1">

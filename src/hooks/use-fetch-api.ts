@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { notifError } from "../utils/react-toast";
 
-export const useFetch = (url, defaultValue = []) => {
+export const useFetch = (url, defaultValue = []): any => {
   const [data, setData] = useState(defaultValue);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);

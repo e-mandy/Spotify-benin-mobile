@@ -32,7 +32,7 @@ function ProfileScreen() {
   };
 
   return (
-    <AppWrapper className="!bg-background-dark">
+    <AppWrapper>
       <GoBack pageTitle="Informations personnelles" />
       <View style={{ paddingBottom: 40 }}>
         <View className="items-center mt-10 mb-8">
