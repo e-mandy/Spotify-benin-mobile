@@ -1,10 +1,11 @@
 interface User {
   email: string;
   username: string;
-  emailVerifiedAt: boolean;
+  emailVerified: boolean;
   ethnicity?: string;
-  birthday?: Date;
+  birthday?: string;
   photo?: string;
+  createdAt?: string;
 }
 
 export type IUser = Partial<User>;

@@ -1,64 +1,38 @@
 import { useFetch } from "@/src/hooks/use-fetch-api";
-import { truncate } from "@/src/utils/truncate";
-import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import React from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
-import { StyledText } from "../common";
+import { ScrollView, TouchableOpacity, View } from "react-native";
+import { SingleMixe, StyledText } from "../common";
 import ShowData from "../common/ShowData";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  image: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    borderRadius: 25,
-    margin: "auto",
-    backgroundColor: "#0553",
-  },
-});
 
 const MixDuJour = () => {
   const { isLoading, data: mixes } = useFetch(
     `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix`,
   );
 
+  const router = useRouter();
+
   return (
     <>
       <View className="flex flex-row items-center justify-between">
         <StyledText className="font-spline-bold">Mix du Jour</StyledText>
-        <Pressable>
-          <StyledText className="text-gray-700 text-sm font-bold ">
+        <TouchableOpacity onPress={() => router.push("/(common)/all-mixes")}>
+          <StyledText className="text-gray-800 text-sm font-bold ">
             VOIR TOUT
           </StyledText>
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <ShowData isLoading={isLoading}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {mixes.map((item, index) => (
-            <Pressable key={index}>
-              <View className="w-36 mr-4 mt-4">
-                <View className="h-40  mb-2">
-                  <Image
-                    className="rounded-[35px]"
-                    style={styles.image}
-                    source={item.coverImage}
-                    contentFit="cover"
-                  />
-                </View>
-                <StyledText className="font-spline-bold text-xl">
-                  {truncate(item.title, 14)}
-                </StyledText>
-                <StyledText className="font-bold truncate text-gray-700 text-sm">
-                  {truncate(item.subtitle, 15)}
-                </StyledText>
-              </View>
-            </Pressable>
+            <SingleMixe
+              key={index}
+              mixe={{
+                coverImage: item.coverImage,
+                title: item.title,
+                subtitle: item.subtitle,
+              }}
+            />
           ))}
         </ScrollView>
       </ShowData>

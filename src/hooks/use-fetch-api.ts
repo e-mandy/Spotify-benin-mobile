@@ -14,7 +14,7 @@ export const useFetch = (url, defaultValue = []) => {
         setData("data" in response.data ? response.data.data : response.data);
       } catch (err) {
         const errMessage =
-          err.response.data.message || err.response.data.message;
+          err.response?.data?.message || err?.response?.data?.message;
         setError(errMessage);
         notifError("Une erreur est survenue!");
         console.log(err);

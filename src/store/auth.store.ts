@@ -18,6 +18,7 @@ interface IAuthState {
   handleLogin: (user: IUserLogin) => Promise<IResponse>;
   handleRegister: (user: IUserRegister) => Promise<IResponse>;
   fetchUser: () => Promise<PartialIAuthState>;
+  logout: () => Promise<void>;
 }
 
 const useAuth = create<IAuthState>((set, get) => ({
@@ -31,6 +32,10 @@ const useAuth = create<IAuthState>((set, get) => ({
   },
   handleRegister: async (user: IUserRegister) => await register(user),
   fetchUser: async () => fetchUser(set),
+  logout: async () => {
+    const response = await logout();
+    set(response.data);
+  },
 }));
 
 const login = async (user: IUserLogin): Promise<IResponse> => {
@@ -97,6 +102,17 @@ const fetchUser = async (set: (auth: PartialIAuthState) => void) => {
   return {};
 };
 
-function logout() {}
+const logout = async (): Promise<IResponse> => {
+  try {
+    await getAxiosInstance().post("/auth/logout");
+    await setItemInStorage("accessToken", "");
+    await setItemInStorage("refreshToken", "");
+    return { data: { isLogged: false, user: {} }, success: true };
+  } catch (error) {
+    console.log(error);
+    notifError("Une erreur est survenue lors de la déconnexion");
+    return { success: false };
+  }
+};
 
 export default useAuth;

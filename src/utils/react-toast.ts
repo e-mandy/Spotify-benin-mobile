@@ -11,7 +11,7 @@ export function notifError(message = "Une erreur est survenue") {
     floating: true,
     duration: 3000,
     icon: "danger",
-    backgroundColor: "rgb(239 68 68 / 0.4)",
+    backgroundColor: "rgb(239 68 68)",
   });
 }
 
@@ -23,6 +23,6 @@ export function notifSuccess(message) {
     duration: 3000,
     floating: true,
     icon: "success",
-    backgroundColor: "rgb(34 197 94 / 0.4)",
+    backgroundColor: "rgb(34 197 94)",
   });
 }
