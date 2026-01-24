@@ -13,7 +13,9 @@ const BenineseLegends = () => {
   return (
     <View>
       <View className="flex flex-row items-center justify-between">
-        <StyledText className="font-spline-bold mb-5">Légendes</StyledText>
+        <StyledText className="font-spline-bold mb-5">
+          Légendes du Bénin
+        </StyledText>
       </View>
 
       <ShowData isLoading={isLoading}>
