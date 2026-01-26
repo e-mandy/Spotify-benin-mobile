@@ -30,12 +30,12 @@ const SingleLegend = ({ legende }) => {
             borderRadius: 100,
             margin: "auto",
             borderWidth: 3,
-            borderColor: !isSeen ? "#f97315" : "#94a3b8",
+            borderColor: !isSeen ? "#c2410c" : "#94a3b8",
           }}
           source={legende.photo}
         />
       </View>
-      <Text className="text-xs font-bold text-gray-400 truncate">
+      <Text className="text-x sfont-bold text-gray-400 truncate">
         {truncate(legende.name, 15)}
       </Text>
     </TouchableOpacity>

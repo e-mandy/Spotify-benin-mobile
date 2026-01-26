@@ -11,6 +11,7 @@ import { OtpFormInput } from "./OtpFormInput";
 import SingleMixe from "./SingleMixe";
 import StyledText from "./StyledText";
 import Title from "./Title";
+import TrackShuffle from "./TrackShuffle";
 
 export {
   AppBrand,
@@ -18,10 +19,14 @@ export {
   Avatar,
   Button,
   CircleBrand,
-  DataLoader, GoBack,
+  DataLoader,
+  GoBack,
   InfoRow,
   InputRow,
-  OtpFormInput, SingleMixe, StyledText,
-  Title
+  OtpFormInput,
+  SingleMixe,
+  StyledText,
+  Title,
+  TrackShuffle
 };
 

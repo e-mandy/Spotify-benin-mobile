@@ -1,13 +1,17 @@
-import { AppWrapper, GoBack, Title } from "@/src/components/ui/common";
+import {
+  AppWrapper,
+  GoBack,
+  Title,
+  TrackShuffle,
+} from "@/src/components/ui/common";
 import ShowData from "@/src/components/ui/common/ShowData";
 import { TrackItem } from "@/src/components/ui/common/TrackItem";
 import { styles } from "@/src/constants/styles";
 import { useFetch } from "@/src/hooks/use-fetch-api";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useSearchParams } from "expo-router/build/hooks";
 import React from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, View } from "react-native";
 
 const DayMixDetails = () => {
   const searchParams = useSearchParams();
@@ -30,21 +34,12 @@ const DayMixDetails = () => {
             />
           </View>
           <View className="my-4">
-            <Title className="text-center underline !text-gray-500 font-spline-bold">
+            <Title className="text-center underline !text-muted font-spline-bold">
               {mixe.title}
             </Title>
           </View>
-          <View className="flex flex-row items-center justify-end gap-5 mb-5">
-            <TouchableOpacity className="p-4 rounded-full items-center border border-gray-400 bg-black/50">
-              <Text className="text-white">
-                <FontAwesome name="random" />
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="p-4 rounded-full items-center border border-gray-400 bg-black/50">
-              <Text className="text-white">
-                <Entypo name="controller-play" />
-              </Text>
-            </TouchableOpacity>
+          <View className="flex flex-row justify-end mb-4">
+            <TrackShuffle />
           </View>
           <FlatList
             data={mixe.playlist}

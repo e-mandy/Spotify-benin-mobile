@@ -12,7 +12,7 @@ export const TrackItem = ({
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      className="flex-row items-center gap-4 rounded-[20px] bg-surface-dark px-5 py-4 mb-3"
+      className="flex-row items-center gap-4 rounded-[25px] bg-surface-dark px-5 py-4 mb-3"
     >
       <Image
         source={{ uri: photo }}
