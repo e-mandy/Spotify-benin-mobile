@@ -1,4 +1,5 @@
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
@@ -9,8 +10,11 @@ export const TrackItem = ({
   onFavorite = () => {},
   onOptions = () => {},
 }) => {
+  const router = useRouter();
+
   return (
     <TouchableOpacity
+      onPress={() => router.push("/(player)")}
       activeOpacity={0.5}
       className="flex-row items-center gap-4 rounded-[25px] bg-surface-dark px-5 py-4 mb-3"
     >

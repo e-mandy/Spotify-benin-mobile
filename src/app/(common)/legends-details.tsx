@@ -49,44 +49,14 @@ const LegendsDetails = () => {
     notifSuccess("Vous venez de vous abonner");
   }
 
-  const mostKnownSongs = [
-    {
-      id: 1,
-      cover:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuDFCLkjmgEEf2ZFjUp7sa0Ml1Y4Bzp3maruRSDHH8RN2SftddHU6oi1dJIIC4zHhSXSJv5kxcrmPD8HAhamfc20-ruW-fQs1uoaipRDVov9tMZ04_CYAzsMOgcq5yvMR2wOHfRJWVaQtk4n5mDE2mMwQx48MpRd_3MF-b0LIBb2r007UBEgF_egIsupGIqou8FkICuVs5-4Yoz9lOwzWPAU_oLkibh5sav9R87eERuRS0EokWBTxXos4BChw49seBrtSi2nB6vF7Ojj",
-      label: "Batonga",
-      auditors: 12565987,
-    },
-    {
-      id: 2,
-      cover:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuD-D33YzZpKbu8wH7Bp3dY9QprSSiO1jbmMkyKZBNqJwzIakT4z9u36Zcuju7lLANXYXquQ0PMc9N_x3L1ezGNVPlKbqs_g47pn5wG02NZsaTT-5TFdsjSy59ui_5VhUvKaGtgz1s2cMWd3gbUQuO49rTY8xl1_1iHONQTPm4SCpxx5sXhiW5p4ftaEA-olndX56ZTIzsunVRRNQs6-p81fktT5Glm3GAAkD-YwAWk6yoV06QI6vVZAhRrUIXAa7pDIommtquDmjdWn",
-      label: "We we",
-      auditors: 1852360,
-    },
-  ];
+  const mostKnownSongs = legend.songs ?? [];
 
-  const albums = [
-    {
-      id: 1,
-      cover:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuD-D33YzZpKbu8wH7Bp3dY9QprSSiO1jbmMkyKZBNqJwzIakT4z9u36Zcuju7lLANXYXquQ0PMc9N_x3L1ezGNVPlKbqs_g47pn5wG02NZsaTT-5TFdsjSy59ui_5VhUvKaGtgz1s2cMWd3gbUQuO49rTY8xl1_1iHONQTPm4SCpxx5sXhiW5p4ftaEA-olndX56ZTIzsunVRRNQs6-p81fktT5Glm3GAAkD-YwAWk6yoV06QI6vVZAhRrUIXAa7pDIommtquDmjdWn",
-      release_year: 2025,
-      label: "Celia",
-    },
-    {
-      id: 2,
-      cover:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuB2nDKvTrtr-xMk1GZBr5pyiYOElk3uGNGdQg_WVnA_FLk0XAfPtAqokzWj6sLaQtC-nsK_Mvpiqr35vOtDBjUDMZhT3izW_-_joBQLOXMW4sDZ24ZfbJeDGsNTDdOpP8VFaV3obpK2jL1rK-AKtpX8P2IWGhD48A0jy3640__PKfjJISnizBZeQy_HW4Q-36q3Tm8qeS6iztq0EuymU4OU_Z3VDlbS3E353E9oMya8y0B02V7HYUdL-370iOTB1r8R4wgjnKwYuT0T",
-      release_year: 2025,
-      label: "Mother nature",
-    },
-  ];
+  const albums = legend.albums ?? [];
 
   return (
     <AppWrapper className="!p-0">
       <GoBack />
-      <View className="px-4">
+      <View className="px-8">
         <ShowData isLoading={isLoading}>
           <View>
             <View className="h-80 mb-2">
@@ -169,12 +139,12 @@ const LegendsDetails = () => {
                           <Image
                             className="rounded-full bg-black"
                             style={{ ...styles.image, borderRadius: 1000 }}
-                            source={song.cover}
+                            source={song.photo}
                             contentFit="cover"
                           />
                         </View>
                         <View>
-                          <Title>{song.label}</Title>
+                          <Title className="text-xl">{song.label}</Title>
                           <View className="flex flex-row items-center gap-x-2">
                             <Text>
                               <MaterialIcons
@@ -183,8 +153,10 @@ const LegendsDetails = () => {
                                 name="explicit"
                               />
                             </Text>
-                            <Text className="text-xl text-muted font-semibold">
-                              {song.auditors.toLocaleString("FR-fr")}
+                            <Text className="text-sm text-muted font-semibold">
+                              {Math.floor(
+                                Math.random() * 18_000_000 + 180_000,
+                              ).toLocaleString("FR-fr")}
                             </Text>
                           </View>
                         </View>
@@ -208,7 +180,9 @@ const LegendsDetails = () => {
               </View>
               <View>
                 <TouchableOpacity activeOpacity={0.5}>
-                  <Title className="text-xl  text-primary">TOUT VOIR</Title>
+                  <Title className="text-sm tracking-wide text-primary">
+                    TOUT VOIR
+                  </Title>
                 </TouchableOpacity>
               </View>
             </View>
@@ -225,15 +199,18 @@ const LegendsDetails = () => {
                           <Image
                             className="rounded-full bg-black"
                             style={{ ...styles.image, borderRadius: 25 }}
-                            source={album.cover}
+                            source={album.photo}
                             contentFit="cover"
                           />
                         </View>
                         <View>
-                          <Title> {album.label} </Title>
+                          <StyledText className="text-sm">
+                            {" "}
+                            {album.label}{" "}
+                          </StyledText>
                           <Text className="text-muted text-xl">
                             {" "}
-                            {`${album.release_year}-album`}{" "}
+                            {`${new Date(album.releaseDate).getFullYear()}-album`}{" "}
                           </Text>
                         </View>
                       </View>

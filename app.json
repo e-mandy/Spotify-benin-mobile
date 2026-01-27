@@ -12,13 +12,13 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.prosper19.m19",
       "adaptiveIcon": {
         "backgroundColor": "#000000",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "usesCleartextTraffic": true,
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
@@ -46,7 +46,11 @@
         "expo-build-properties",
         {
           "android": {
-            "usesCleartextTraffic": true
+            "usesCleartextTraffic": true,
+            "kotlinVersion": "1.8.10",
+            "extraParams": {
+              "android.suppressUnsupportedCompileSdk": "34"
+            }
           },
           "ios": {
             "flipper": true
