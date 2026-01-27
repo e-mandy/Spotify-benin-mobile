@@ -3,11 +3,12 @@ import BuyACoffee from "@/src/components/ui/track-play/buy-a-coffee";
 import TrackSeeker from "@/src/components/ui/track-play/seeker";
 import TrackPlayPanel from "@/src/components/ui/track-play/track-play-panel";
 import { styles } from "@/src/constants/styles";
-import useTrackPlay from "@/src/store/track-play.store";
+import useTrackPlay, { useTrackStore } from "@/src/store/track-play.store";
 import { notifSuccess } from "@/src/utils/react-toast";
 import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import { useSearchParams } from "expo-router/build/hooks";
 import React from "react";
 import {
   Text,
@@ -18,12 +19,33 @@ import {
 
 const TrackPlayer = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const trackPlay = useTrackPlay();
+  const trackPlay = useTrackPlay((state) => state.currentSong?.info);
+
+  const { playlistName, setSong, startSong, isPlaying } = useTrackStore();
+
+  const songId = searchParams.get("songId");
+  // const songInfo = useFetch(
+  //   `${process.env.EXPO_PUBLIC_API_URL}/songs/${songId}`,
+  // );
+
+  // const dumpSong = {
+  //   title: "Agolo",
+  //   cover:
+  //     "https://lh3.googleusercontent.com/aida-public/AB6AXuC4Uhs-zpl6Hn0-NcjnkTxMRGqEFIk21XJjUmKSXaxvVcYZ9hXkjdCQIrB4H1FJr1dqWFo7CGJl7y3bOoqhjzyABvV-vKXRQz2TeI-wCnJEh0Ci11Hi87Kysl1bnFCA-eRmWbNUjwnUE8LUC8mbxSUWTMj_5_W6Ow3KvhFRZRdenPPRMEeACdqKWMRlz3osqyhyiTsj8-ptxE52ujFoYTGfGNyJkg8iG7ERcgUBUn9X1ZjZSd1Uhns2RGfrG2fAn8vmhwK1X6GefhHa",
+  //   singer: "Angélique Kidjo",
+  //   duration: "07:44",
+  //   playlistName: "Top Bénin 50",
+  //   audioFile: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  // };
+
+  // setSong(dumpSong);
+
   const { height } = useWindowDimensions();
 
   return (
-    <AppWrapper className="px-4">
+    <AppWrapper withScrollView={false} className="px-4">
       <View className="flex-row justify-between items-center">
         <View>
           <TouchableOpacity onPress={() => router.back()} activeOpacity={0.5}>
@@ -38,7 +60,7 @@ const TrackPlayer = () => {
           </Text>
           <Text className="text-xl text-gray-400 font-spline-bold">
             {" "}
-            {trackPlay.playlistName}{" "}
+            {playlistName}
           </Text>
         </View>
         <View>
@@ -55,6 +77,7 @@ const TrackPlayer = () => {
         }}
       >
         <Image
+          contentFit="cover"
           style={{ ...styles.image, marginTop: 10 }}
           source={trackPlay.cover}
         />
@@ -89,7 +112,7 @@ const TrackPlayer = () => {
       </View>
       <TrackSeeker />
       <View className="px-4">
-        <TrackPlayPanel />
+        <TrackPlayPanel audioFile={trackPlay.audioFile} />
       </View>
       <BuyACoffee />
     </AppWrapper>

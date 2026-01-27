@@ -1,4 +1,6 @@
+import { createAudioPlayer } from "expo-audio";
 import { create } from "zustand";
+import { ITrackPlay, TPartialItrackPlay } from "./types/play.types";
 
 //currentSong
 //onPause
@@ -11,21 +13,72 @@ import { create } from "zustand";
 //startFromPlaylist
 //randomStart
 
-interface ITrackPlay {
-  title: string;
-  cover: string;
-  singer: string;
-  duration: string;
-  playlistName: string;
-}
-
-const useTrackPlay = create<ITrackPlay>((set, get) => ({
+const dumpSong = {
   title: "Agolo",
   cover:
     "https://lh3.googleusercontent.com/aida-public/AB6AXuC4Uhs-zpl6Hn0-NcjnkTxMRGqEFIk21XJjUmKSXaxvVcYZ9hXkjdCQIrB4H1FJr1dqWFo7CGJl7y3bOoqhjzyABvV-vKXRQz2TeI-wCnJEh0Ci11Hi87Kysl1bnFCA-eRmWbNUjwnUE8LUC8mbxSUWTMj_5_W6Ow3KvhFRZRdenPPRMEeACdqKWMRlz3osqyhyiTsj8-ptxE52ujFoYTGfGNyJkg8iG7ERcgUBUn9X1ZjZSd1Uhns2RGfrG2fAn8vmhwK1X6GefhHa",
   singer: "Angélique Kidjo",
-  duration: "07:44",
+  duration: "06:13",
   playlistName: "Top Bénin 50",
+  audioFile: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+};
+
+const useTrackPlay = create<ITrackPlay>((set, get) => ({
+  playlistName: "Fun",
+  startSong: async (uri: string) => {
+    set(await playSong(get, uri));
+  },
+  currentSong: {
+    info: dumpSong,
+  },
+  isPlaying: false,
+  setSong(song) {
+    set((state) => ({
+      currentSong: {
+        ...(state.currentSong ?? {}),
+        info: song,
+      },
+    }));
+  },
+  pause() {
+    get().currentSong?.sound?.pause();
+    set({ isPlaying: false });
+  },
+  async seek(time) {
+    await get().currentSong.sound.seekTo(time);
+  },
 }));
+
+async function playSong(
+  get: () => TPartialItrackPlay,
+  uri: string,
+): Promise<TPartialItrackPlay> {
+  const sound = get().currentSong?.sound;
+
+  if (sound) {
+    sound.play();
+    return { isPlaying: true };
+  }
+
+  const newSound = createAudioPlayer(uri, { updateInterval: 100 });
+  newSound.addListener("playbackStatusUpdate", (e) => {
+    if (e.didJustFinish) {
+      get().pause();
+    }
+  });
+  return {
+    currentSong: {
+      info: {
+        ...get().currentSong?.info,
+      },
+      sound: newSound,
+    },
+    isPlaying: true,
+  };
+}
+
+export function useTrackStore() {
+  return useTrackPlay((state) => state);
+}
 
 export default useTrackPlay;
