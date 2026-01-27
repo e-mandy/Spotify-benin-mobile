@@ -1,5 +1,16 @@
 import { create } from "zustand";
 
+//currentSong
+//onPause
+//onNext
+//onPrev
+//onSeek
+//onEnd
+//playlists
+//startSong
+//startFromPlaylist
+//randomStart
+
 interface ITrackPlay {
   title: string;
   cover: string;

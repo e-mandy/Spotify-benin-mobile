@@ -1,9 +1,13 @@
 import { AppWrapper, StyledText } from "@/src/components/ui/common";
+import BuyACoffee from "@/src/components/ui/track-play/buy-a-coffee";
+import TrackSeeker from "@/src/components/ui/track-play/seeker";
+import TrackPlayPanel from "@/src/components/ui/track-play/track-play-panel";
 import { styles } from "@/src/constants/styles";
 import useTrackPlay from "@/src/store/track-play.store";
 import { notifSuccess } from "@/src/utils/react-toast";
 import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   Text,
@@ -13,16 +17,20 @@ import {
 } from "react-native";
 
 const TrackPlayer = () => {
+  const router = useRouter();
+
   const trackPlay = useTrackPlay();
   const { height } = useWindowDimensions();
 
   return (
-    <AppWrapper>
+    <AppWrapper className="px-4">
       <View className="flex-row justify-between items-center">
         <View>
-          <Text>
-            <Entypo color="#fff" size={25} name="chevron-down" />
-          </Text>
+          <TouchableOpacity onPress={() => router.back()} activeOpacity={0.5}>
+            <Text>
+              <Entypo color="#fff" size={25} name="chevron-down" />
+            </Text>
+          </TouchableOpacity>
         </View>
         <View className="items-center justify-center">
           <Text className="text-primary text-sm uppercase font-spline-sans-regular font-bold tracking-widest">
@@ -67,7 +75,7 @@ const TrackPlayer = () => {
             {" "}
             {trackPlay.title}{" "}
           </StyledText>
-          <StyledText className="font-spline-bold text-white/70">
+          <StyledText className="font-spline-bold text-white/80">
             {" "}
             {trackPlay.singer}{" "}
           </StyledText>
@@ -79,7 +87,11 @@ const TrackPlayer = () => {
           </Text>
         </View>
       </View>
-      <View></View>
+      <TrackSeeker />
+      <View className="px-4">
+        <TrackPlayPanel />
+      </View>
+      <BuyACoffee />
     </AppWrapper>
   );
 };

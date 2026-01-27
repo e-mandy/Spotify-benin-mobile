@@ -59,7 +59,7 @@ const LegendsDetails = () => {
       <View className="px-8">
         <ShowData isLoading={isLoading}>
           <View>
-            <View className="h-80 mb-2">
+            <View className="h-80 mb-2 bg-black">
               <Image
                 className="rounded-4xl mx-3 opacity-15"
                 style={styles.image}
@@ -195,7 +195,7 @@ const LegendsDetails = () => {
                   return (
                     <TouchableOpacity activeOpacity={0.7} key={album.id}>
                       <View className="gap-y-2 mr-5 mt-5">
-                        <View className="h-36 w-36 rounded-full">
+                        <View className="h-36 w-36 rounded-full bg-black">
                           <Image
                             className="rounded-full bg-black"
                             style={{ ...styles.image, borderRadius: 25 }}

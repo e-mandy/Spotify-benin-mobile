@@ -47,7 +47,6 @@
         {
           "android": {
             "usesCleartextTraffic": true,
-            "kotlinVersion": "1.8.10",
             "extraParams": {
               "android.suppressUnsupportedCompileSdk": "34"
             }
