@@ -14,39 +14,30 @@ import { ITrackPlay, TPartialItrackPlay } from "./types/play.types";
 //startFromPlaylist
 //randomStart
 
-const dumpSong = {
-  id: 1,
-  title: "Agolo",
-  cover:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuC4Uhs-zpl6Hn0-NcjnkTxMRGqEFIk21XJjUmKSXaxvVcYZ9hXkjdCQIrB4H1FJr1dqWFo7CGJl7y3bOoqhjzyABvV-vKXRQz2TeI-wCnJEh0Ci11Hi87Kysl1bnFCA-eRmWbNUjwnUE8LUC8mbxSUWTMj_5_W6Ow3KvhFRZRdenPPRMEeACdqKWMRlz3osqyhyiTsj8-ptxE52ujFoYTGfGNyJkg8iG7ERcgUBUn9X1ZjZSd1Uhns2RGfrG2fAn8vmhwK1X6GefhHa",
-  singer: "Angélique Kidjo",
-  duration: "06:13",
-  playlistName: "Top Bénin 50",
-  audioFile: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-};
-
 const useTrackPlay = create<ITrackPlay>((set, get) => ({
   playlistName: "Fun",
   startSong: async (uri: string) => {
     set(await playSong(get, uri));
   },
   currentSong: {
-    info: dumpSong,
+    info: null,
   },
   isPlaying: false,
   async setSong(song) {
     const sound = get().currentSong.sound;
-
-    if (song.audioFile === get().currentSong.info.audioFile) {
-      set({ isPlaying: true });
-      if (!sound.playing) sound.play();
-      return;
-    } else {
-      sound?.remove?.();
-    }
-
     const userId = useAuth.getState().user.id;
     const uri = getStreamUrl(song.audioFile, userId, song.id);
+
+    if (song.audioFile === get().currentSong?.info?.audioFile) {
+      if (!sound.playing) sound.play();
+      set({ isPlaying: true });
+      return;
+    } else {
+      get().pause();
+      sound?.replace(uri);
+      set({ isPlaying: true });
+    }
+
     const res = await playSong(get, uri);
     res.currentSong.sound.play();
     set(res);
@@ -67,7 +58,9 @@ const useTrackPlay = create<ITrackPlay>((set, get) => ({
     set({ isPlaying: true });
   },
   async seek(time) {
+    get().pause();
     await get().currentSong.sound.seekTo(time);
+    get().resume();
   },
 }));
 

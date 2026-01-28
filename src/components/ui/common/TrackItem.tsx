@@ -17,7 +17,8 @@ export const TrackItem = ({
   const { setSong, startSong, currentSong } = useTrackStore();
 
   const isTheSongOnTrack =
-    currentSong.info.title === label && artistName === currentSong.info.singer;
+    currentSong?.info?.title === label &&
+    artistName === currentSong?.info?.singer;
 
   const onTrackPlay = async () => {
     try {
@@ -37,7 +38,7 @@ export const TrackItem = ({
 
       router.push("/(player)");
     } catch (error) {
-      console.log(error);
+      console.log("Error on track item: ", error);
     }
   };
 

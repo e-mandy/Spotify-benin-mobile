@@ -20,7 +20,7 @@ const TrackPlayer = () => {
   const router = useRouter();
 
   const { currentSong } = useTrackStore();
-  const trackPlay = currentSong.info;
+  const trackPlay = currentSong?.info;
 
   const { height } = useWindowDimensions();
 
