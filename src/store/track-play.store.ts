@@ -35,6 +35,16 @@ const useTrackPlay = create<ITrackPlay>((set, get) => ({
   },
   isPlaying: false,
   async setSong(song) {
+    const sound = get().currentSong.sound;
+
+    if (song.audioFile === get().currentSong.info.audioFile) {
+      set({ isPlaying: true });
+      if (!sound.playing) sound.play();
+      return;
+    } else {
+      sound?.remove?.();
+    }
+
     const userId = useAuth.getState().user.id;
     const uri = getStreamUrl(song.audioFile, userId, song.id);
     const res = await playSong(get, uri);
@@ -66,9 +76,11 @@ async function playSong(
   uri: string,
 ): Promise<TPartialItrackPlay> {
   const newSound = createAudioPlayer(uri);
+
   newSound.addListener("playbackStatusUpdate", (e) => {
     if (e.didJustFinish) {
       get().pause();
+      get().seek(0);
     }
   });
   return {

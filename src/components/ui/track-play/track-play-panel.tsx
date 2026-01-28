@@ -1,10 +1,13 @@
-import { useTrackStore } from "@/src/store/track-play.store";
-import { MaterialIcons } from "@expo/vector-icons";
+import useTrackPlay, { useTrackStore } from "@/src/store/track-play.store";
+import { EvilIcons, MaterialIcons } from "@expo/vector-icons";
+import { useAudioPlayerStatus } from "expo-audio";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const TrackPlayPanel = () => {
   const { isPlaying, pause, resume } = useTrackStore();
+  const sound = useTrackPlay((state) => state.currentSong.sound);
+  const { isBuffering } = useAudioPlayerStatus(sound);
 
   async function togglePlayState() {
     if (isPlaying) pause();
@@ -26,13 +29,23 @@ const TrackPlayPanel = () => {
         <TouchableOpacity
           onPress={togglePlayState}
           activeOpacity={0.7}
-          className="h-20 w-20 flex flex-col justify-center items-center rounded-full bg-primary"
+          disabled={isBuffering}
+          className={`h-20 w-20 flex flex-col justify-center items-center rounded-full bg-primary`}
         >
-          <MaterialIcons
-            size={40}
-            color="#fff"
-            name={!isPlaying ? "play-arrow" : "pause"}
-          />
+          {isBuffering ? (
+            <EvilIcons
+              size={40}
+              color="#fff"
+              className="animate-spin"
+              name="spinner-3"
+            />
+          ) : (
+            <MaterialIcons
+              size={40}
+              color="#fff"
+              name={!isPlaying ? "play-arrow" : "pause"}
+            />
+          )}
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.7}>

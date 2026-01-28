@@ -14,7 +14,10 @@ export const TrackItem = ({
   onOptions = () => {},
 }) => {
   const router = useRouter();
-  const { setSong, startSong } = useTrackStore();
+  const { setSong, startSong, currentSong } = useTrackStore();
+
+  const isTheSongOnTrack =
+    currentSong.info.title === label && artistName === currentSong.info.singer;
 
   const onTrackPlay = async () => {
     try {
@@ -61,9 +64,13 @@ export const TrackItem = ({
 
       <TouchableOpacity
         onPress={onFavorite}
-        className="h-8 w-8 items-center justify-center rounded-full border border-gray-600"
+        className={`h-8 w-8 items-center justify-center rounded-full  border-gray-600 border ${isTheSongOnTrack ? "border-primary" : ""}`}
       >
-        <Entypo name="controller-play" size={18} color="#9ca3af" />
+        {isTheSongOnTrack ? (
+          <MaterialIcons name="graphic-eq" size={18} color="#d84141" />
+        ) : (
+          <Entypo name="controller-play" size={18} color="#9ca3af" />
+        )}
       </TouchableOpacity>
 
       <TouchableOpacity
