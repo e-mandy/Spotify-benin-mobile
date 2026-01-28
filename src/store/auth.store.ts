@@ -40,7 +40,7 @@ const useAuth = create<IAuthState>((set, get) => ({
 
 const login = async (user: IUserLogin): Promise<IResponse> => {
   try {
-    const http = getAxiosInstance();
+    const http = getAxiosInstance(true);
     const { data } = await http.post("/auth/login", user);
 
     if (data.tempToken) {
@@ -63,7 +63,7 @@ const login = async (user: IUserLogin): Promise<IResponse> => {
       },
     };
   } catch (error) {
-    console.log(error?.response?.data, error?.response);
+    console.log("Error", error.response);
     notifError(error?.response?.data?.message);
     return {
       success: false,
@@ -77,7 +77,7 @@ const login = async (user: IUserLogin): Promise<IResponse> => {
 
 const register = async (user: IUserRegister): Promise<IResponse> => {
   try {
-    const http = getAxiosInstance();
+    const http = getAxiosInstance(true);
     const res = await http.post("/auth/register", user);
     return { success: true, data: { tempToken: res.data?.tempToken } };
   } catch (error) {

@@ -1,9 +1,12 @@
+import { getAxiosInstance } from "@/src/lib/axios.config";
+import { useTrackStore } from "@/src/store/track-play.store";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 export const TrackItem = ({
+  id,
   label,
   artistName,
   photo,
@@ -11,10 +14,33 @@ export const TrackItem = ({
   onOptions = () => {},
 }) => {
   const router = useRouter();
+  const { setSong, startSong } = useTrackStore();
+
+  const onTrackPlay = async () => {
+    try {
+      const http = getAxiosInstance();
+      const { data } = await http.get(`/titles/${id}`);
+      const song = data.data;
+
+      await setSong({
+        id: song.id,
+        audioFile: song.audioFile,
+        title: song.label,
+        cover: song.photo,
+        singer: song.singers.map((s) => s.singerName).join(" & "),
+        duration: song.duration,
+        playlistName: "Découvertes",
+      });
+
+      router.push("/(player)");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <TouchableOpacity
-      onPress={() => router.push("/(player)")}
+      onPress={onTrackPlay}
       activeOpacity={0.5}
       className="flex-row items-center gap-4 rounded-[25px] bg-surface-dark px-5 py-4 mb-3"
     >

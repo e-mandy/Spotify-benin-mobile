@@ -3,12 +3,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
-const TrackPlayPanel = ({ audioFile }: { audioFile: string }) => {
-  const { isPlaying, startSong, pause } = useTrackStore();
+const TrackPlayPanel = () => {
+  const { isPlaying, pause, resume } = useTrackStore();
 
   async function togglePlayState() {
     if (isPlaying) pause();
-    else await startSong(audioFile);
+    else resume();
   }
 
   return (

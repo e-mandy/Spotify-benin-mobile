@@ -47,6 +47,7 @@ const DayMixDetails = () => {
             renderItem={({ item }) => {
               return (
                 <TrackItem
+                  id={item.id}
                   photo={item.photo}
                   label={item.label}
                   artistName={item.artistName}

@@ -6,7 +6,6 @@ import React from "react";
 import { Text, View } from "react-native";
 
 const TrackSeeker = () => {
-  const currentSong = useTrackPlay((state) => state.currentSong?.sound);
   const sound = useTrackPlay((state) => state.currentSong?.sound);
   const { seek } = useTrackStore();
   const { currentTime, duration } = useAudioPlayerStatus(sound);

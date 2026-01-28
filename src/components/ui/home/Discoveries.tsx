@@ -19,6 +19,7 @@ const Discoveries = () => {
         {(discoveries as any).playlist?.map?.((track, i) => (
           <TrackItem
             key={i}
+            id={track.id}
             label={track.label}
             artistName={track.artistName}
             photo={track.photo}

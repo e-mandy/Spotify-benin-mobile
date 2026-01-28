@@ -5,6 +5,10 @@ const axiosInstance = axios.create({
   baseURL: `${process.env.EXPO_PUBLIC_API_URL}/api`,
 });
 
+const simplAxiosInstance = axios.create({
+  baseURL: `${process.env.EXPO_PUBLIC_API_URL}/api`,
+});
+
 axiosInstance.interceptors.request.use(async function (config) {
   config.headers.Authorization = `Bearer ${await getItemFromStorage("accessToken")}`;
   return config;
@@ -46,6 +50,6 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export function getAxiosInstance() {
-  return axiosInstance;
+export function getAxiosInstance(unAuthenticatedInstance = false) {
+  return unAuthenticatedInstance ? simplAxiosInstance : axiosInstance;
 }
