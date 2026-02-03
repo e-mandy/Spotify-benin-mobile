@@ -1,6 +1,6 @@
 import { EvilIcons, FontAwesome } from "@expo/vector-icons";
 import React from "react";
-import { TextInput, View } from "react-native";
+import { TextInput, TouchableOpacity, View } from "react-native";
 
 const SearchBar = () => {
   return (
@@ -19,7 +19,9 @@ const SearchBar = () => {
           placeholderTextColor="white"
         />
       </View>
-      <FontAwesome name="microphone" size={24} color="white" />
+      <TouchableOpacity className="object-contain w-10 h-10 justify-center items-center rounded-full">
+        <FontAwesome name="microphone" size={24} color="white" />
+      </TouchableOpacity>
     </View>
   );
 };
