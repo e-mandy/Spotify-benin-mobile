@@ -1,16 +1,16 @@
 import { EvilIcons, FontAwesome } from "@expo/vector-icons";
 import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 
 const SearchBar = () => {
   return (
-    <View className="w-full h-16 rounded-full py-2 px-5 pr-10 bg-blue-200 flex-row items-center">
-      <View className="relative w-full m-auto">
+    <View className="w-full h-16 rounded-full py-2 px-5 my-5 overflow-hidden bg-surface-dark flex-row items-center">
+      <View className="relative flex-1">
         <EvilIcons
           name="search"
           size={30}
           color="white"
-          className="absolute z-20 top-[50%] translate-y-[-70%]"
+          className="absolute z-20 top-[50%] translate-y-[-60%]"
         />
         <TextInput
           className="pl-10"
@@ -25,5 +25,3 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
-
-const styles = StyleSheet.create({});
