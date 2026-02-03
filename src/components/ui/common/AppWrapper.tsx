@@ -2,7 +2,6 @@ import { IProps } from "@/src/interfaces/props.interface";
 import React, { ReactNode } from "react";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import "../../../styles/global.css";
 
 interface IAppProps extends IProps {
   withScrollView?: boolean;

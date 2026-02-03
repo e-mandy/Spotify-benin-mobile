@@ -1,5 +1,4 @@
 import StyledText from "@/src/components/ui/common/StyledText";
-import useAuth from "@/src/store/auth.store";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Redirect, usePathname } from "expo-router";
 import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
@@ -32,8 +31,10 @@ export default function Layout() {
     },
   ] as const;
 
-  const isLogged = useAuth((state) => state.isLogged);
-  const isLoadingAppState = useAuth((state) => state.isLoadingAppState);
+  // const isLogged = useAuth((state) => state.isLogged);
+  // const isLoadingAppState = useAuth((state) => state.isLoadingAppState);
+  const isLogged = true;
+  const isLoadingAppState = false;
   if (!isLogged && !isLoadingAppState) return <Redirect href="/(auth)" />;
 
   return (

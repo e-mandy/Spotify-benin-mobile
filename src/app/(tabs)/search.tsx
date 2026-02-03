@@ -1,11 +1,13 @@
-import AppWrapper from '@/src/components/ui/common/AppWrapper';
-import StyledText from '@/src/components/ui/common/StyledText';
-import React from 'react';
+import AppWrapper from "@/src/components/ui/common/AppWrapper";
+import SearchBar from "@/src/components/ui/common/SearchBar";
+import SecondaryTopBar from "@/src/components/ui/common/SecondaryTopBar";
+import React from "react";
 
 const Login = () => {
   return (
     <AppWrapper>
-      <StyledText> Hello world </StyledText>
+      <SecondaryTopBar topic="Rechercher" />
+      <SearchBar />
     </AppWrapper>
   );
 };
