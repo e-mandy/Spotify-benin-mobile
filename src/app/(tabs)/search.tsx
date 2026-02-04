@@ -5,16 +5,16 @@ import ReconnaissanceVocale from "@/src/components/ui/search/ReconnaissanceVocal
 import React from "react";
 import { ScrollView } from "react-native";
 
-const Login = () => {
+const Search = () => {
   return (
     <AppWrapper>
       <ScrollView showsVerticalScrollIndicator={false} className="px-3">
         <SecondaryTopBar topic="Rechercher" />
-        <SearchBar />
+        <SearchBar placeholder="Artistes, titres ou genres" />
         <ReconnaissanceVocale />
       </ScrollView>
     </AppWrapper>
   );
 };
 
-export default Login;
+export default Search;
