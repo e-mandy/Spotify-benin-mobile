@@ -12,6 +12,7 @@ const Search = () => {
         <SecondaryTopBar topic="Rechercher" />
         <SearchBar placeholder="Artistes, titres ou genres" />
         <ReconnaissanceVocale />
+        
       </ScrollView>
     </AppWrapper>
   );
