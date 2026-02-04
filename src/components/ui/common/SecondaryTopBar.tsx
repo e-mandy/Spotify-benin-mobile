@@ -11,6 +11,7 @@ const SecondaryTopBar = ({ topic, profileUser }: SecondaryTopBar) => {
   return (
     <View className="flex-row justify-between items-center px-5 mt-3">
       <StyledText className="text-4xl font-bold">{topic}</StyledText>
+      {profileUser}
     </View>
   );
 };

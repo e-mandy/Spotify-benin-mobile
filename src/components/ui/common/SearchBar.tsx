@@ -2,7 +2,13 @@ import { EvilIcons, FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
 
-const SearchBar = () => {
+interface ISearchBar {
+  onChangeText: (query: string) => void;
+  placeholder: string;
+  value: string;
+}
+
+const SearchBar = ({ onChangeText, placeholder, value }: ISearchBar) => {
   return (
     <View className="w-full h-16 rounded-full py-2 px-5 my-5 overflow-hidden bg-surface-dark flex-row items-center">
       <View className="relative flex-1">
@@ -17,6 +23,7 @@ const SearchBar = () => {
           placeholder="Artistes, titres ou genres"
           value=""
           placeholderTextColor="white"
+          onChangeText={onChangeText}
         />
       </View>
       <TouchableOpacity className="object-contain w-10 h-10 justify-center items-center rounded-full">

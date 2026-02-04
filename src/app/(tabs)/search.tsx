@@ -8,7 +8,7 @@ import { ScrollView } from "react-native";
 const Login = () => {
   return (
     <AppWrapper>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} className="px-3">
         <SecondaryTopBar topic="Rechercher" />
         <SearchBar />
         <ReconnaissanceVocale />
