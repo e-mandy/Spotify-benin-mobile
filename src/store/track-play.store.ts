@@ -58,7 +58,6 @@ const useTrackPlay = create<ITrackPlay>((set, get) => ({
     set({ isPlaying: true });
   },
   async seek(time) {
-    get().pause();
     await get().currentSong.sound.seekTo(time);
     get().resume();
   },
