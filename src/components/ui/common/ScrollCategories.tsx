@@ -1,0 +1,27 @@
+import { genresMusicaux } from "@/mocks/genres.mock";
+import { useSearchStore } from "@/src/store/search.store";
+import React from "react";
+import { ScrollView, View } from "react-native";
+import MusicGenre from "./MusicGenre";
+
+const ScrollCategories = () => {
+  const { musicGenres } = useSearchStore();
+
+  return (
+    <View className="my-5">
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          gap: 10,
+        }}
+      >
+        {genresMusicaux.map((category) => (
+          <MusicGenre name={category} />
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
+
+export default ScrollCategories;

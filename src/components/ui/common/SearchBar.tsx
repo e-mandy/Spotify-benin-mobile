@@ -10,11 +10,14 @@ interface ISearchBar {
 }
 
 const SearchBar = ({ placeholder }: ISearchBar) => {
-  const { setQuery } = useSearchStore();
   const [search, setSearch] = useState<string>("");
 
+  const { setQuery } = useSearchStore();
+
   useEffect(() => {
-    const timeoutId = setTimeout(() => setQuery(search), 500);
+    const timeoutId = setTimeout(() => {
+      setQuery(search);
+    }, 500);
 
     return () => clearTimeout(timeoutId);
   }, [search]);
