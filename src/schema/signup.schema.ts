@@ -13,7 +13,7 @@ export const signupSchema = z.object({
     z
       .string()
       .min(2, "L'ethnie doit être valide")
-      .max(10, "L'ethnie est trop longue")
+      .max(25, "L'ethnie est trop longue")
       .nullish(),
   ),
   birthday: z

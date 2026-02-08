@@ -1,6 +1,9 @@
-import { getAxiosInstance } from "@/src/lib/axios.config";
 import { useTrackStore } from "@/src/store/track-play.store";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import {
+  Entypo,
+  FontAwesome6,
+  MaterialIcons
+} from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -14,31 +17,29 @@ export const TrackItem = ({
   onOptions = () => {},
 }) => {
   const router = useRouter();
-  const { setSong, startSong, currentSong } = useTrackStore();
+  const { trackHandler, currentSong, resume, pause, isPlaying } =
+    useTrackStore();
 
-  const isTheSongOnTrack =
-    currentSong?.info?.title === label &&
-    artistName === currentSong?.info?.singer;
+  const isTheSongOnTrack = +id === +currentSong?.info?.id;
 
   const onTrackPlay = async () => {
     try {
-      const http = getAxiosInstance();
-      const { data } = await http.get(`/titles/${id}`);
-      const song = data.data;
-
-      await setSong({
-        id: song.id,
-        audioFile: song.audioFile,
-        title: song.label,
-        cover: song.photo,
-        singer: song.singers.map((s) => s.singerName).join(" & "),
-        duration: song.duration,
-        playlistName: "Découvertes",
-      });
-
+      await trackHandler(id);
       router.push("/(player)");
     } catch (error) {
-      console.log("Error on track item: ", error);
+      console.log("Error on track item 1:: ", error);
+    }
+  };
+
+  const onPlayIconTouch = async () => {
+    if (isTheSongOnTrack) {
+      if (currentSong.sound.paused) {
+        resume();
+      } else {
+        pause();
+      }
+    } else {
+      await trackHandler(id);
     }
   };
 
@@ -46,7 +47,7 @@ export const TrackItem = ({
     <TouchableOpacity
       onPress={onTrackPlay}
       activeOpacity={0.5}
-      className="flex-row items-center gap-4 rounded-[25px] bg-surface-dark px-5 py-4 mb-3"
+      className={`flex-row items-center gap-4 rounded-[25px] bg-surface-dark px-5 py-4 mb-3`}
     >
       <Image
         source={{ uri: photo }}
@@ -64,11 +65,23 @@ export const TrackItem = ({
       </View>
 
       <TouchableOpacity
-        onPress={onFavorite}
+        onPress={onPlayIconTouch}
         className={`h-8 w-8 items-center justify-center rounded-full  border-gray-600 border ${isTheSongOnTrack ? "border-primary" : ""}`}
       >
         {isTheSongOnTrack ? (
-          <MaterialIcons name="graphic-eq" size={18} color="#d84141" />
+          isPlaying ? (
+            <>
+              {/* {!currentSong.sound?.isBuffering ? ( */}
+              <FontAwesome6 name="pause" size={18} color="#d84141" />
+              {/* ) : ( */}
+              {/* <View className="animate-spin">
+                  <EvilIcons name="spinner-3" size={18} color="#d84141" />
+                </View> */}
+              {/* )} */}
+            </>
+          ) : (
+            <Entypo name="controller-play" size={18} color="#d84141" />
+          )
         ) : (
           <Entypo name="controller-play" size={18} color="#9ca3af" />
         )}

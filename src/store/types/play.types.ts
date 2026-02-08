@@ -1,6 +1,6 @@
 import { AudioPlayer } from "expo-audio";
 
-interface SongDetails {
+export interface SongDetails {
   id: number;
   title: string;
   cover: string;
@@ -19,11 +19,10 @@ export interface ITrackPlay {
   currentSong?: ICurrentSong;
   playlistName: string;
   isPlaying: boolean;
-  startSong?: (audioFile: string) => Promise<void>;
   pause: () => void;
   resume: () => void;
   seek: (time: number) => Promise<void>;
-  setSong: (song?: SongDetails) => Promise<void>;
+  trackHandler: (song: number | string) => Promise<void>;
 }
 
 export type TPartialItrackPlay = Partial<ITrackPlay>;
