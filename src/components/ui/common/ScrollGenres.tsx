@@ -16,8 +16,8 @@ const ScrollGenres = () => {
           gap: 10,
         }}
       >
-        {genresMusicaux.map((category) => (
-          <MusicGenre name={category} />
+        {genresMusicaux.map((category, index) => (
+          <MusicGenre name={category} key={index} />
         ))}
       </ScrollView>
     </View>
