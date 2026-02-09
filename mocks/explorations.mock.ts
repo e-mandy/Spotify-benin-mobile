@@ -3,7 +3,7 @@ export const MOCK_EXPLORATION = [
     id: "1",
     image: "assets/images/tradi-instrument.png",
     title: "Top 50 Cotonou",
-    subtitle: "Les sons qui font vibrer la ville",
+    subtitle: "Les sons qui font vibrer la ville.",
   },
   {
     id: "2",

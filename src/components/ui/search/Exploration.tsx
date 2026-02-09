@@ -1,17 +1,24 @@
 import React from "react";
-import { ImageBackground, Text, View } from "react-native";
+import { Dimensions, ImageBackground, Text, View } from "react-native";
+
+const { width } = Dimensions.get("screen");
 
 const Exploration = ({ image, title, subtitle }) => {
   return (
-    <View className="w-[40%]">
+    <View
+      style={{ width: width * 0.45 }}
+      className="h-60 mb-10 rounded-2xl overflow-hidden"
+    >
       <ImageBackground
         source={{ uri: image }}
         resizeMode="cover"
-        className="relative w-full h-52"
+        className="relative w-full h-full"
       >
-        <View className="absolute bottom-5 left-5">
-          <Text>{title}</Text>
-          <Text>{subtitle}</Text>
+        <View className="absolute bottom-5 left-2">
+          <Text className="font-bold text-white mb-2 text-lg" numberOfLines={2}>
+            {title}
+          </Text>
+          <Text className="text-xs text-white pr-5">{subtitle}</Text>
         </View>
       </ImageBackground>
     </View>

@@ -14,7 +14,7 @@ const MusicsExploration = () => {
         </Link>
       </View>
       <FlatList
-        className="min-w-full"
+        className="py-2"
         data={MOCK_EXPLORATION}
         renderItem={({ item: category }) => (
           <Exploration
@@ -25,8 +25,10 @@ const MusicsExploration = () => {
         )}
         horizontal
         contentContainerStyle={{
-          backgroundColor: "white",
+          flexDirection: "row",
+          gap: 20,
         }}
+        showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
       />
     </View>
