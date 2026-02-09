@@ -1,9 +1,5 @@
 import { useTrackStore } from "@/src/store/track-play.store";
-import {
-  Entypo,
-  FontAwesome6,
-  MaterialIcons
-} from "@expo/vector-icons";
+import { Entypo, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -56,7 +52,10 @@ export const TrackItem = ({
       />
 
       <View className="flex-1 flex-col">
-        <Text className="text-base font-bold text-white" numberOfLines={1}>
+        <Text
+          className={`text-base font-bold text-white ${isTheSongOnTrack ? "!text-primary" : ""} `}
+          numberOfLines={1}
+        >
           {label}
         </Text>
         <Text className="text-sm text-gray-400" numberOfLines={1}>

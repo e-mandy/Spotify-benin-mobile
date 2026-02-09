@@ -8,6 +8,7 @@ import {
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import ShowData from "@/src/components/ui/common/ShowData";
 import { useFetch } from "@/src/hooks/use-fetch-api";
+import { useTrackStore } from "@/src/store/track-play.store";
 import { notifSuccess } from "@/src/utils/react-toast";
 import {
   Entypo,
@@ -16,6 +17,7 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import { useSearchParams } from "expo-router/build/hooks";
 import React, { useState } from "react";
 import {
@@ -44,6 +46,8 @@ const LegendsDetails = () => {
     `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/legends/${legendId}`,
   );
 
+  console.log(legend?.songs?.map?.((s) => s.id));
+
   function handleSubscribe() {
     setSubscribe(true);
     notifSuccess("Vous venez de vous abonner");
@@ -52,6 +56,14 @@ const LegendsDetails = () => {
   const mostKnownSongs = legend.songs ?? [];
 
   const albums = legend.albums ?? [];
+
+  const { trackHandler, currentSong } = useTrackStore();
+  const isTheSongOnTrack = (id) => +id === +currentSong?.info?.id;
+
+  const play = async (id) => {
+    await trackHandler(id);
+    router.push("/(player)");
+  };
 
   return (
     <AppWrapper className="!p-0">
@@ -118,7 +130,10 @@ const LegendsDetails = () => {
                 </OutlinedButton>
               )}
             </View>
-            <TrackShuffle />
+            <TrackShuffle
+              songIds={legend?.songs?.map?.((s) => s.id) ?? []}
+              playlistName={`Légende - ${legend.name}`}
+            />
           </View>
 
           <View className="my-3">
@@ -126,7 +141,12 @@ const LegendsDetails = () => {
             <View>
               {mostKnownSongs.map((song, index) => {
                 return (
-                  <TouchableOpacity activeOpacity={0.7} key={song.id}>
+                  <TouchableOpacity
+                    className={`mt-2 ${isTheSongOnTrack(song.id) ? "border rounded-3xl border-primary py-1 px-3" : ""}`}
+                    onPress={() => play(song.id)}
+                    activeOpacity={0.7}
+                    key={song.id}
+                  >
                     <View className="flex flex-row my-4 justify-between items-center">
                       <View className="flex flex-row items-center gap-x-4">
                         <View>

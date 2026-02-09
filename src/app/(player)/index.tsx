@@ -19,8 +19,9 @@ import {
 const TrackPlayer = () => {
   const router = useRouter();
 
-  const { currentSong } = useTrackStore();
+  const { currentSong, playlists } = useTrackStore();
   const trackPlay = currentSong?.info;
+  const playlistName = playlists.name;
 
   const { height } = useWindowDimensions();
 
@@ -40,7 +41,7 @@ const TrackPlayer = () => {
           </Text>
           <Text className="text-xl text-gray-400 font-spline-bold">
             {" "}
-            {trackPlay.playlistName}
+            {playlistName}
           </Text>
         </View>
         <View>
@@ -59,7 +60,7 @@ const TrackPlayer = () => {
         <Image
           contentFit="cover"
           style={{ ...styles.image, marginTop: 10 }}
-          source={trackPlay.cover}
+          source={trackPlay?.cover}
         />
         <TouchableOpacity
           onPress={() => notifSuccess("Hé hé.. Coming soon")}

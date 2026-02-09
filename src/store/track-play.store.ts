@@ -1,6 +1,7 @@
 import { createAudioPlayer } from "expo-audio";
 import { create } from "zustand";
 import { getAxiosInstance } from "../lib/axios.config";
+import { notifyInfo } from "../utils/react-toast";
 import useAuth from "./auth.store";
 import {
   ITrackPlay,
@@ -8,39 +9,110 @@ import {
   TPartialItrackPlay,
 } from "./types/play.types";
 
-//currentSong
-//onPause
-//onNext
-//onPrev
-//onSeek
-//onEnd
-//playlists
-//startSong
-//startFromPlaylist
-//randomStart
-
 const useTrackPlay = create<ITrackPlay>((set, get) => ({
   playlistName: "Découvertes",
+  playlists: {
+    name: null,
+    songs: [],
+    currentIndex: null,
+  },
   currentSong: {
     info: null,
   },
   isPlaying: false,
+  async playFromPlaylist(playlistName, songs, songId) {
+    console.log(playlistName, songs, songId);
+
+    let songIndex = 0;
+    if (!songId) {
+      songIndex = Math.floor(Math.random() * (songs.length - 1));
+      songId = songs[songIndex];
+    } else {
+      songIndex = songs.findIndex((titleId) => +songId === +titleId);
+    }
+
+    console.log(songIndex, "index");
+
+    set({
+      playlistName,
+      playlists: {
+        name: playlistName,
+        songs,
+        currentIndex: songIndex,
+      },
+    });
+    await get().trackHandler(songId);
+  },
+  async backToPrev() {
+    //if there is no song on track and user click on back then seek the song to the beginning
+    if (!get().playlists.name) {
+      await get().seek(0);
+      return notifyInfo("Vous êtes déjà au début de la file");
+    }
+
+    const currentIndex = get().playlists.currentIndex;
+    const prevSongId = get().playlists.songs[Math.max(0, currentIndex - 1)];
+
+    //the playlist contain just 1 song then from 0 to 0 he clicked on prev
+    if (+prevSongId === +get().currentSong.info.id) {
+      await get().seek(0); //we replaced him at the song beginning
+      return notifyInfo("Vous êtes déjà au début de la file");
+    }
+
+    await get().trackHandler(prevSongId);
+  },
+  async goToNext() {
+    //if there is no song on track and user click on back then seek the song to the beginning
+    if (!get().playlists.name) {
+      return notifyInfo("Vous êtes déjà à la fin de la file");
+    }
+
+    const currentIndex = get().playlists.currentIndex;
+    console.log(currentIndex);
+
+    const nextSongId =
+      get().playlists.songs[
+        Math.min(get().playlists.songs.length - 1, currentIndex + 1)
+      ];
+
+    if (+nextSongId === +currentIndex) {
+      return notifyInfo("Vous êtes déjà à la fin de la file");
+    }
+
+    await get().trackHandler(nextSongId);
+  },
+
+  pause() {
+    get().currentSong?.sound?.pause();
+    set({ isPlaying: false });
+  },
+
+  resume() {
+    get().currentSong?.sound?.play();
+    set({ isPlaying: true });
+  },
+
+  async seek(time) {
+    await get().currentSong.sound.seekTo(time);
+  },
   async trackHandler(songId: string | number) {
-    const sound = get().currentSong.sound;
+    const sound = get().currentSong?.sound;
     const songInfo = get().currentSong?.info;
 
     //if he press a song on play
     if (songId === songInfo?.id) {
-      if (!sound.playing) sound.play();
-      set({ isPlaying: true });
+      if (!sound?.playing) {
+        sound?.play();
+        set({ isPlaying: true });
+      }
       return;
     }
 
     const song = await getSongById(songId);
     const userId = useAuth.getState().user.id;
     const uri = getStreamUrl(song.audioFile, userId, song.id);
-    get().pause();
-    sound?.replace(uri);
+    get().pause(); //in case there is some past song on play
+    sound?.replace(uri); //work even if there was no song  on play
     set({ isPlaying: true });
 
     const audio = await createSongAudio(get, uri);
@@ -52,17 +124,6 @@ const useTrackPlay = create<ITrackPlay>((set, get) => ({
         info: song,
       },
     }));
-  },
-  pause() {
-    get().currentSong?.sound?.pause();
-    set({ isPlaying: false });
-  },
-  resume() {
-    get().currentSong?.sound?.play();
-    set({ isPlaying: true });
-  },
-  async seek(time) {
-    await get().currentSong.sound.seekTo(time);
   },
 }));
 
@@ -91,6 +152,8 @@ async function createSongAudio(
 
 async function getSongById(songId: string | number): Promise<SongDetails> {
   try {
+    console.log(songId, "------------");
+
     const http = getAxiosInstance();
     const { data } = await http.get(`/titles/${songId}`);
     const song = data.data;
