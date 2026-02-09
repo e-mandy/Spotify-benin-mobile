@@ -1,5 +1,5 @@
 import AppWrapper from "@/src/components/ui/common/AppWrapper";
-import ScrollCategories from "@/src/components/ui/common/ScrollCategories";
+import ScrollGenres from "@/src/components/ui/common/ScrollCategories";
 import SearchBar from "@/src/components/ui/common/SearchBar";
 import SecondaryTopBar from "@/src/components/ui/common/SecondaryTopBar";
 import MusicsExploration from "@/src/components/ui/search/MusicsExploration";
@@ -14,7 +14,7 @@ const Search = () => {
         <SecondaryTopBar topic="Rechercher" />
         <SearchBar placeholder="Artistes, titres ou genres" />
         <ReconnaissanceVocale />
-        <ScrollCategories />
+        <ScrollGenres />
         <MusicsExploration />
       </ScrollView>
     </AppWrapper>

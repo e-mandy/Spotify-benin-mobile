@@ -4,7 +4,7 @@ import React from "react";
 import { ScrollView, View } from "react-native";
 import MusicGenre from "./MusicGenre";
 
-const ScrollCategories = () => {
+const ScrollGenres = () => {
   const { musicGenres } = useSearchStore();
 
   return (
@@ -24,4 +24,4 @@ const ScrollCategories = () => {
   );
 };
 
-export default ScrollCategories;
+export default ScrollGenres;
