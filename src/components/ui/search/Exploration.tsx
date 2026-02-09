@@ -1,13 +1,19 @@
 import React from "react";
-import { Dimensions, ImageBackground, Text, View } from "react-native";
+import {
+  Dimensions,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 
 const { width } = Dimensions.get("screen");
 
 const Exploration = ({ image, title, subtitle }) => {
   return (
-    <View
+    <TouchableOpacity
       style={{ width: width * 0.45 }}
-      className="h-60 mb-10 rounded-2xl overflow-hidden"
+      className="h-60 rounded-2xl overflow-hidden"
     >
       <ImageBackground
         source={{ uri: image }}
@@ -21,7 +27,7 @@ const Exploration = ({ image, title, subtitle }) => {
           <Text className="text-xs text-white pr-5">{subtitle}</Text>
         </View>
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   );
 };
 

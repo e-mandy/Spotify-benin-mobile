@@ -1,7 +1,8 @@
 import AppWrapper from "@/src/components/ui/common/AppWrapper";
-import ScrollGenres from "@/src/components/ui/common/ScrollCategories";
+import ScrollGenres from "@/src/components/ui/common/ScrollGenres";
 import SearchBar from "@/src/components/ui/common/SearchBar";
 import SecondaryTopBar from "@/src/components/ui/common/SecondaryTopBar";
+import Browse from "@/src/components/ui/search/Browse";
 import MusicsExploration from "@/src/components/ui/search/MusicsExploration";
 import ReconnaissanceVocale from "@/src/components/ui/search/ReconnaissanceVocale";
 import React from "react";
@@ -16,6 +17,7 @@ const Search = () => {
         <ReconnaissanceVocale />
         <ScrollGenres />
         <MusicsExploration />
+        <Browse />
       </ScrollView>
     </AppWrapper>
   );
