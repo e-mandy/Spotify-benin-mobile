@@ -5,7 +5,7 @@ import SecondaryTopBar from "@/src/components/ui/common/SecondaryTopBar";
 import PinnedPlaylist from "@/src/components/ui/library/PinnedPlaylist";
 import React from "react";
 
-const Login = () => {
+const Library = () => {
   return (
     <AppWrapper>
       <SecondaryTopBar topic="Ma Bibliothèque" />
@@ -16,4 +16,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Library;

@@ -41,9 +41,7 @@ const CollectionCard = ({
           <ImageBackground
             className="w-full h-full"
             resizeMode="cover"
-            source={{
-              uri: require("@/assets/images/tradi-instrument.png"),
-            }}
+            source={require("@/assets/images/mkay.jpeg")}
           />
         )}
       </Pressable>

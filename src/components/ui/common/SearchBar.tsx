@@ -32,7 +32,7 @@ const SearchBar = ({ placeholder }: ISearchBar) => {
           className="absolute z-20 top-[50%] translate-y-[-60%]"
         />
         <TextInput
-          className="pl-10"
+          className="pl-10 text-white"
           placeholder={placeholder}
           value={search}
           placeholderTextColor="white"

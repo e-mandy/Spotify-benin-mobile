@@ -26,6 +26,7 @@ const CollectionElementSection = () => {
           </View>
         )}
         numColumns={2}
+        scrollEnabled={false}
         columnWrapperStyle={{}}
       />
     </View>
