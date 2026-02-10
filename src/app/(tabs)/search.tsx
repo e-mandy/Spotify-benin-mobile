@@ -6,6 +6,7 @@ import BestSearch from "@/src/components/ui/search/BestSearch";
 import Browse from "@/src/components/ui/search/Browse";
 import MusicsExploration from "@/src/components/ui/search/MusicsExploration";
 import ReconnaissanceVocale from "@/src/components/ui/search/ReconnaissanceVocale";
+import Titles from "@/src/components/ui/search/Titles";
 import { useSearchStore } from "@/src/store/search.store";
 import React from "react";
 import { ActivityIndicator, ScrollView } from "react-native";
@@ -36,6 +37,7 @@ const Search = () => {
         ) : (
           <>
             <BestSearch />
+            <Titles />
           </>
         )}
       </ScrollView>
