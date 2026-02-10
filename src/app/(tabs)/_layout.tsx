@@ -1,3 +1,4 @@
+import AppBottomPlayer from "@/src/components/ui/common/AppBottomPlayer";
 import StyledText from "@/src/components/ui/common/StyledText";
 import useAuth from "@/src/store/auth.store";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -39,7 +40,8 @@ export default function Layout() {
   return (
     <Tabs className="bg-background-dark backdrop-blur-3xl">
       <TabSlot />
-      <TabList className="pointer-events-auto mx-auto  w-[90%] rounded-3xl backdrop-blur-3xl bg-black/90 border border-white/5 px-3 py-4  relative -top-10">
+      <AppBottomPlayer />
+      <TabList className="pointer-events-auto mx-auto  w-[90%] rounded-3xl backdrop-blur-3xl bg-black/90 border border-white/5 px-3 py-4   relative -top-5">
         {tabElements.map((tab) => {
           const isCurrentPath = tab.path == pathname;
           return (

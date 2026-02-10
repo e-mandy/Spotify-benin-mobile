@@ -5,16 +5,16 @@ import { useAudioPlayerStatus } from "expo-audio";
 import React from "react";
 import { Text, View } from "react-native";
 
-const TrackSeeker = () => {
+const TrackSeeker = ({ height = 20, className = "", showDuration = true }) => {
   const sound = useTrackPlay((state) => state.currentSong?.sound);
   const { seek } = useTrackStore();
   const { currentTime, duration } = useAudioPlayerStatus(sound);
 
   return (
-    <View className="my-2">
+    <View className={`my-2 ${className}`}>
       <View>
         <Slider
-          style={{ height: 20 }}
+          style={{ height }}
           onValueChange={(value) => seek(value)}
           minimumValue={0}
           maximumValue={duration}
@@ -25,16 +25,18 @@ const TrackSeeker = () => {
         />
         <View />
 
-        <View className="flex-row justify-between px-4">
-          <Text className="text-xs font-bold text-white/70">
-            {" "}
-            {countRecordDuration(parseInt(currentTime + ""))}{" "}
-          </Text>
-          <Text className="text-xs font-bold text-white/70">
-            {" "}
-            {countRecordDuration(parseInt(duration + ""))}{" "}
-          </Text>
-        </View>
+        {showDuration && (
+          <View className="flex-row justify-between px-4">
+            <Text className="text-xs font-bold text-white/70">
+              {" "}
+              {countRecordDuration(parseInt(currentTime + ""))}{" "}
+            </Text>
+            <Text className="text-xs font-bold text-white/70">
+              {" "}
+              {countRecordDuration(parseInt(duration + ""))}{" "}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );

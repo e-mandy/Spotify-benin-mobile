@@ -51,14 +51,20 @@ const useTrackPlay = create<ITrackPlay>((set, get) => ({
     }
 
     const currentIndex = get().playlists.currentIndex;
-    const prevSongId = get().playlists.songs[Math.max(0, currentIndex - 1)];
+    const prevIndex = Math.max(0, currentIndex - 1);
+    const prevSongId = get().playlists.songs[prevIndex];
 
     //the playlist contain just 1 song then from 0 to 0 he clicked on prev
     if (+prevSongId === +get().currentSong.info.id) {
       await get().seek(0); //we replaced him at the song beginning
       return notifyInfo("Vous êtes déjà au début de la file");
     }
-
+    set({
+      playlists: {
+        ...get().playlists,
+        currentIndex: prevIndex,
+      },
+    });
     await get().trackHandler(prevSongId);
   },
   async goToNext() {
@@ -68,17 +74,22 @@ const useTrackPlay = create<ITrackPlay>((set, get) => ({
     }
 
     const currentIndex = get().playlists.currentIndex;
-    console.log(currentIndex);
+    const nextIndex = Math.min(
+      get().playlists.songs.length - 1,
+      currentIndex + 1,
+    );
+    console.log("current index: ", currentIndex, "next index: ", nextIndex);
+    const nextSongId = get().playlists.songs[nextIndex];
 
-    const nextSongId =
-      get().playlists.songs[
-        Math.min(get().playlists.songs.length - 1, currentIndex + 1)
-      ];
-
-    if (+nextSongId === +currentIndex) {
+    if (+nextIndex === +currentIndex) {
       return notifyInfo("Vous êtes déjà à la fin de la file");
     }
-
+    set({
+      playlists: {
+        ...get().playlists,
+        currentIndex: nextIndex,
+      },
+    });
     await get().trackHandler(nextSongId);
   },
 

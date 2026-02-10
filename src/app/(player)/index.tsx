@@ -5,6 +5,7 @@ import TrackPlayPanel from "@/src/components/ui/track-play/track-play-panel";
 import { styles } from "@/src/constants/styles";
 import { useTrackStore } from "@/src/store/track-play.store";
 import { notifSuccess } from "@/src/utils/react-toast";
+import { truncate } from "@/src/utils/truncate";
 import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -81,7 +82,7 @@ const TrackPlayer = () => {
           </StyledText>
           <StyledText className="font-spline-bold text-white/80">
             {" "}
-            {trackPlay.singer}{" "}
+            {truncate(trackPlay.singer, 30)}{" "}
           </StyledText>
         </View>
         <View>
@@ -95,7 +96,7 @@ const TrackPlayer = () => {
       <View className="px-4">
         <TrackPlayPanel />
       </View>
-      <BuyACoffee />
+      <BuyACoffee artistName={trackPlay.singer} />
     </AppWrapper>
   );
 };

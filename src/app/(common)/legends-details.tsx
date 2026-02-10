@@ -164,7 +164,11 @@ const LegendsDetails = () => {
                           />
                         </View>
                         <View>
-                          <Title className="text-xl">{song.label}</Title>
+                          <Title
+                            className={`text-xl ${isTheSongOnTrack(song.id) ? "!text-primary" : ""}`}
+                          >
+                            {song.label}
+                          </Title>
                           <View className="flex flex-row items-center gap-x-2">
                             <Text>
                               <MaterialIcons
