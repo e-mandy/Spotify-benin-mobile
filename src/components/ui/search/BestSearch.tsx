@@ -1,7 +1,7 @@
 import { useSearchStore } from "@/src/store/search.store";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { ImageBackground, View } from "react-native";
+import { ImageBackground, Text, View } from "react-native";
 import { StyledText } from "../common";
 
 const BestSearch = () => {
@@ -17,7 +17,9 @@ const BestSearch = () => {
           <View className="w-full h-full rounded-full z-40 bg-blue-400 overflow-hidden">
             <ImageBackground
               className="h-full w-full"
-              source={require(bestSearch["photo"])}
+              source={{
+                uri: bestSearch["photo"],
+              }}
             />
           </View>
           <View className="absolute -bottom-1 -right-1 bg-primary flex-col items-center justify-center h-8 w-8 z-50 rounded-full">
@@ -33,7 +35,9 @@ const BestSearch = () => {
               ARTISTE
             </StyledText>
             <FontAwesome name="circle" size={5} color="white" />
-            <StyledText className="text-sm">La Diva d'Afrique</StyledText>
+            <Text className="text-sm text-white" numberOfLines={1}>
+              {bestSearch["bio"]}
+            </Text>
           </View>
         </View>
       </View>
