@@ -5,10 +5,15 @@ import { Pressable, Text } from "react-native";
 type HorizontalCollectionType = {
   name: string;
   id?: string;
+  isDynamic: boolean;
 };
 
-const HorizontalCollection = ({ name, id }: HorizontalCollectionType) => {
-  return (
+const HorizontalCollection = ({
+  name,
+  isDynamic = false,
+  id,
+}: HorizontalCollectionType) => {
+  return isDynamic ? (
     <Link
       href={{
         pathname: "/(tabs)/(search)/genre",
@@ -22,6 +27,12 @@ const HorizontalCollection = ({ name, id }: HorizontalCollectionType) => {
         </Text>
       </Pressable>
     </Link>
+  ) : (
+    <Pressable>
+      <Text className="font-semibold text-white text-center text-base">
+        {name}
+      </Text>
+    </Pressable>
   );
 };
 

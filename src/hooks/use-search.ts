@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchStore } from "../store/search.store";
 
 export const useSearch = () => {
-  const { query: search, setResults } = useSearchStore.getState();
+  const { query: search, setResults, currentGenre } = useSearchStore.getState();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -27,5 +27,19 @@ export const useSearch = () => {
     searchFetchData();
   }, [search]);
 
-  return { isLoading };
+  const fetchGenre = (currentGenre) => {
+    useEffect(() => {
+      const dataFromGenre = async () => {
+        try {
+          setIsLoading(true);
+          const response = await axios.get(
+            `${process.env.EXPO_PUBLIC_API_URL}/api/search?query=${search}`,
+          );
+        } catch (error) {}
+      };
+      dataFromGenre();
+    }, [currentGenre]);
+  };
+
+  return { isLoading, fetchGenre };
 };

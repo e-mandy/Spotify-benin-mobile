@@ -2,7 +2,11 @@ import React from "react";
 import { ScrollView, View } from "react-native";
 import HorizontalCollection from "./HorizontalCollection";
 
-const HorizontalScroll = (data: any[]) => {
+type HorizontalScrollType = {
+  data: any[];
+};
+
+const HorizontalScroll = ({ data }: HorizontalScrollType) => {
   return (
     <View className="my-5">
       <ScrollView

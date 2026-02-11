@@ -5,7 +5,7 @@ import StyledText from "./StyledText";
 
 type SearchCollection = {
   title: string;
-  path: any;
+  path?: any;
   isAll?: boolean;
 };
 
