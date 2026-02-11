@@ -8,9 +8,9 @@ const Albums = () => {
   return (
     <View>
       <SearchCollectionHeader title="Albums" path="/(tabs)/(search)/search" />
-      <View className="h-80">
+      <View className="mb-4">
         <FlatList
-          className="py-6"
+          className="py-5"
           data={MOCK_ALBUMS}
           renderItem={({ item: album }) => <Album {...album} />}
           horizontal

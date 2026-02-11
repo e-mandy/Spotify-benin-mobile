@@ -3,6 +3,7 @@ import ScrollGenres from "@/src/components/ui/common/ScrollGenres";
 import SearchBar from "@/src/components/ui/common/SearchBar";
 import SecondaryTopBar from "@/src/components/ui/common/SecondaryTopBar";
 import Albums from "@/src/components/ui/search/Albums";
+import Artists from "@/src/components/ui/search/Artists";
 import BestSearch from "@/src/components/ui/search/BestSearch";
 import Browse from "@/src/components/ui/search/Browse";
 import MusicsExploration from "@/src/components/ui/search/MusicsExploration";
@@ -37,6 +38,7 @@ const Search = () => {
             <BestSearch />
             <Titles />
             <Albums />
+            <Artists />
           </>
         )}
       </ScrollView>
