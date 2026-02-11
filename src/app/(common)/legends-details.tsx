@@ -57,11 +57,12 @@ const LegendsDetails = () => {
 
   const albums = legend.albums ?? [];
 
-  const { trackHandler, currentSong } = useTrackStore();
+  const { trackHandler, currentSong, playFromPlaylist } = useTrackStore();
   const isTheSongOnTrack = (id) => +id === +currentSong?.info?.id;
 
   const play = async (id) => {
-    await trackHandler(id);
+    const playlist = mostKnownSongs.map((song) => song.id);
+    await playFromPlaylist(`Légende - ${legend.name}`, playlist, id);
     router.push("/(player)");
   };
 
@@ -131,7 +132,7 @@ const LegendsDetails = () => {
               )}
             </View>
             <TrackShuffle
-              songIds={legend?.songs?.map?.((s) => s.id) ?? []}
+              songIds={mostKnownSongs.map((s) => s.id)}
               playlistName={`Légende - ${legend.name}`}
             />
           </View>

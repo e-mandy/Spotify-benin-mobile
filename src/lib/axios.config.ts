@@ -1,16 +1,13 @@
 import axios from "axios";
 import { getItemFromStorage, setItemInStorage } from "./secure-storage";
 
+const baseConfig = {
+  baseURL: `${process.env.EXPO_PUBLIC_API_URL}/api`,
+};
+
 //this axios instance will retry on 401 response to get an access_token from refresh_token
 //but during register or login we're expecting 401 sometimes
-const axiosInstance = axios.create({
-  baseURL: `${process.env.EXPO_PUBLIC_API_URL}/api`,
-});
-
-//this one will be used for endpoint when 401 is normal as response
-const simplAxiosInstance = axios.create({
-  baseURL: `${process.env.EXPO_PUBLIC_API_URL}/api`,
-});
+const axiosInstance = axios.create(baseConfig);
 
 axiosInstance.interceptors.request.use(async function (config) {
   config.headers.Authorization = `Bearer ${await getItemFromStorage("accessToken")}`;
@@ -52,6 +49,9 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+//this one will be used for endpoint when 401 is normal as response
+const simplAxiosInstance = axios.create(baseConfig);
 
 export function getAxiosInstance(unAuthenticatedInstance = false) {
   return unAuthenticatedInstance ? simplAxiosInstance : axiosInstance;

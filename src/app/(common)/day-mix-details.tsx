@@ -53,6 +53,8 @@ const DayMixDetails = () => {
                   photo={item.photo}
                   label={item.label}
                   artistName={item.artistName}
+                  playlistName="Mixe Du Jour"
+                  playlistItems={playlistItems}
                 />
               );
             }}

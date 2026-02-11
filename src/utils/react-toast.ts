@@ -35,6 +35,6 @@ export function notifyInfo(message) {
     duration: 2000,
     floating: true,
     icon: "info",
-    backgroundColor: "#9ca3af",
+    backgroundColor: "rgb(0 0 0 / 0.6)",
   });
 }

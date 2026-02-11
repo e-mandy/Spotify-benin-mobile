@@ -11,16 +11,28 @@ export const TrackItem = ({
   photo,
   onFavorite = () => {},
   onOptions = () => {},
+  playlistName = "",
+  playlistItems = [],
 }) => {
   const router = useRouter();
-  const { trackHandler, currentSong, resume, pause, isPlaying } =
-    useTrackStore();
+  const {
+    trackHandler,
+    playFromPlaylist,
+    currentSong,
+    resume,
+    pause,
+    isPlaying,
+  } = useTrackStore();
 
   const isTheSongOnTrack = +id === +currentSong?.info?.id;
 
   const onTrackPlay = async () => {
     try {
-      await trackHandler(id);
+      if (playlistName) {
+        await playFromPlaylist(playlistName, playlistItems, id);
+      } else {
+        await trackHandler(id);
+      }
       router.push("/(player)");
     } catch (error) {
       console.log("Error on track item 1:: ", error);
