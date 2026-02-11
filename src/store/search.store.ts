@@ -4,10 +4,15 @@ interface ISearch {
   query: string;
   musicGenres: [string] | [];
   setQuery: (value: string) => void;
+  searchResult: any[];
+  setResults: (results: any[]) => void;
 }
 
 export const useSearchStore = create<ISearch>((set) => ({
   query: "",
   musicGenres: [],
+  searchResult: [],
+
   setQuery: (query: string) => set({ query: query }),
+  setResults: (results: any[]) => set({ searchResult: results }),
 }));

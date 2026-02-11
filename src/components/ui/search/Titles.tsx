@@ -15,8 +15,8 @@ const Titles = () => {
         </Link>
       </View>
       <View className="w-full my-4">
-        {MOCK_TITRES.map((title) => (
-          <MusicTitle {...title} />
+        {MOCK_TITRES.map((title, index) => (
+          <MusicTitle key={index} {...title} />
         ))}
       </View>
     </View>

@@ -1,9 +1,14 @@
+import { useSearchStore } from "@/src/store/search.store";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { ImageBackground, View } from "react-native";
 import { StyledText } from "../common";
 
 const BestSearch = () => {
+  const bestSearch = useSearchStore((state) => state.searchResult[0]);
+
+  if (!bestSearch) return null;
+
   return (
     <View className="w-full mb-5">
       <StyledText className="mb-5 font-bold">Meilleur résultat</StyledText>
@@ -12,7 +17,7 @@ const BestSearch = () => {
           <View className="w-full h-full rounded-full z-40 bg-blue-400 overflow-hidden">
             <ImageBackground
               className="h-full w-full"
-              source={require("@/assets/images/mkay.jpeg")}
+              source={require(bestSearch["photo"])}
             />
           </View>
           <View className="absolute -bottom-1 -right-1 bg-primary flex-col items-center justify-center h-8 w-8 z-50 rounded-full">
@@ -20,7 +25,9 @@ const BestSearch = () => {
           </View>
         </View>
         <View>
-          <StyledText className="font-bold mb-3">Angélique Kidjo</StyledText>
+          <StyledText className="font-bold mb-3">
+            {bestSearch["singerName"]}
+          </StyledText>
           <View className="flex-row items-center gap-2">
             <StyledText className="text-sm bg-surface-dark-100 rounded-2xl py-1 px-2">
               ARTISTE

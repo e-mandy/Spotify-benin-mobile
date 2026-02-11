@@ -7,18 +7,21 @@ import Browse from "@/src/components/ui/search/Browse";
 import MusicsExploration from "@/src/components/ui/search/MusicsExploration";
 import ReconnaissanceVocale from "@/src/components/ui/search/ReconnaissanceVocale";
 import Titles from "@/src/components/ui/search/Titles";
+import { useFetch } from "@/src/hooks/use-fetch-api";
 import { useSearchStore } from "@/src/store/search.store";
-import React from "react";
+import React, { useEffect } from "react";
 import { ActivityIndicator, ScrollView } from "react-native";
 
 const Search = () => {
-  const searchQuery = useSearchStore((state) => state.query);
-  // const { data, isLoading } = useFetch(
-  //   `${process.env.MUSIC_APP_BASE_URL}/profile/me`,
-  // );
-  const data = ["a"];
-  const isLoading = false;
-  console.log(data);
+  const { setResults, query: searchQuery } = useSearchStore();
+
+  const { data, isLoading } = useFetch(
+    `${process.env.EXPO_PUBLIC_API_URL}/api/search?query=${searchQuery}`,
+  );
+
+  useEffect(() => {
+    if (data && data.length != 0) setResults(data);
+  }, [data]);
 
   return (
     <AppWrapper>
