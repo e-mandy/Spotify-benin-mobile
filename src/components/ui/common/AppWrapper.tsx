@@ -17,7 +17,7 @@ const AppWrapper = ({
       className={`min-h-screen p-2 bg-background-dark ${className}`}
     >
       {withScrollView ? (
-        <ScrollView showsVerticalScrollIndicator={false} className="px-2">
+        <ScrollView showsVerticalScrollIndicator={false} className="px-1">
           {children}
         </ScrollView>
       ) : (

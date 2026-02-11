@@ -10,7 +10,7 @@ const Titles = () => {
     <View>
       <View className="flex-row justify-between items-center">
         <StyledText className="font-bold">Titres</StyledText>
-        <Link href="/(tabs)/search">
+        <Link href="/(tabs)/(search)/search">
           <StyledText className="text-sm font-bold">VOIR TOUT</StyledText>
         </Link>
       </View>

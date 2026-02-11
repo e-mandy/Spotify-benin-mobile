@@ -10,7 +10,7 @@ const MusicsExploration = () => {
     <View className="my-4">
       <View className="flex-row items-center justify-between">
         <StyledText className="font-bold">Explorez le Bénin</StyledText>
-        <Link href="/(player)">
+        <Link href="/(player)" asChild>
           <Text className="text-white font-semibold">VOIR TOUT</Text>
         </Link>
       </View>

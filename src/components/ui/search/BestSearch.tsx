@@ -35,7 +35,7 @@ const BestSearch = () => {
               ARTISTE
             </StyledText>
             <FontAwesome name="circle" size={5} color="white" />
-            <Text className="text-sm text-white" numberOfLines={1}>
+            <Text className="text-sm text-white w-1/2" numberOfLines={1}>
               {bestSearch["bio"]}
             </Text>
           </View>

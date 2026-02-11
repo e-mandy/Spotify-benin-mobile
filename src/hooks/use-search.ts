@@ -7,7 +7,7 @@ export const useSearch = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!search.trim()) setResults([]);
+    if (!search.trim()) setResults(null);
     const searchFetchData = async () => {
       try {
         setIsLoading(true);

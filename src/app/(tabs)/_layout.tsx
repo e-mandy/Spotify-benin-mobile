@@ -18,7 +18,7 @@ export default function Layout() {
     {
       name: "Recherche",
       icon: "search",
-      path: "/search",
+      path: "/(tabs)/(search)/search",
     },
     {
       name: "Bibliothèque",

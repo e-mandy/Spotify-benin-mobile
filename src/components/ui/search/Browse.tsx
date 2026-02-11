@@ -6,7 +6,7 @@ import Category from "./Category";
 
 const Browse = () => {
   return (
-    <View>
+    <View className="mb-28">
       <FlatList
         data={CATEOGORY_MOCK}
         renderItem={({ item: genre }) => <Category {...genre} />}

@@ -14,7 +14,7 @@ type CategoryProps = {
 const Category = ({ name, image, color }: CategoryProps) => {
   return (
     <View
-      className="relative h-28 rounded-2xl overflow-hidden mb-4"
+      className="relative h-28 max-w-[150px] rounded-2xl overflow-hidden mb-4"
       style={{ width: width * 0.43, backgroundColor: color }}
     >
       <StyledText className="text-xl font-bold absolute left-3 top-3">
