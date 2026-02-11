@@ -4,8 +4,8 @@ interface ISearch {
   query: string;
   musicGenres: [string] | [];
   setQuery: (value: string) => void;
-  searchResult: any[];
-  setResults: (results: any[]) => void;
+  searchResult: any[] | null;
+  setResults: (results: any[] | null) => void;
 }
 
 export const useSearchStore = create<ISearch>((set) => ({

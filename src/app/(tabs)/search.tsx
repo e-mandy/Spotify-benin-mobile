@@ -7,21 +7,15 @@ import Browse from "@/src/components/ui/search/Browse";
 import MusicsExploration from "@/src/components/ui/search/MusicsExploration";
 import ReconnaissanceVocale from "@/src/components/ui/search/ReconnaissanceVocale";
 import Titles from "@/src/components/ui/search/Titles";
-import { useFetch } from "@/src/hooks/use-fetch-api";
+import { useSearch } from "@/src/hooks/use-search";
 import { useSearchStore } from "@/src/store/search.store";
-import React, { useEffect } from "react";
+import React from "react";
 import { ActivityIndicator, ScrollView } from "react-native";
 
 const Search = () => {
-  const { setResults, query: searchQuery } = useSearchStore();
+  const { searchResult } = useSearchStore();
 
-  const { data, isLoading } = useFetch(
-    `${process.env.EXPO_PUBLIC_API_URL}/api/search?query=${searchQuery}`,
-  );
-
-  useEffect(() => {
-    if (data && data.length != 0) setResults(data);
-  }, [data]);
+  const { isLoading } = useSearch();
 
   return (
     <AppWrapper>
@@ -30,7 +24,7 @@ const Search = () => {
         <SearchBar placeholder="Artistes, titres ou genres" />
         {isLoading ? (
           <ActivityIndicator size={24} />
-        ) : !data || data.length == 0 ? (
+        ) : !searchResult || searchResult.length == 0 ? (
           <>
             <ReconnaissanceVocale />
             <ScrollGenres />
