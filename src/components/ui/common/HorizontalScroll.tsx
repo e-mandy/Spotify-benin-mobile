@@ -1,9 +1,8 @@
-import { genresMusicaux } from "@/mocks/genres.mock";
 import React from "react";
 import { ScrollView, View } from "react-native";
-import MusicGenre from "./MusicGenre";
+import HorizontalCollection from "./HorizontalCollection";
 
-const ScrollGenres = () => {
+const HorizontalScroll = (data: any[]) => {
   return (
     <View className="my-5">
       <ScrollView
@@ -13,12 +12,12 @@ const ScrollGenres = () => {
           gap: 10,
         }}
       >
-        {genresMusicaux.map((category, index) => (
-          <MusicGenre name={category} key={index} />
+        {data.map((item) => (
+          <HorizontalCollection {...item} key={item?.id} />
         ))}
       </ScrollView>
     </View>
   );
 };
 
-export default ScrollGenres;
+export default HorizontalScroll;
