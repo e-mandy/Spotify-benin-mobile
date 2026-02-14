@@ -2,7 +2,6 @@ import { IProps } from "@/src/interfaces/props.interface";
 import React, { ReactNode } from "react";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import "../../../styles/global.css";
 
 interface IAppProps extends IProps {
   withScrollView?: boolean;
@@ -18,7 +17,9 @@ const AppWrapper = ({
       className={`min-h-screen p-2 bg-background-dark ${className}`}
     >
       {withScrollView ? (
-        <ScrollView showsVerticalScrollIndicator={false}>{children}</ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false} className="px-1">
+          {children}
+        </ScrollView>
       ) : (
         children
       )}

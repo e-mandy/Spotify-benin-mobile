@@ -19,6 +19,8 @@ module.exports = {
         "card-dark": "#2A1F1F",
         light: "#EEEEEE",
         muted: "#B6A0A0",
+        "surface-dark-100": "#342A2A",
+        "surface-dark-300": "#2A2020",
       },
       animation: {
         "animate-pulse": "pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite",
