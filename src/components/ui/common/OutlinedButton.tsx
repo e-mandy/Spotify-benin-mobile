@@ -6,6 +6,7 @@ import { Text, TouchableOpacity } from "react-native";
 const OutlinedButton = (props: IOutlinedButton) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       disabled={props.disable}
       onPress={props.onPress}
       className={`border border-gray-600 h-14 rounded-2xl flex-row items-center mt-5 justify-center ${props.className}`}

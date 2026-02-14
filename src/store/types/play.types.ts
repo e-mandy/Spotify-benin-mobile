@@ -8,6 +8,7 @@ export interface SongDetails {
   duration: string;
   playlistName: string;
   audioFile: string;
+  isFavorite: boolean;
 }
 
 export interface ICurrentSong {

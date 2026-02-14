@@ -10,7 +10,6 @@ import {
 } from "./types/play.types";
 
 const useTrackPlay = create<ITrackPlay>((set, get) => ({
-  playlistName: "Découvertes",
   playlists: {
     name: null,
     songs: [],
@@ -106,6 +105,7 @@ const useTrackPlay = create<ITrackPlay>((set, get) => ({
   async seek(time) {
     await get().currentSong.sound.seekTo(time);
   },
+
   async trackHandler(songId: string | number) {
     const sound = get().currentSong?.sound;
     const songInfo = get().currentSong?.info;
@@ -163,8 +163,6 @@ async function createSongAudio(
 
 async function getSongById(songId: string | number): Promise<SongDetails> {
   try {
-    console.log(songId, "------------");
-
     const http = getAxiosInstance();
     const { data } = await http.get(`/titles/${songId}`);
     const song = data.data;
@@ -176,6 +174,7 @@ async function getSongById(songId: string | number): Promise<SongDetails> {
       singer: song.singers.map((s) => s.singerName).join(" & "),
       duration: song.duration,
       playlistName: "Découvertes",
+      isFavorite: song.isFavorite,
     };
   } catch (error) {
     console.log("Error on track item: ", error);

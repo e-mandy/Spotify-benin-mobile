@@ -8,8 +8,9 @@ import {
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import ShowData from "@/src/components/ui/common/ShowData";
 import { useFetch } from "@/src/hooks/use-fetch-api";
+import { useSubscription } from "@/src/hooks/use-has-subscribed";
 import { useTrackStore } from "@/src/store/track-play.store";
-import { notifSuccess } from "@/src/utils/react-toast";
+import { notifError } from "@/src/utils/react-toast";
 import {
   Entypo,
   FontAwesome,
@@ -19,7 +20,7 @@ import {
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { useSearchParams } from "expo-router/build/hooks";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -40,24 +41,20 @@ const styles = StyleSheet.create({
 const LegendsDetails = () => {
   const searchParams = useSearchParams();
   const legendId = searchParams.get("legendId");
-  const [hasSubscribe, setSubscribe] = useState(false);
 
   const { isLoading, data: legend } = useFetch(
     `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/legends/${legendId}`,
   );
 
-  console.log(legend?.songs?.map?.((s) => s.id));
-
-  function handleSubscribe() {
-    setSubscribe(true);
-    notifSuccess("Vous venez de vous abonner");
-  }
+  const { subscribed, unsubscribed, hasSubscribed, error } = useSubscription(
+    parseInt(legendId),
+  );
 
   const mostKnownSongs = legend.songs ?? [];
 
   const albums = legend.albums ?? [];
 
-  const { trackHandler, currentSong, playFromPlaylist } = useTrackStore();
+  const { currentSong, playFromPlaylist } = useTrackStore();
   const isTheSongOnTrack = (id) => +id === +currentSong?.info?.id;
 
   const play = async (id) => {
@@ -65,6 +62,15 @@ const LegendsDetails = () => {
     await playFromPlaylist(`Légende - ${legend.name}`, playlist, id);
     router.push("/(player)");
   };
+
+  useEffect(() => {
+    if (error) {
+      const messageLabel = hasSubscribed
+        ? "lors du désabonnement"
+        : "lors de l'abonnement";
+      notifError(`Une erreur est survenue ${messageLabel}`);
+    }
+  }, [error]);
 
   return (
     <AppWrapper className="!p-0">
@@ -115,16 +121,16 @@ const LegendsDetails = () => {
           </View>
           <View className="flex flex-row justify-between items-center">
             <View>
-              {!hasSubscribe ? (
+              {!hasSubscribed ? (
                 <OutlinedButton
                   className="rounded-full w-full border-muted/40"
-                  onPress={handleSubscribe}
+                  onPress={subscribed}
                 >
                   S'abonner
                 </OutlinedButton>
               ) : (
                 <OutlinedButton
-                  disable={true}
+                  onPress={unsubscribed}
                   className="rounded-full w-full border-primary/80 bg-red-800/80"
                 >
                   Abonné <FontAwesome size={20} name="check" />
