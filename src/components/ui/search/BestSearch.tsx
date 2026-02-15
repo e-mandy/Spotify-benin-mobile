@@ -5,7 +5,7 @@ import { ImageBackground, Text, View } from "react-native";
 import { StyledText } from "../common";
 
 const BestSearch = () => {
-  const bestSearch = useSearchStore((state) => state.searchResult[0]);
+  const bestSearch = useSearchStore((state) => state.searchResult.bestMatch);
 
   if (!bestSearch) return null;
 
@@ -18,7 +18,7 @@ const BestSearch = () => {
             <ImageBackground
               className="h-full w-full"
               source={{
-                uri: bestSearch["photo"],
+                uri: bestSearch.data["photo"],
               }}
             />
           </View>
@@ -28,15 +28,15 @@ const BestSearch = () => {
         </View>
         <View>
           <StyledText className="font-bold mb-3">
-            {bestSearch["singerName"]}
+            {bestSearch.data["singerName"]}
           </StyledText>
           <View className="flex-row items-center gap-2">
             <StyledText className="text-sm bg-surface-dark-100 rounded-2xl py-1 px-2">
-              ARTISTE
+              {bestSearch.type}
             </StyledText>
             <FontAwesome name="circle" size={5} color="white" />
             <Text className="text-sm text-white w-1/2" numberOfLines={1}>
-              {bestSearch["bio"]}
+              {bestSearch.data["bio"]}
             </Text>
           </View>
         </View>

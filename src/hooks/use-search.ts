@@ -20,18 +20,22 @@ export const useSearch = () => {
 
   useEffect(() => {
     if (!search.trim()) setResults(null);
-    const searchFetchData = async () => {
-      try {
-        setIsLoading(true);
-        const result = await fetchBase(`/api/search?query=${search}`);
-        setResults(result);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    const timetoutId = setTimeout(() => {
+      const searchFetchData = async () => {
+        try {
+          setIsLoading(true);
+          const result = await fetchBase(`/api/search/global/${search}`);
+          setResults(result);
+        } catch (error) {
+        } finally {
+          setIsLoading(false);
+        }
+      };
 
-    searchFetchData();
+      searchFetchData();
+    }, 500);
+
+    return () => clearTimeout(timetoutId);
   }, [search]);
 
   useEffect(() => {
