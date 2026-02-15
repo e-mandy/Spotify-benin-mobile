@@ -1,25 +1,42 @@
 import { CreatePlaylist } from "@/src/components/ui/common";
+import { useFavoriteList } from "@/src/hooks/use-favorite";
 import { usePlaylist } from "@/src/hooks/use-playlist";
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { FlatList, Text, View } from "react-native";
-import PlaylistListItem from "./PlaylistSongList";
+import { PlaylistIcon } from "../user-playlist/playlists-icons";
+import PlaylistListItem from "../user-playlist/PlaylistSongList";
 import StyledText from "./StyledText";
-import { PlaylistIcon } from "./playlists-icons";
 
 const CollectionElementSection = () => {
   const { playlists, createPL, deletePL } = usePlaylist();
 
+  const { favorites } = useFavoriteList();
+  console.log(favorites);
+
   const playlistSections = playlists.map((playlist) => ({
     id: playlist.id,
-    component: <PlaylistListItem icon={PlaylistIcon} name={playlist.name} />,
+    component: (
+      <PlaylistListItem
+        playlistId={playlist.id}
+        deletePL={deletePL}
+        icon={PlaylistIcon}
+        name={playlist.name}
+      />
+    ),
   }));
 
   const playlistsData = [
     {
       id: "favorite",
       component: (
-        <PlaylistListItem icon={PlaylistIcon} name="Mes favoris (100)" />
+        <PlaylistListItem
+          playlistId={null}
+          deletePL={null}
+          icon={PlaylistIcon}
+          playlists={favorites}
+          name={`Mes favoris (${favorites.length.toString().padStart(2, "0")})`}
+        />
       ),
     },
     ...playlistSections,

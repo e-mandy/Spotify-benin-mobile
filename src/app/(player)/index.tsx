@@ -3,13 +3,14 @@ import BuyACoffee from "@/src/components/ui/track-play/buy-a-coffee";
 import TrackSeeker from "@/src/components/ui/track-play/seeker";
 import TrackPlayPanel from "@/src/components/ui/track-play/track-play-panel";
 import { styles } from "@/src/constants/styles";
+import { useFavorite } from "@/src/hooks/use-favorite";
 import { useTrackStore } from "@/src/store/track-play.store";
 import { notifSuccess } from "@/src/utils/react-toast";
 import { truncate } from "@/src/utils/truncate";
 import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   TouchableOpacity,
@@ -23,8 +24,14 @@ const TrackPlayer = () => {
   const { currentSong, playlists } = useTrackStore();
   const trackPlay = currentSong?.info;
   const playlistName = playlists.name;
-
+  const { isFavorite, makeFavorite, unFavorite, error } = useFavorite(
+    currentSong.info.id,
+  );
   const { height } = useWindowDimensions();
+
+  useEffect(() => {
+    if (error) notifSuccess("Une erreur est survenue avec les favoris");
+  }, [error]);
 
   return (
     <AppWrapper withScrollView={false} className="px-4">
@@ -78,7 +85,7 @@ const TrackPlayer = () => {
         <View className="flex gap-y-3 p-3">
           <StyledText className="text-4xl font-bold font-spline-sans-regular">
             {" "}
-            {trackPlay.title}{" "}
+            {truncate(trackPlay.title, 15)}{" "}
           </StyledText>
           <StyledText className="font-spline-bold text-white/80">
             {" "}
@@ -87,8 +94,19 @@ const TrackPlayer = () => {
         </View>
         <View>
           <Text>
-            {" "}
-            <MaterialIcons color="#d84141" size={28} name="favorite" />{" "}
+            {isFavorite ? (
+              <TouchableOpacity onPress={unFavorite} activeOpacity={0.5}>
+                <MaterialIcons color="#d84141" size={32} name="favorite" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={makeFavorite}>
+                <MaterialIcons
+                  color="#d84141"
+                  size={32}
+                  name="favorite-outline"
+                />
+              </TouchableOpacity>
+            )}
           </Text>
         </View>
       </View>

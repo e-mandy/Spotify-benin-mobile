@@ -6,6 +6,7 @@ interface IPlaylistProps {
   onPress: () => void;
   cardTitle: string;
   isCreationCard?: boolean;
+  onPlaylistDelete?: () => void;
 }
 
 const PlaylistCard = ({
@@ -13,10 +14,15 @@ const PlaylistCard = ({
   onPress,
   cardTitle,
   isCreationCard = false,
+  onPlaylistDelete,
 }: IPlaylistProps) => {
   return (
     <>
-      <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+      <TouchableOpacity
+        onLongPress={onPlaylistDelete}
+        activeOpacity={0.7}
+        onPress={onPress}
+      >
         <View
           className={`my-2 justify-center items-center w-48 aspect-square rounded-lg bg-[#2A2020]  border-white/10 ${isCreationCard ? "border-2 border-dashed" : ""} `}
         >

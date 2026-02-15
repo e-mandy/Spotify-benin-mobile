@@ -30,6 +30,7 @@ export function usePlaylist() {
   async function deletePL(playlistId: number) {
     try {
       await http.delete(`/playlists/${playlistId}`);
+      setPlaylists(playlists.filter((p) => p.id !== playlistId));
     } catch (error) {
       console.log("Error deleting playlist", error);
     }

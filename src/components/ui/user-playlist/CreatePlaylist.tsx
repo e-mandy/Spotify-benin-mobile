@@ -3,8 +3,8 @@ import { notifSuccess } from "@/src/utils/react-toast";
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { View } from "react-native";
-import { AppModal } from "./AppModal";
-import OutlinedButton from "./OutlinedButton";
+import { AppModal } from "../common/AppModal";
+import OutlinedButton from "../common/OutlinedButton";
 
 const CreatePlaylist = ({ createPL }) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
