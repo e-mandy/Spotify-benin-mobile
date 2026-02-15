@@ -3,20 +3,15 @@ import { useEffect, useState } from "react";
 import { useSearchStore } from "../store/search.store";
 
 export const useSearch = () => {
-  const {
-    query: search,
-    setResults,
-    currentGenre,
-    setGenreInfos,
-    setGenreName,
-  } = useSearchStore.getState();
+  const { setResults, setGenreInfos, setGenreName } = useSearchStore.getState();
+  const search = useSearchStore((state) => state.query);
+  const currentGenre = useSearchStore((state) => state.currentGenre);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchBase = async (query: string) => {
     const response = await axios.get(
-      `${process.env.EXPO_PUBLIC_API_URL}/api/search?query=${search}`,
+      `${process.env.EXPO_PUBLIC_API_URL}${query}`,
     );
-
     const result =
       "data" in response?.data ? response?.data?.data : response?.data;
 
@@ -45,7 +40,7 @@ export const useSearch = () => {
       try {
         setIsLoading(true);
         const genreInfos = await fetchBase(
-          `/api/search/categorie/:${currentGenre}`,
+          `/api/search/categorie/${currentGenre}`,
         );
         setGenreInfos(genreInfos);
       } catch (error) {
@@ -60,7 +55,7 @@ export const useSearch = () => {
     try {
       setIsLoading(true);
       const genreName = await fetchBase(`/api/search/categories`);
-      setGenreName(genreName);
+      setGenreName(genreName.response);
     } catch (error) {}
   };
 
