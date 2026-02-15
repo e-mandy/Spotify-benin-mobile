@@ -9,11 +9,13 @@ import {
 import StyledText from "./StyledText";
 
 type MusicTitle = {
-  title: string;
-  author: string;
+  id: string;
+  label: string;
+  photo: string;
+  author: string[];
 };
 
-const MusicTitle = ({ title, author }: MusicTitle) => {
+const MusicTitle = ({ label: title, author, photo }: MusicTitle) => {
   return (
     <Pressable className="w-full flex-row justify-between items-center p-2 my-2">
       <View className="flex-row items-center">
@@ -21,7 +23,9 @@ const MusicTitle = ({ title, author }: MusicTitle) => {
           <ImageBackground
             className="w-full h-full"
             resizeMode="cover"
-            source={require("@/assets/images/mkay.jpeg")}
+            source={{
+              uri: photo,
+            }}
           />
         </View>
         <View className="flex-col justify-start">

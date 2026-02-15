@@ -4,7 +4,7 @@ interface ISearch {
   query: string;
   musicGenres: any[];
   setQuery: (value: string) => void;
-  searchResult: any[] | null;
+  searchResult: any | null;
   setResults: (results: any[] | null) => void;
   currentGenre: string;
   setCurrentGenre: (genre: string) => void;

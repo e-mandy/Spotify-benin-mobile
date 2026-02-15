@@ -4,7 +4,7 @@ import StyledText from "./StyledText";
 
 type ArtistType = {};
 
-const Artist = ({ author }) => {
+const Artist = ({ photo, id, singerName: name }) => {
   return (
     <View className="flex-row justify-between mb-6 items-center">
       <View className="flex-row items-center">
@@ -12,12 +12,12 @@ const Artist = ({ author }) => {
           <ImageBackground
             className="w-full h-full"
             source={{
-              uri: "https://music-streaming-service-iota.vercel.app/static/img/ggvickey.webp",
+              uri: photo,
             }}
           />
         </View>
         <View>
-          <StyledText className="text-lg font-bold">{author}</StyledText>
+          <StyledText className="text-lg font-bold">{name}</StyledText>
           <StyledText className="text-sm">Artiste</StyledText>
         </View>
       </View>
