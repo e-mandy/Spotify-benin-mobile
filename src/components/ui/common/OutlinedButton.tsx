@@ -12,7 +12,9 @@ const OutlinedButton = (props: IOutlinedButton) => {
       className={`border border-gray-600 h-14 rounded-2xl flex-row items-center mt-5 justify-center ${props.className}`}
     >
       <MaterialIcons name={props.icon} size={20} color={props.iconColor} />
-      <Text className="text-white font-bold text-lg ml-2 flex-row gap-x-2">
+      <Text
+        className={`text-white font-bold text-lg ml-2 flex-row gap-x-2 ${props.textClassName}`}
+      >
         {props.children}
       </Text>
     </TouchableOpacity>

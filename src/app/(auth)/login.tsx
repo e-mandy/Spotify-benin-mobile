@@ -11,7 +11,7 @@ import { InputRowProps } from "@/src/interfaces/input-row.interface";
 import { signInSchema } from "@/src/schema/signin.schema";
 import useAuth from "@/src/store/auth.store";
 import { notifError } from "@/src/utils/react-toast";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
@@ -71,10 +71,6 @@ const Login = () => {
           <StyledText className="text-[16px] max-w-[85%]  mx-auto mt-4 text-muted font-spline-sans-regular text-center py-1">
             Le rythme de notre culture, directement dans vos oreilles.
           </StyledText>
-          <Link href="/(tabs)/search" className="text-white">
-            Bypass
-          </Link>
-
           <Title className="text-center mt-3 mb-4 text-3xl">
             Bon retour parmi nous
           </Title>

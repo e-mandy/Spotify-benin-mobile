@@ -8,4 +8,5 @@ export interface IOutlinedButton extends IProps {
   disable?: boolean;
   className?: string;
   activeOpacity?: number;
+  textClassName?: string;
 }

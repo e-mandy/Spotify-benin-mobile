@@ -4,14 +4,18 @@ import ScrollGenres from "@/src/components/ui/common/ScrollGenres";
 import SecondaryTopBar from "@/src/components/ui/common/SecondaryTopBar";
 import PinnedPlaylist from "@/src/components/ui/library/PinnedPlaylist";
 import React from "react";
+import { ScrollView, View } from "react-native";
 
 const Library = () => {
   return (
-    <AppWrapper>
+    <AppWrapper withScrollView={false}>
       <SecondaryTopBar topic="Ma Bibliothèque" />
       <ScrollGenres />
       <PinnedPlaylist />
-      <CollectionElementSection />
+      <ScrollView className="flex-1">
+        <CollectionElementSection />
+        <View className="h-20"></View>
+      </ScrollView>
     </AppWrapper>
   );
 };

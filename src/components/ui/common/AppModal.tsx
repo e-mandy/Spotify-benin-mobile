@@ -1,4 +1,4 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { Ionicons } from "@expo/vector-icons";
 import { ReactNode } from "react";
 import { Modal, Pressable, View } from "react-native";
 
@@ -30,7 +30,7 @@ export const AppModal = ({
         {children}
 
         <Pressable className="mt-2" onPress={onClose}>
-          <MaterialCommunityIcons size={50} name="close-box" color="#b91c1c" />
+          <Ionicons name="close-circle-outline" size={40} color="#d84141" />
         </Pressable>
       </View>
     </Modal>

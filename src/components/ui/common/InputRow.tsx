@@ -27,7 +27,7 @@ const InputRow = (props: InputRowProps) => {
           onChangeText={(text) => props.onChangeText(props.name, text)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className={`${defaultInputClass}  ${isFocused ? " border border-red-500" : ""}`}
+          className={`${defaultInputClass} ${props.className} ${isFocused ? " border border-red-500" : ""}`}
         ></TextInput>
       )}
     </View>
