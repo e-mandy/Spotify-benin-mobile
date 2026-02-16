@@ -18,7 +18,7 @@ export default function Layout() {
     {
       name: "Recherche",
       icon: "search",
-      path: "/(tabs)/(search)/search",
+      path: "/search",
     },
     {
       name: "Bibliothèque",
@@ -41,7 +41,8 @@ export default function Layout() {
       <TabSlot />
       <TabList className="pointer-events-auto mx-auto  w-[90%] rounded-3xl backdrop-blur-3xl bg-black/90 border border-white/5 px-3 py-4  relative -top-10">
         {tabElements.map((tab) => {
-          const isCurrentPath = tab.path == pathname;
+          const isCurrentPath =
+            tab.path === "/" ? pathname === "/" : pathname.startsWith(tab.path);
           return (
             <TabTrigger key={tab.name} name={tab.name} href={tab.path}>
               <View className="flex items-center">

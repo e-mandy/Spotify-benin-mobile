@@ -11,7 +11,7 @@ const Albums = () => {
   if (!searchAllbums || searchAllbums.length == 0) return null;
   return (
     <View>
-      <SearchCollectionHeader title="Albums" path="/(tabs)/(search)/search" />
+      <SearchCollectionHeader title="Albums" path="/search" />
       <View className="mb-4">
         <FlatList
           className="py-5"

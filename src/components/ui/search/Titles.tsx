@@ -10,7 +10,7 @@ const Titles = () => {
   if (!searchTitles) return null;
   return (
     <View>
-      <SearchCollectionHeader title="Titres" path="/(tabs)/(search)/search" />
+      <SearchCollectionHeader title="Titres" path="/search" />
       <View className="w-full my-4">
         {searchTitles.map((title) => (
           <MusicTitle key={title.id} {...title} />
