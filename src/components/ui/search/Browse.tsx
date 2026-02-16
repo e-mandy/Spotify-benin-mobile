@@ -1,15 +1,29 @@
-import { CATEOGORY_MOCK } from "@/mocks/categories.mock";
-import React from "react";
+import { useSearch } from "@/src/hooks/use-search";
+import { useSearchStore } from "@/src/store/search.store";
+import React, { useEffect } from "react";
 import { FlatList, View } from "react-native";
 import { StyledText } from "../common";
 import Category from "./Category";
 
 const Browse = () => {
+  const { fetchCategories } = useSearch();
+  const categories = useSearchStore((state) => state.categories);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      await fetchCategories();
+    };
+
+    getCategories();
+  }, []);
+
+  if (!categories || categories.length === 0) return null;
+
   return (
     <View className="mb-28">
       <FlatList
-        data={CATEOGORY_MOCK}
-        renderItem={({ item: genre }) => <Category {...genre} />}
+        data={categories}
+        renderItem={({ item: categories }) => <Category {...categories} />}
         numColumns={2}
         ListHeaderComponent={() => (
           <View>
