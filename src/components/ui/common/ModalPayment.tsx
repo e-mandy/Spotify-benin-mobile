@@ -1,5 +1,6 @@
 import { getAxiosInstance } from "@/src/lib/axios.config";
 import { notifSuccess, notifyInfo } from "@/src/utils/react-toast";
+import { truncate } from "@/src/utils/truncate";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Coffee, Heart } from "lucide-react-native";
 import React from "react";
@@ -49,7 +50,7 @@ export const CoffeeModal = ({ artistName }) => {
               <Coffee size={20} color="white" />
             </View>
             <Text className="text-white text-xl font-bold">
-              Soutenir {artistName}
+              Soutenir {truncate(artistName, 25)}
             </Text>
           </View>
         </View>

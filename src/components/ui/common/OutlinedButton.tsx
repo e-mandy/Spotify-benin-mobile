@@ -13,7 +13,7 @@ const OutlinedButton = (props: IOutlinedButton) => {
     >
       <MaterialIcons name={props.icon} size={20} color={props.iconColor} />
       <Text
-        className={`text-white font-bold text-lg ml-2 flex-row gap-x-2 ${props.textClassName}`}
+        className={`text-white text-center font-bold text-lg flex-row gap-x-2 ${props.textClassName}`}
       >
         {props.children}
       </Text>

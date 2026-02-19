@@ -58,11 +58,13 @@ export function useFavorite(titleId: number) {
 }
 
 export function useFavoriteList() {
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [data, setData] = useState<Favorite[]>([]);
+  const [isLoading, setLoading] = useState(false);
 
   async function fetchFav() {
     try {
       const http = getAxiosInstance();
+      setLoading(true);
       const res = await http.get("/favorites");
       const responses: Favorite[] = res.data.data.map((item) => ({
         id: item.title.id,
@@ -72,10 +74,13 @@ export function useFavoriteList() {
         duration: item.title.duration,
         singer: item.title.album.singers[0].singerName,
       }));
+      console.log("favorites responses");
 
-      setFavorites(responses);
+      setData(responses);
     } catch (error) {
       console.log("Fav list err", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -83,5 +88,5 @@ export function useFavoriteList() {
     fetchFav();
   }, []);
 
-  return { favorites };
+  return { data, isLoading };
 }

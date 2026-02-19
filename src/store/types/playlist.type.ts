@@ -5,8 +5,9 @@ export interface IPlaylist {
 }
 
 export interface IPlaylistStore {
-  create: (playlistName: string) => Promise<void>;
-  delete: (playlistId: number) => Promise<void>;
-  getAll: () => Promise<IPlaylist[]>;
   playlists: IPlaylist[];
+  setPlaylists: (p: IPlaylist[]) => void;
+  fetchPlaylists: () => Promise<void>;
+  createPL: (playlistName: string) => Promise<void>;
+  deletePL: (playlistId: number) => Promise<void>;
 }

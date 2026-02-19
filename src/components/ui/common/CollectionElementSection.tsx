@@ -1,6 +1,7 @@
 import { CreatePlaylist } from "@/src/components/ui/common";
-import { useFavoriteList } from "@/src/hooks/use-favorite";
-import { usePlaylist } from "@/src/hooks/use-playlist";
+import { useFavorite } from "@/src/hooks/use-favorite";
+import { usePlaylistSong } from "@/src/hooks/use-playlists-songs";
+import { usePlaylistStore } from "@/src/store/playlist.store";
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { FlatList, Text, View } from "react-native";
@@ -9,15 +10,13 @@ import PlaylistListItem from "../user-playlist/PlaylistSongList";
 import StyledText from "./StyledText";
 
 const CollectionElementSection = () => {
-  const { playlists, createPL, deletePL } = usePlaylist();
+  const { playlists, createPL, deletePL } = usePlaylistStore();
 
-  const { favorites } = useFavoriteList();
-  console.log(favorites);
-
-  const playlistSections = playlists.map((playlist) => ({
+  const userPlaylistElement = playlists.map((playlist) => ({
     id: playlist.id,
     component: (
       <PlaylistListItem
+        useSongFetcher={usePlaylistSong}
         playlistId={playlist.id}
         deletePL={deletePL}
         icon={PlaylistIcon}
@@ -26,24 +25,28 @@ const CollectionElementSection = () => {
     ),
   }));
 
-  const playlistsData = [
-    {
-      id: "favorite",
-      component: (
-        <PlaylistListItem
-          playlistId={null}
-          deletePL={null}
-          icon={PlaylistIcon}
-          playlists={favorites}
-          name={`Mes favoris (${favorites.length.toString().padStart(2, "0")})`}
-        />
-      ),
-    },
-    ...playlistSections,
-    {
-      id: "create",
-      component: <CreatePlaylist createPL={createPL} />,
-    },
+  const favorisElement = {
+    id: "favorite",
+    component: (
+      <PlaylistListItem
+        useSongFetcher={useFavorite}
+        playlistId={null}
+        deletePL={null}
+        icon={PlaylistIcon}
+        name={`Mes favoris`}
+      />
+    ),
+  };
+
+  const createPlaylistElement = {
+    id: "create",
+    component: <CreatePlaylist createPL={createPL} />,
+  };
+
+  const playlistsViewElement = [
+    favorisElement,
+    ...userPlaylistElement,
+    createPlaylistElement,
   ];
 
   return (
@@ -63,7 +66,7 @@ const CollectionElementSection = () => {
       </View>
       <View className="p-4">
         <FlatList
-          data={playlistsData}
+          data={playlistsViewElement}
           className="gap-x-2"
           columnWrapperStyle={{
             justifyContent: "space-between",
@@ -71,7 +74,7 @@ const CollectionElementSection = () => {
           }}
           numColumns={2}
           keyExtractor={({ id }) => id.toString()}
-          renderItem={({ item }) => <> {item.component} </>}
+          renderItem={({ item }) => item.component}
         />
       </View>
     </View>
