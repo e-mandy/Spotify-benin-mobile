@@ -144,8 +144,15 @@ async function createSongAudio(
 ): Promise<TPartialItrackPlay> {
   const newSound = createAudioPlayer(uri);
 
-  newSound.addListener("playbackStatusUpdate", (e) => {
+  newSound.addListener("playbackStatusUpdate", async (e) => {
     if (e.didJustFinish) {
+      if (
+        get()?.playlists?.name &&
+        get().playlists.currentIndex !== get().playlists?.songs?.length - 1
+      ) {
+        await get().goToNext();
+        return;
+      }
       get().pause();
       get().seek(0);
     }
