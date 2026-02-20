@@ -1,11 +1,11 @@
 import {
-  AppWrapper,
-  Button,
-  CircleBrand,
-  GoBack,
-  OtpFormInput,
-  StyledText,
-  Title,
+    AppWrapper,
+    Button,
+    CircleBrand,
+    GoBack,
+    OtpFormInput,
+    StyledText,
+    Title,
 } from "@/src/components/ui/common";
 import { getAxiosInstance } from "@/src/lib/axios.config";
 import { countRecordDuration } from "@/src/utils/count-time";
@@ -109,11 +109,9 @@ const VerifyAccount = () => {
               size={17}
             />
             <StyledText className="text-[16px] text-gray-500">
-              {" "}
-              Renvoyer possible dans{" "}
+              Renvoyer possible dans
               <StyledText className="text-red-600 text-[16px]">
-                {" "}
-                {countRecordDuration(remainingTime)}{" "}
+                {countRecordDuration(remainingTime)}
               </StyledText>
             </StyledText>
           </StyledText>

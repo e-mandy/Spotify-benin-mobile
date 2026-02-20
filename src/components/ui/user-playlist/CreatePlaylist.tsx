@@ -43,8 +43,7 @@ const CreatePlaylist = ({ createPL }) => {
             onPress={processPlaylistCreation}
             textClassName="!text-primary"
           >
-            {" "}
-            Créer{" "}
+            Créer
           </OutlinedButton>
         </View>
       </AppModal>

@@ -48,8 +48,7 @@ const TrackPlayer = () => {
             Lecture en cours
           </Text>
           <Text className="text-xl text-gray-400 font-spline-bold">
-            {" "}
-            {playlistName}
+            {truncate(playlistName, 35)}
           </Text>
         </View>
         <View>
@@ -84,12 +83,10 @@ const TrackPlayer = () => {
       <View className="flex-row items-center justify-between">
         <View className="flex gap-y-3 p-3">
           <StyledText className="text-4xl font-bold font-spline-sans-regular">
-            {" "}
-            {truncate(trackPlay.title, 15)}{" "}
+            {truncate(trackPlay.title, 15)}
           </StyledText>
           <StyledText className="font-spline-bold text-white/80">
-            {" "}
-            {truncate(trackPlay.singer, 30)}{" "}
+            {truncate(trackPlay.singer, 30)}
           </StyledText>
         </View>
         <View>

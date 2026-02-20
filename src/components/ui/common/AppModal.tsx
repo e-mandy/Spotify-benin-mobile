@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { ReactNode } from "react";
 import { Modal, Pressable, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export const AppModal = ({
   showModal,
@@ -18,21 +19,23 @@ export const AppModal = ({
       visible={showModal}
       onRequestClose={onClose}
     >
-      <View
-        className="backdrop-blur-lg backdrop-brightness-50 px-4"
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "rgba(0,0,0,0.4)",
-        }}
-      >
-        {children}
+      <GestureHandlerRootView>
+        <View
+          className="backdrop-blur-lg backdrop-brightness-50 px-4"
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0,0,0,0.4)",
+          }}
+        >
+          {children}
 
-        <Pressable className="mt-2" onPress={onClose}>
-          <Ionicons name="close-circle-outline" size={40} color="#d84141" />
-        </Pressable>
-      </View>
+          <Pressable className="mt-2" onPress={onClose}>
+            <Ionicons name="close-circle-outline" size={40} color="#d84141" />
+          </Pressable>
+        </View>
+      </GestureHandlerRootView>
     </Modal>
   );
 };

@@ -1,11 +1,11 @@
 import { CreatePlaylist } from "@/src/components/ui/common";
-import { useFavorite } from "@/src/hooks/use-favorite";
+import { useFavoriteList } from "@/src/hooks/use-favorite";
 import { usePlaylistSong } from "@/src/hooks/use-playlists-songs";
 import { usePlaylistStore } from "@/src/store/playlist.store";
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { FlatList, Text, View } from "react-native";
-import { PlaylistIcon } from "../user-playlist/playlists-icons";
+import { FavoriteIcon, PlaylistIcon } from "../user-playlist/playlists-icons";
 import PlaylistListItem from "../user-playlist/PlaylistSongList";
 import StyledText from "./StyledText";
 
@@ -26,13 +26,13 @@ const CollectionElementSection = () => {
   }));
 
   const favorisElement = {
-    id: "favorite",
+    id: "favorites",
     component: (
       <PlaylistListItem
-        useSongFetcher={useFavorite}
+        useSongFetcher={useFavoriteList}
         playlistId={null}
         deletePL={null}
-        icon={PlaylistIcon}
+        icon={FavoriteIcon}
         name={`Mes favoris`}
       />
     ),
@@ -44,9 +44,9 @@ const CollectionElementSection = () => {
   };
 
   const playlistsViewElement = [
+    createPlaylistElement,
     favorisElement,
     ...userPlaylistElement,
-    createPlaylistElement,
   ];
 
   return (

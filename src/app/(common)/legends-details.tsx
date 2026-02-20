@@ -1,9 +1,9 @@
 import {
-  AppWrapper,
-  GoBack,
-  StyledText,
-  Title,
-  TrackShuffle,
+    AppWrapper,
+    GoBack,
+    StyledText,
+    Title,
+    TrackShuffle,
 } from "@/src/components/ui/common";
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import ShowData from "@/src/components/ui/common/ShowData";
@@ -12,21 +12,21 @@ import { useSubscription } from "@/src/hooks/use-has-subscribed";
 import { useTrackStore } from "@/src/store/track-play.store";
 import { notifError } from "@/src/utils/react-toast";
 import {
-  Entypo,
-  FontAwesome,
-  FontAwesome5,
-  MaterialIcons,
+    Entypo,
+    FontAwesome,
+    FontAwesome5,
+    MaterialIcons,
 } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { useSearchParams } from "expo-router/build/hooks";
 import React, { useEffect } from "react";
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -107,13 +107,12 @@ const LegendsDetails = () => {
               mensuelles
             </StyledText>
             <Text className="text-xl">
-              {" "}
               <Entypo
                 size={40}
                 color="#6b7280"
                 className="text-gray-500"
                 name="dot-single"
-              />{" "}
+              />
             </Text>
             <StyledText className="text-xl !text-gray-400">
               <Text className="text-white">500k</Text> abonnés
@@ -158,8 +157,7 @@ const LegendsDetails = () => {
                       <View className="flex flex-row items-center gap-x-4">
                         <View>
                           <Text className="font-spline-bold text-orange-800">
-                            {" "}
-                            {index + 1}{" "}
+                            {index + 1}
                           </Text>
                         </View>
                         <View className="h-14 w-14 rounded-ful">
@@ -236,12 +234,10 @@ const LegendsDetails = () => {
                         </View>
                         <View>
                           <StyledText className="text-sm">
-                            {" "}
-                            {album.label}{" "}
+                            {album.label}
                           </StyledText>
                           <Text className="text-muted text-xl">
-                            {" "}
-                            {`${new Date(album.releaseDate).getFullYear()}-album`}{" "}
+                            {`${new Date(album.releaseDate).getFullYear()}-album`}
                           </Text>
                         </View>
                       </View>

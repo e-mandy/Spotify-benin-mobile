@@ -1,4 +1,4 @@
-import { useAddToPlayslist } from "@/src/store/song-add-to-playlist.store";
+import { useFavorite } from "@/src/hooks/use-favorite";
 import { useTrackStore } from "@/src/store/track-play.store";
 import { IPlaylist } from "@/src/store/types/playlist.type";
 import { notifError, notifSuccess } from "@/src/utils/react-toast";
@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Divider, Menu } from "react-native-paper";
 import AddToPlayslist from "./AddToPlayslist";
+import { SwipeableTrack } from "./Swipeable";
 
 export const TrackItem = ({
   id,
@@ -16,6 +17,8 @@ export const TrackItem = ({
   photo,
   playlistName = "",
   playlistItems = [],
+  swipeActive = false,
+  onTrackSwipe,
 }) => {
   const router = useRouter();
   const {
@@ -54,8 +57,6 @@ export const TrackItem = ({
     }
   };
 
-  const { addToPlaylist } = useAddToPlayslist();
-
   const [visible, setVisible] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -63,91 +64,103 @@ export const TrackItem = ({
 
   const closeMenu = () => setVisible(false);
 
-  const onSuccess = (playlist: IPlaylist) => {
+  const onAddToPlaylistSuccess = (playlist: IPlaylist) => {
     notifSuccess(`Une chanson ajoutée à la playlist ${playlist.name}`);
     closeMenu();
     setModalOpen(false);
   };
 
-  const onError = () => {
+  const onAddToPlaylistError = () => {
     notifError(`Une erreur est survenue durant l'ajout à la playlist`);
     closeMenu();
     setModalOpen(false);
   };
 
+  const { makeFavorite, isFavorite } = useFavorite(id);
+
+  const onFavorite = () => {
+    makeFavorite();
+    notifSuccess("Une chanson a été ajoutée à vos favoris.");
+    closeMenu();
+  };
+
   return (
     <>
-      <TouchableOpacity
-        onPress={onTrackPlay}
-        activeOpacity={0.5}
-        className={`flex-row items-center gap-4 rounded-[25px] bg-surface-dark px-5 py-4 mb-3`}
-      >
-        <Image
-          source={{ uri: photo }}
-          className="h-14 w-14 rounded-md bg-black"
-          resizeMode="cover"
-        />
-
-        <View className="flex-1 flex-col">
-          <Text
-            className={`text-base font-bold text-white ${isTheSongOnTrack ? "!text-primary" : ""} `}
-            numberOfLines={1}
-          >
-            {label}
-          </Text>
-          <Text className="text-sm text-gray-400" numberOfLines={1}>
-            {artistName}
-          </Text>
-        </View>
-
+      <SwipeableTrack onTrackDelete={onTrackSwipe} swipeActive={swipeActive}>
         <TouchableOpacity
-          onPress={onPlayIconTouch}
-          className={`h-8 w-8 items-center justify-center rounded-full  border-gray-600 border ${isTheSongOnTrack ? "border-primary" : ""}`}
+          onPress={onTrackPlay}
+          activeOpacity={0.5}
+          className={`flex-row items-center gap-4 rounded-[25px] bg-surface-dark px-5 py-4 mb-3`}
         >
-          {isTheSongOnTrack ? (
-            isPlaying ? (
-              <>
-                {/* {!currentSong.sound?.isBuffering ? ( */}
-                <FontAwesome6 name="pause" size={18} color="#d84141" />
-                {/* ) : ( */}
-                {/* <View className="animate-spin">
+          <Image
+            source={{ uri: photo }}
+            className="h-14 w-14 rounded-md bg-black"
+            resizeMode="cover"
+          />
+
+          <View className="flex-1 flex-col">
+            <Text
+              className={`text-base font-bold text-white ${isTheSongOnTrack ? "!text-primary" : ""} `}
+              numberOfLines={1}
+            >
+              {label}
+            </Text>
+            <Text className="text-sm text-gray-400" numberOfLines={1}>
+              {artistName}
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={onPlayIconTouch}
+            className={`h-8 w-8 items-center justify-center rounded-full  border-gray-600 border ${isTheSongOnTrack ? "border-primary" : ""}`}
+          >
+            {isTheSongOnTrack ? (
+              isPlaying ? (
+                <>
+                  {/* {!currentSong.sound?.isBuffering ? ( */}
+                  <FontAwesome6 name="pause" size={18} color="#d84141" />
+                  {/* ) : ( */}
+                  {/* <View className="animate-spin">
                   <EvilIcons name="spinner-3" size={18} color="#d84141" />
                 </View> */}
-                {/* )} */}
-              </>
+                  {/* )} */}
+                </>
+              ) : (
+                <Entypo name="controller-play" size={18} color="#d84141" />
+              )
             ) : (
-              <Entypo name="controller-play" size={18} color="#d84141" />
-            )
-          ) : (
-            <Entypo name="controller-play" size={18} color="#9ca3af" />
-          )}
-        </TouchableOpacity>
+              <Entypo name="controller-play" size={18} color="#9ca3af" />
+            )}
+          </TouchableOpacity>
 
-        <Menu
-          visible={visible}
-          onDismiss={closeMenu}
-          anchorPosition="top"
-          anchor={
-            <TouchableOpacity
-              onPress={openMenu}
-              className="h-8 w-8 items-center justify-center"
-            >
-              <MaterialIcons name="more-vert" size={24} color="#9ca3af" />
-            </TouchableOpacity>
-          }
-        >
-          <Menu.Item
-            onPress={() => setModalOpen(true)}
-            title="Ajouter à la playlist"
-          />
-          <Menu.Item onPress={() => {}} title="Ajouter aux favoris" />
-          <Divider />
-          <Menu.Item onPress={() => setVisible(false)} title="Fermer" />
-        </Menu>
-      </TouchableOpacity>
+          <Menu
+            visible={visible}
+            onDismiss={closeMenu}
+            anchorPosition="top"
+            anchor={
+              <TouchableOpacity
+                onPress={openMenu}
+                className="h-8 w-8 items-center justify-center"
+              >
+                <MaterialIcons name="more-vert" size={24} color="#9ca3af" />
+              </TouchableOpacity>
+            }
+          >
+            <Menu.Item
+              onPress={() => setModalOpen(true)}
+              title="Ajouter à la playlist"
+            />
+            {!isFavorite && (
+              <Menu.Item onPress={onFavorite} title="Ajouter aux favoris" />
+            )}
+            <Divider />
+            <Menu.Item onPress={() => setVisible(false)} title="Fermer" />
+          </Menu>
+        </TouchableOpacity>
+      </SwipeableTrack>
       <AddToPlayslist
-        onSuccess={onSuccess}
-        onError={onError}
+        onSuccess={onAddToPlaylistSuccess}
+        onError={onAddToPlaylistError}
         songId={id}
         isModalOpen={isModalOpen}
         setModalOpen={setModalOpen}

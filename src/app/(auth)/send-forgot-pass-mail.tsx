@@ -1,11 +1,11 @@
 import KeyboardPrevent from "@/src/components/keyboard-prevent";
 import {
-  AppBrand,
-  AppWrapper,
-  Button,
-  InputRow,
-  StyledText,
-  Title,
+    AppBrand,
+    AppWrapper,
+    Button,
+    InputRow,
+    StyledText,
+    Title,
 } from "@/src/components/ui/common";
 import { ModalEmailSent } from "@/src/components/ui/common/ModalEmailSent";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -76,7 +76,7 @@ const Login = () => {
             <StyledText className="text-[15px] text-red-500 ms-2">
               Retourner à la page de connexion
             </StyledText>
-          </TouchableOpacity>{" "}
+          </TouchableOpacity>
         </StyledText>
       </View>
       <ModalEmailSent showModal={showEmailSentModal} onClose={onModalClose} />

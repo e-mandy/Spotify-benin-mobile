@@ -14,7 +14,7 @@ const Library = () => {
       <PinnedPlaylist />
       <ScrollView className="flex-1">
         <CollectionElementSection />
-        <View className="h-20"></View>
+        <View className="h-40"></View>
       </ScrollView>
     </AppWrapper>
   );

@@ -11,7 +11,6 @@ const Patrimoine = () => {
           <MaterialIcons name="history-edu" size={18} color="#ffcdcd" />
         </StyledText>
         <StyledText className="text-[14px] uppercase tracking-wider font-spline-regular font-bold">
-          {" "}
           Patrimoine
         </StyledText>
       </View>

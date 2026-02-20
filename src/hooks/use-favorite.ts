@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
 import { getAxiosInstance } from "../lib/axios.config";
 import { SongDetails } from "../store/types/play.types";
 
@@ -66,6 +67,7 @@ export function useFavoriteList() {
       const http = getAxiosInstance();
       setLoading(true);
       const res = await http.get("/favorites");
+
       const responses: Favorite[] = res.data.data.map((item) => ({
         id: item.title.id,
         favoritedAt: item.favoritedAt,
@@ -74,7 +76,6 @@ export function useFavoriteList() {
         duration: item.title.duration,
         singer: item.title.album.singers[0].singerName,
       }));
-      console.log("favorites responses");
 
       setData(responses);
     } catch (error) {
@@ -84,9 +85,32 @@ export function useFavoriteList() {
     }
   }
 
-  useEffect(() => {
-    fetchFav();
-  }, []);
+  async function unFavorite(titleId: number) {
+    try {
+      const http = getAxiosInstance();
+      const favoritesCopy = [...data];
+      const optimisticData = data.filter((s) => s.id !== titleId);
+      setData(optimisticData);
+      http
+        .delete(`/favorites/${titleId}`)
+        .then(() => {})
+        .catch(() => setData(favoritesCopy));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  return { data, isLoading };
+  //it is just like the useEffect of react in web
+  //but the difference is it is play whenever the route focus or unfocus
+  //useful here because in RN , component did not unmount by default on screen changes
+  //so in this case we can use the useFocusEffect to simualte the same behaviour like in
+  //a browser
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchFav();
+    }, []),
+  );
+
+  return { data, isLoading, removeItem: unFavorite };
 }

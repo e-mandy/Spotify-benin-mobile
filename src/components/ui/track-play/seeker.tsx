@@ -28,12 +28,10 @@ const TrackSeeker = ({ height = 20, className = "", showDuration = true }) => {
         {showDuration && (
           <View className="flex-row justify-between px-4">
             <Text className="text-xs font-bold text-white/70">
-              {" "}
-              {countRecordDuration(parseInt(currentTime + ""))}{" "}
+              {countRecordDuration(parseInt(currentTime + ""))}
             </Text>
             <Text className="text-xs font-bold text-white/70">
-              {" "}
-              {countRecordDuration(parseInt(duration + ""))}{" "}
+              {countRecordDuration(parseInt(duration + ""))}
             </Text>
           </View>
         )}

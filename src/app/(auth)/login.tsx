@@ -1,11 +1,11 @@
 import KeyboardPrevent from "@/src/components/keyboard-prevent";
 import {
-  AppBrand,
-  AppWrapper,
-  Button,
-  InputRow,
-  StyledText,
-  Title,
+    AppBrand,
+    AppWrapper,
+    Button,
+    InputRow,
+    StyledText,
+    Title,
 } from "@/src/components/ui/common";
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
 import { signInSchema } from "@/src/schema/signin.schema";
@@ -106,7 +106,7 @@ const Login = () => {
 
           <View className="flex flex-row text-[15px] items-center justify-center mx-auto">
             <StyledText className="text-[15px]">
-              Vous n'avez pas de compte ?{" "}
+              Vous n'avez pas de compte ?
             </StyledText>
             <StyledText className="py-2">
               <TouchableOpacity
@@ -116,7 +116,7 @@ const Login = () => {
                 <StyledText className="text-[15px] text-red-500 ms-2">
                   S'inscrire
                 </StyledText>
-              </TouchableOpacity>{" "}
+              </TouchableOpacity>
             </StyledText>
           </View>
         </View>

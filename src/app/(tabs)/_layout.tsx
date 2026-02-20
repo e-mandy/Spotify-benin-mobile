@@ -55,8 +55,7 @@ export default function Layout() {
                 <StyledText
                   className={`text-[12px] font-bold ${isCurrentPath ? "text-red-500" : ""}`}
                 >
-                  {" "}
-                  {tab.name}{" "}
+                  {tab.name}
                 </StyledText>
               </View>
             </TabTrigger>
