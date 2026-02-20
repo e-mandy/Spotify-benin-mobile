@@ -3,19 +3,24 @@ import CollectionElementSection from "@/src/components/ui/common/CollectionEleme
 import ScrollGenres from "@/src/components/ui/common/ScrollGenres";
 import SecondaryTopBar from "@/src/components/ui/common/SecondaryTopBar";
 import PinnedPlaylist from "@/src/components/ui/library/PinnedPlaylist";
+import { useTrackStore } from "@/src/store/track-play.store";
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 
 const Library = () => {
+  const { currentSong } = useTrackStore();
   return (
     <AppWrapper withScrollView={false}>
       <SecondaryTopBar topic="Ma Bibliothèque" />
       <ScrollGenres />
       <PinnedPlaylist />
-      <ScrollView className="flex-1">
-        <CollectionElementSection />
-        <View className="h-40"></View>
-      </ScrollView>
+      <CollectionElementSection />
+
+      {currentSong?.info?.id ? (
+        <View className="h-48"></View>
+      ) : (
+        <View className="h-32"></View>
+      )}
     </AppWrapper>
   );
 };

@@ -6,6 +6,8 @@ import {
 } from "@/src/components/ui/common";
 import { usePlaylistStore } from "@/src/store/playlist.store";
 import { notifError, notifSuccess } from "@/src/utils/react-toast";
+import { truncate } from "@/src/utils/truncate";
+import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useState } from "react";
 import { Alert, FlatList, useWindowDimensions, View } from "react-native";
@@ -83,7 +85,7 @@ const PlaylistListItem = ({
         onPlaylistDelete={handlePlaylistDelete}
         onPress={handlePress}
         iconChild={playlistId === "favorites" ? FavoriteIcon : PlaylistIcon}
-        cardTitle={`${name} (${titlesCount})`}
+        cardTitle={`${truncate(name, 20)} (${titlesCount ?? 0})`}
       />
       <AppModal onClose={() => setModalOpen(false)} showModal={isModalOpen}>
         <View
@@ -94,43 +96,50 @@ const PlaylistListItem = ({
             <View>
               <Title className=""> {name} </Title>
             </View>
-            <TrackShuffle
-              songIds={songs?.map((song) => song.id) ?? []}
-              playlistName={name}
-            />
+            {songs.length > 0 && (
+              <TrackShuffle
+                songIds={songs?.map((song) => song.id) ?? []}
+                playlistName={name}
+              />
+            )}
           </View>
           <View className="mb-4"></View>
 
-          <View>
+          <View style={{ height: 0.55 * height }}>
             {songs?.length === 0 ? (
-              <View>
-                <StyledText className="text-center text-muted text-md">
+              <View className="flex-col justify-center items-center mt-32">
+                <Feather color="#fff" size={45} name="music" />
+                <StyledText className="text-center mt-3 text-[18px]">
                   Aucune chanson trouvée
                 </StyledText>
               </View>
             ) : (
               <ShowData isLoading={isLoadingSongs}>
-                <FlatList
-                  data={songs}
-                  numColumns={1}
-                  keyExtractor={({ id }) => id.toString()}
-                  renderItem={({ item }) => {
-                    return (
-                      <View className="my-1">
-                        <TrackItem
-                          onTrackSwipe={() => handleSwipe(item.id)}
-                          swipeActive={true}
-                          id={item.id}
-                          photo={item.cover}
-                          label={item.title}
-                          artistName={item.singer}
-                          playlistItems={songs?.map((song) => song.id) ?? []}
-                          playlistName={name}
-                        />
-                      </View>
-                    );
-                  }}
-                />
+                <View>
+                  <FlatList
+                    data={songs}
+                    showsVerticalScrollIndicator={false}
+                    scrollEnabled={true}
+                    numColumns={1}
+                    keyExtractor={({ id }) => id.toString()}
+                    renderItem={({ item }) => {
+                      return (
+                        <View className="my-1">
+                          <TrackItem
+                            onTrackSwipe={() => handleSwipe(item.id)}
+                            swipeActive={true}
+                            id={item.id}
+                            photo={item.cover}
+                            label={item.title}
+                            artistName={item.singer}
+                            playlistItems={songs?.map((song) => song.id) ?? []}
+                            playlistName={name}
+                          />
+                        </View>
+                      );
+                    }}
+                  />
+                </View>
               </ShowData>
             )}
           </View>

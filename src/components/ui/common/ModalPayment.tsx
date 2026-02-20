@@ -35,10 +35,13 @@ export const CoffeeModal = ({ artistName }) => {
       amount,
       currency: "XOF",
     };
-
-    const res = await http.post("/buy/donations", payload);
-    console.log(res.data);
-    notifyInfo("Veuillez confirmer le paiement sur votre téléphone");
+    try {
+      const res = await http.post("/buy/donations", payload);
+      console.log(res.data);
+      notifyInfo("Veuillez confirmer le paiement sur votre téléphone");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -56,7 +59,7 @@ export const CoffeeModal = ({ artistName }) => {
         </View>
 
         <Text className="text-gray-400 mb-6 leading-5">
-          Ton soutien permet à l'artiste de continuer à produire de la qualité.
+          Ton soutien permet à l‘artiste de continuer à produire de la qualité.
           Tous les dons sont reversés directement.
         </Text>
 

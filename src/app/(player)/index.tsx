@@ -1,25 +1,45 @@
 import { AppWrapper, StyledText } from "@/src/components/ui/common";
+import AddToPlayslist from "@/src/components/ui/common/AddToPlayslist";
 import BuyACoffee from "@/src/components/ui/track-play/buy-a-coffee";
 import TrackSeeker from "@/src/components/ui/track-play/seeker";
 import TrackPlayPanel from "@/src/components/ui/track-play/track-play-panel";
 import { styles } from "@/src/constants/styles";
 import { useFavorite } from "@/src/hooks/use-favorite";
 import { useTrackStore } from "@/src/store/track-play.store";
-import { notifSuccess } from "@/src/utils/react-toast";
+import { IPlaylist } from "@/src/store/types/playlist.type";
+import { notifError, notifSuccess } from "@/src/utils/react-toast";
 import { truncate } from "@/src/utils/truncate";
 import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   TouchableOpacity,
   useWindowDimensions,
   View,
 } from "react-native";
+import { Divider, Menu } from "react-native-paper";
 
 const TrackPlayer = () => {
   const router = useRouter();
+
+  const [visible, setVisible] = useState(false);
+  const openMenu = () => setVisible(true);
+  const closeMenu = () => setVisible(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const onAddToPlaylistSuccess = (playlist: IPlaylist) => {
+    notifSuccess(`Une chanson ajoutée à la playlist ${playlist.name}`);
+    closeMenu();
+    setModalOpen(false);
+  };
+
+  const onAddToPlaylistError = () => {
+    notifError(`Une erreur est survenue durant l'ajout à la playlist`);
+    closeMenu();
+    setModalOpen(false);
+  };
 
   const { currentSong, playlists } = useTrackStore();
   const trackPlay = currentSong?.info;
@@ -52,7 +72,26 @@ const TrackPlayer = () => {
           </Text>
         </View>
         <View>
-          <FontAwesome5 size={20} color="#fff" name="ellipsis-h" />
+          <Menu
+            visible={visible}
+            onDismiss={closeMenu}
+            anchorPosition="top"
+            anchor={
+              <TouchableOpacity
+                onPress={openMenu}
+                className="h-8 w-8 items-center justify-center"
+              >
+                <FontAwesome5 size={20} color="#fff" name="ellipsis-h" />
+              </TouchableOpacity>
+            }
+          >
+            <Menu.Item
+              onPress={() => setModalOpen(true)}
+              title="Ajouter à la playlist"
+            />
+            <Divider />
+            <Menu.Item onPress={() => setVisible(false)} title="Fermer" />
+          </Menu>
         </View>
       </View>
       <View
@@ -112,6 +151,14 @@ const TrackPlayer = () => {
         <TrackPlayPanel />
       </View>
       <BuyACoffee artistName={trackPlay.singer} />
+      <AddToPlayslist
+        closeMenu={closeMenu}
+        songId={currentSong.info.id}
+        isModalOpen={isModalOpen}
+        setModalOpen={setModalOpen}
+        onSuccess={onAddToPlaylistSuccess}
+        onError={onAddToPlaylistError}
+      />
     </AppWrapper>
   );
 };

@@ -1,9 +1,9 @@
 import {
-    AppWrapper,
-    GoBack,
-    StyledText,
-    Title,
-    TrackShuffle,
+  AppWrapper,
+  GoBack,
+  StyledText,
+  Title,
+  TrackShuffle,
 } from "@/src/components/ui/common";
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import ShowData from "@/src/components/ui/common/ShowData";
@@ -11,22 +11,23 @@ import { useFetch } from "@/src/hooks/use-fetch-api";
 import { useSubscription } from "@/src/hooks/use-has-subscribed";
 import { useTrackStore } from "@/src/store/track-play.store";
 import { notifError } from "@/src/utils/react-toast";
+import { truncate } from "@/src/utils/truncate";
 import {
-    Entypo,
-    FontAwesome,
-    FontAwesome5,
-    MaterialIcons,
+  Entypo,
+  FontAwesome,
+  FontAwesome5,
+  MaterialIcons,
 } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { useSearchParams } from "expo-router/build/hooks";
 import React, { useEffect } from "react";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -125,7 +126,7 @@ const LegendsDetails = () => {
                   className="rounded-full w-full border-muted/40"
                   onPress={subscribed}
                 >
-                  S'abonner
+                  S’abonner
                 </OutlinedButton>
               ) : (
                 <OutlinedButton
@@ -172,7 +173,7 @@ const LegendsDetails = () => {
                           <Title
                             className={`text-xl ${isTheSongOnTrack(song.id) ? "!text-primary" : ""}`}
                           >
-                            {song.label}
+                            {truncate(song.label, 22)}
                           </Title>
                           <View className="flex flex-row items-center gap-x-2">
                             <Text>

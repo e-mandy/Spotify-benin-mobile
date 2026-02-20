@@ -39,7 +39,7 @@ const CollectionElementSection = () => {
   );
 
   return (
-    <View>
+    <View className="flex-1">
       <View className="flex flex-row justify-between">
         <View className="flex-row gap-x-2">
           <Text>
@@ -56,7 +56,9 @@ const CollectionElementSection = () => {
       <View className="p-4">
         <FlatList
           data={playlistsViewElement}
+          scrollEnabled={true}
           className="gap-x-2"
+          showsVerticalScrollIndicator={false}
           columnWrapperStyle={{
             justifyContent: "space-between",
             columnGap: "15px",

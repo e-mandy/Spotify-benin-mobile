@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode } from "react";
+import { useFocusEffect } from "expo-router";
+import { ReactNode, useCallback } from "react";
 import { Modal, Pressable, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -12,6 +13,12 @@ export const AppModal = ({
   onClose: () => void;
   children: ReactNode;
 }) => {
+  useFocusEffect(
+    useCallback(() => {
+      if (showModal) onClose();
+    }, []),
+  );
+
   return (
     <Modal
       animationType="slide"

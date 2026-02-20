@@ -59,9 +59,7 @@ export const TrackItem = ({
 
   const [visible, setVisible] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-
   const openMenu = () => setVisible(true);
-
   const closeMenu = () => setVisible(false);
 
   const onAddToPlaylistSuccess = (playlist: IPlaylist) => {
@@ -159,6 +157,7 @@ export const TrackItem = ({
         </TouchableOpacity>
       </SwipeableTrack>
       <AddToPlayslist
+        closeMenu={closeMenu}
         onSuccess={onAddToPlaylistSuccess}
         onError={onAddToPlaylistError}
         songId={id}

@@ -7,8 +7,7 @@ import SearchCollectionHeader from "../common/SearchCollectionHeader";
 const Albums = () => {
   const searchAllbums = useSearchStore((state) => state.searchResult?.albums);
 
-  console.log(searchAllbums);
-  if (!searchAllbums || searchAllbums.length == 0) return null;
+  if (!searchAllbums || searchAllbums.length === 0) return null;
   return (
     <View>
       <SearchCollectionHeader title="Albums" path="/(tabs)/(search)/search" />
