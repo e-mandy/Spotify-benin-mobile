@@ -11,6 +11,14 @@ export interface SongDetails {
   isFavorite: boolean;
 }
 
+export interface IPlaylistItem {
+  id: string | number;
+  title: string;
+  cover: string;
+  duration: string;
+  singer: string;
+}
+
 export interface ICurrentSong {
   info: SongDetails;
   sound?: AudioPlayer;

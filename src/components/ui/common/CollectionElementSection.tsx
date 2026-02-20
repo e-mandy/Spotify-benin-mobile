@@ -1,53 +1,42 @@
 import { CreatePlaylist } from "@/src/components/ui/common";
-import { useFavoriteList } from "@/src/hooks/use-favorite";
-import { usePlaylistSong } from "@/src/hooks/use-playlists-songs";
 import { usePlaylistStore } from "@/src/store/playlist.store";
 import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+import { useFocusEffect } from "expo-router";
+import React, { useCallback } from "react";
 import { FlatList, Text, View } from "react-native";
-import { FavoriteIcon, PlaylistIcon } from "../user-playlist/playlists-icons";
 import PlaylistListItem from "../user-playlist/PlaylistSongList";
 import StyledText from "./StyledText";
 
 const CollectionElementSection = () => {
-  const { playlists, createPL, deletePL } = usePlaylistStore();
+  const { fetchPlaylists, createPL, deletePL, playlists, deletePLSongs } =
+    usePlaylistStore();
 
-  const userPlaylistElement = playlists.map((playlist) => ({
+  const playlistsItems = playlists.map((playlist) => ({
     id: playlist.id,
     component: (
       <PlaylistListItem
-        useSongFetcher={usePlaylistSong}
-        playlistId={playlist.id}
+        key={playlist.id}
         deletePL={deletePL}
-        icon={PlaylistIcon}
+        playlistId={playlist.id}
         name={playlist.name}
+        titlesCount={playlist.titles}
+        removeItem={deletePLSongs}
       />
     ),
   }));
-
-  const favorisElement = {
-    id: "favorites",
-    component: (
-      <PlaylistListItem
-        useSongFetcher={useFavoriteList}
-        playlistId={null}
-        deletePL={null}
-        icon={FavoriteIcon}
-        name={`Mes favoris`}
-      />
-    ),
-  };
 
   const createPlaylistElement = {
     id: "create",
     component: <CreatePlaylist createPL={createPL} />,
   };
 
-  const playlistsViewElement = [
-    createPlaylistElement,
-    favorisElement,
-    ...userPlaylistElement,
-  ];
+  const playlistsViewElement = [createPlaylistElement, ...playlistsItems];
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchPlaylists();
+    }, [fetchPlaylists]),
+  );
 
   return (
     <View>

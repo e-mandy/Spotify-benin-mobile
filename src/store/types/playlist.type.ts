@@ -2,6 +2,7 @@ export interface IPlaylist {
   id: number;
   name: string;
   songs?: number[];
+  titles?: number;
 }
 
 export interface IPlaylistStore {
