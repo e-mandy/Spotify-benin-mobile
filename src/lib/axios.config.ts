@@ -1,8 +1,9 @@
+import { API_URL } from "@env";
 import axios from "axios";
 import { getItemFromStorage, setItemInStorage } from "./secure-storage";
 
 const baseConfig = {
-  baseURL: `${process.env.EXPO_PUBLIC_API_URL}/api`,
+  baseURL: `${API_URL}/api`,
 };
 
 //this axios instance will retry on 401 response to get an access_token from refresh_token
@@ -24,12 +25,9 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = await getItemFromStorage("refreshToken");
-        const response = await axios.post(
-          `${process.env.EXPO_PUBLIC_API_URL}/api/auth/refresh-token`,
-          {
-            refreshToken,
-          },
-        );
+        const response = await axios.post(`${API_URL}/api/auth/refresh-token`, {
+          refreshToken,
+        });
         const { accessToken, refreshToken: newRefreshToken } = response.data;
         await setItemInStorage("accessToken", accessToken);
         await setItemInStorage("refreshToken", newRefreshToken);

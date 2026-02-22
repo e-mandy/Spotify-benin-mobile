@@ -8,6 +8,7 @@ import ShowData from "@/src/components/ui/common/ShowData";
 import { TrackItem } from "@/src/components/ui/common/TrackItem";
 import { styles } from "@/src/constants/styles";
 import { useFetch } from "@/src/hooks/use-fetch-api";
+import { STREAM_URL } from "@env";
 import { Image } from "expo-image";
 import { useSearchParams } from "expo-router/build/hooks";
 import React from "react";
@@ -18,7 +19,7 @@ const DayMixDetails = () => {
   const dayMixId = parseInt(searchParams.get("mixeId"));
 
   const { isLoading, data: mixe } = useFetch(
-    `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix/${dayMixId}`,
+    `${STREAM_URL}/stream/daymix/${dayMixId}`,
   );
 
   const playlistItems = mixe?.playlist?.map?.((mixe) => mixe.id);

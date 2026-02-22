@@ -1,4 +1,5 @@
 import { useFetch } from "@/src/hooks/use-fetch-api";
+import { STREAM_URL } from "@env";
 import React from "react";
 import { ScrollView, View } from "react-native";
 import { StyledText } from "../common";
@@ -6,9 +7,7 @@ import ShowData from "../common/ShowData";
 import SingleLegend from "./SingleLegend";
 
 const BenineseLegends = () => {
-  const { isLoading, data: legends } = useFetch(
-    `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/legends`,
-  );
+  const { isLoading, data: legends } = useFetch(`${STREAM_URL}/stream/legends`);
 
   return (
     <View>

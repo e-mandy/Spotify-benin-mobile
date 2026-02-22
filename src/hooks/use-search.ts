@@ -1,3 +1,4 @@
+import { API_URL } from "@env";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchStore } from "../store/search.store";
@@ -9,9 +10,7 @@ export const useSearch = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchBase = async (query: string) => {
-    const response = await axios.get(
-      `${process.env.EXPO_PUBLIC_API_URL}${query}`,
-    );
+    const response = await axios.get(`${API_URL}${query}`);
     const result =
       "data" in response?.data ? response?.data?.data : response?.data;
 

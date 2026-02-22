@@ -1,4 +1,5 @@
 import { useFetch } from "@/src/hooks/use-fetch-api";
+import { STREAM_URL } from "@env";
 import React from "react";
 import { View } from "react-native";
 import { StyledText } from "../common";
@@ -7,7 +8,7 @@ import { TrackItem } from "../common/TrackItem";
 
 const Discoveries = () => {
   const { isLoading, data: discoveries } = useFetch(
-    `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix/1`,
+    `${STREAM_URL}/stream/daymix/1`,
   );
 
   const discoversItems = (discoveries as any).playlist ?? [];

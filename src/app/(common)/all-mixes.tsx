@@ -3,15 +3,14 @@ import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import { useFetch } from "@/src/hooks/use-fetch-api";
 import { IMixeItem } from "@/src/interfaces/mixe-item.interface";
 import { notifSuccess } from "@/src/utils/react-toast";
+import { STREAM_URL } from "@env";
 import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const AllMixes = () => {
-  const { isLoading, data: mixes } = useFetch(
-    `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix`,
-  );
+  const { data: mixes } = useFetch(`${STREAM_URL}/stream/daymix`);
 
   return (
     <View>

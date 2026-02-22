@@ -5,6 +5,8 @@ import {
   Title,
   TrackShuffle,
 } from "@/src/components/ui/common";
+import { STREAM_URL } from "@env";
+
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import ShowData from "@/src/components/ui/common/ShowData";
 import { useFetch } from "@/src/hooks/use-fetch-api";
@@ -44,7 +46,7 @@ const LegendsDetails = () => {
   const legendId = searchParams.get("legendId");
 
   const { isLoading, data: legend } = useFetch(
-    `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/legends/${legendId}`,
+    `${STREAM_URL}/stream/legends/${legendId}`,
   );
 
   const { subscribed, unsubscribed, hasSubscribed, error } = useSubscription(

@@ -36,7 +36,7 @@ const usePlaylist = create<IPlaylistStore>((set, get) => ({
     try {
       const http = getAxiosInstance();
       const res = await http.get(`/playlists/`);
-      const playlists = res.data.data as IPlaylist[];
+      const playlists = (res.data.data ?? []) as IPlaylist[];
       set({ playlists });
     } catch (error) {
       console.log("Error fetching playlist", error);

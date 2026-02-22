@@ -24,7 +24,7 @@ const AddToPlayslist = ({
 
   const router = useRouter();
 
-  const playlistsItems = playlists.filter(
+  const playlistsItems = playlists?.filter(
     (p) => p.id.toString() !== "favorites",
   );
 
@@ -48,7 +48,7 @@ const AddToPlayslist = ({
         <View className="mb-4"></View>
         {/* Because favorite is also a playlist but we don't wanna considere it like that here */}
         {/* Since it is not an add to favorite action but we want real playlists*/}
-        {playlists.length <= 1 ? (
+        {playlists?.length <= 1 ? (
           <View className="flex gap-y-8">
             <StyledText className="text-[18px] mt-8 text-muted text-center">
               Aucune playlist pour le moment

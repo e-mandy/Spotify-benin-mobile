@@ -1,3 +1,4 @@
+import { STREAM_URL } from "@env";
 import { createAudioPlayer } from "expo-audio";
 import { create } from "zustand";
 import { getAxiosInstance } from "../lib/axios.config";
@@ -194,7 +195,7 @@ export function useTrackStore() {
 }
 
 export function getStreamUrl(audioFile: string, userId, songId) {
-  return `${process.env.EXPO_PUBLIC_STREAM_URL}/stream?userId=${userId}&titleId=${songId}&audioFile=${audioFile}`;
+  return `${STREAM_URL}/stream?userId=${userId}&titleId=${songId}&audioFile=${audioFile}`;
 }
 
 export default useTrackPlay;

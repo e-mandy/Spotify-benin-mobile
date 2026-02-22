@@ -18,7 +18,7 @@ export const TrackItem = ({
   playlistName = "",
   playlistItems = [],
   swipeActive = false,
-  onTrackSwipe,
+  onTrackSwipe = () => {},
 }) => {
   const router = useRouter();
   const {
