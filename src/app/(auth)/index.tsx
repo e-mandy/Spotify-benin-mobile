@@ -1,11 +1,11 @@
 import KeyboardPrevent from "@/src/components/keyboard-prevent";
 import {
-    AppBrand,
-    AppWrapper,
-    Button,
-    InputRow,
-    StyledText,
-    Title,
+  AppBrand,
+  AppWrapper,
+  Button,
+  InputRow,
+  StyledText,
+  Title,
 } from "@/src/components/ui/common";
 import { InputRowProps } from "@/src/interfaces/input-row.interface";
 import { signupSchema } from "@/src/schema/signup.schema";
@@ -82,8 +82,8 @@ const Register = () => {
   };
 
   return (
-    <AppWrapper className="!bg-black/90">
-      <KeyboardPrevent>
+    <AppWrapper withScrollView={false} className="!bg-black/90">
+      <KeyboardPrevent scrollable={true}>
         <View>
           <AppBrand />
         </View>
@@ -112,7 +112,7 @@ const Register = () => {
               onPress={handleSubmit}
               prefixIcon="arrow-right-thin"
             >
-              S'inscrire
+              S’inscrire
             </Button>
           </View>
 

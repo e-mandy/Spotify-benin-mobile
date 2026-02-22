@@ -61,8 +61,8 @@ const Login = () => {
   };
 
   return (
-    <AppWrapper className="!bg-black/90">
-      <KeyboardPrevent>
+    <AppWrapper withScrollView={false} className="!bg-black/90">
+      <KeyboardPrevent scrollable={true}>
         <View>
           <AppBrand />
         </View>
