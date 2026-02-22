@@ -5,6 +5,7 @@ import { IPlaylist } from "./types/playlist.type";
 
 interface IPlaylistStore {
   isLoadingSongs: boolean;
+  isCreatingPL: boolean;
   playlists: IPlaylist[];
   playlistsSongs: Record<string | number, IPlaylistItem[]>;
   setPlaylists: (p: IPlaylist[]) => void;
@@ -22,6 +23,7 @@ const usePlaylist = create<IPlaylistStore>((set, get) => ({
   isLoadingSongs: false,
   playlistsSongs: {},
   playlists: [],
+  isCreatingPL: false,
   async getPlaylistItems(playlistId) {
     set({ isLoadingSongs: true });
     const fetcher = playlistId === "favorites" ? fetchFav : fetchSongs;
@@ -45,6 +47,7 @@ const usePlaylist = create<IPlaylistStore>((set, get) => ({
   async createPL(playlistName) {
     try {
       const http = getAxiosInstance();
+      set({ isCreatingPL: true });
       const res = await http.post(`/playlists`, { name: playlistName });
       const playlist = res.data.data;
       set({
@@ -55,6 +58,8 @@ const usePlaylist = create<IPlaylistStore>((set, get) => ({
       });
     } catch (error) {
       console.log("Error creating playlist", error);
+    } finally {
+      set({ isCreatingPL: false });
     }
   },
   setPlaylists(p: IPlaylist[]) {

@@ -44,7 +44,7 @@ const Patrimoine = () => {
       <View className="mt-5">
         <Button
           prefixIcon="arrow-right-thin"
-          className="!py-3 px-4 !bg-white text-start !items-start !justify-start max-w-[70%]"
+          className="!py-3 px-4 !bg-white text-start !items-start !justify-start w-60 whitespace-nowrap"
           textStyle="!text-red-900 text-xl"
           colorIcon="#7f1d1d"
         >

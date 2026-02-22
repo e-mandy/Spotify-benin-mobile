@@ -5,7 +5,6 @@ import {
   Title,
   TrackShuffle,
 } from "@/src/components/ui/common";
-import { STREAM_URL } from "@env";
 
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import ShowData from "@/src/components/ui/common/ShowData";
@@ -46,7 +45,7 @@ const LegendsDetails = () => {
   const legendId = searchParams.get("legendId");
 
   const { isLoading, data: legend } = useFetch(
-    `${STREAM_URL}/stream/legends/${legendId}`,
+    `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/legends/${legendId}`,
   );
 
   const { subscribed, unsubscribed, hasSubscribed, error } = useSubscription(
@@ -91,7 +90,7 @@ const LegendsDetails = () => {
               <View className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background-dark"></View>
             </View>
             <View>
-              <View className="absolute bottom-5 flex-row mx-2 flex max-w-[40%] items-center px-3 py-1 rounded-full bg-red-800/90 border border-red-500">
+              <View className="absolute bottom-5 flex-row mx-2 flex  items-center px-3 py-1 rounded-full bg-red-800/90 border border-red-500">
                 <StyledText className="text-sm">
                   <MaterialIcons size={20} name="verified" />
                 </StyledText>
@@ -104,7 +103,7 @@ const LegendsDetails = () => {
           <Title className="text-center font-bold text-4xl font-spline-sans-regular  ">
             {legend.name}
           </Title>
-          <View className="flex items-center flex-row">
+          <View className="flex flex-wrap items-center flex-row">
             <StyledText className="text-xl !text-gray-400">
               <Text className="font-spline-bold text-white">1.2M</Text> écoutes
               mensuelles
@@ -139,10 +138,12 @@ const LegendsDetails = () => {
                 </OutlinedButton>
               )}
             </View>
-            <TrackShuffle
-              songIds={mostKnownSongs.map((s) => s.id)}
-              playlistName={`Légende - ${legend.name}`}
-            />
+            <View className="ms-4 items-end">
+              <TrackShuffle
+                songIds={mostKnownSongs.map((s) => s.id)}
+                playlistName={`Légende - ${legend.name}`}
+              />
+            </View>
           </View>
 
           <View className="my-3">

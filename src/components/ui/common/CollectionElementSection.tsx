@@ -8,7 +8,7 @@ import PlaylistListItem from "../user-playlist/PlaylistSongList";
 import StyledText from "./StyledText";
 
 const CollectionElementSection = () => {
-  const { fetchPlaylists, createPL, deletePL, playlists, deletePLSongs } =
+  const { fetchPlaylists, deletePL, playlists, deletePLSongs } =
     usePlaylistStore();
 
   const playlistsItems = playlists.map((playlist) => ({
@@ -27,7 +27,7 @@ const CollectionElementSection = () => {
 
   const createPlaylistElement = {
     id: "create",
-    component: <CreatePlaylist createPL={createPL} />,
+    component: <CreatePlaylist />,
   };
 
   const playlistsViewElement = [createPlaylistElement, ...playlistsItems];
@@ -39,9 +39,9 @@ const CollectionElementSection = () => {
   );
 
   return (
-    <View className="flex-1">
+    <View>
       <View className="flex flex-row justify-between">
-        <View className="flex-row gap-x-2">
+        <View className="flex-row gap-x-2 px-4">
           <Text>
             <MaterialIcons name="sort" size={24} color="white" />
           </Text>
@@ -56,11 +56,12 @@ const CollectionElementSection = () => {
       <View className="p-4">
         <FlatList
           data={playlistsViewElement}
-          scrollEnabled={true}
-          className="gap-x-2"
+          scrollEnabled={false}
+          className="gap-x-4"
           showsVerticalScrollIndicator={false}
           columnWrapperStyle={{
             justifyContent: "space-between",
+            flexWrap: "nowrap",
             columnGap: "15px",
           }}
           numColumns={2}

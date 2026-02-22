@@ -1,4 +1,5 @@
 import { InputRow, PlaylistCard, StyledText } from "@/src/components/ui/common";
+import { usePlaylistStore } from "@/src/store/playlist.store";
 import { notifSuccess } from "@/src/utils/react-toast";
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
@@ -6,11 +7,12 @@ import { View } from "react-native";
 import { AppModal } from "../common/AppModal";
 import OutlinedButton from "../common/OutlinedButton";
 
-const CreatePlaylist = ({ createPL }) => {
+const CreatePlaylist = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [inputText, setInputText] = useState("");
   const handlePress = () => setModalOpen(true);
   const icon = <AntDesign color="#B6A0A0" size={40} name="plus" />;
+  const { createPL, isCreatingPL } = usePlaylistStore();
 
   async function processPlaylistCreation() {
     if (!inputText) return;
@@ -40,10 +42,11 @@ const CreatePlaylist = ({ createPL }) => {
             placeholder="Mes chansons préférées"
           />
           <OutlinedButton
+            disable={isCreatingPL}
             onPress={processPlaylistCreation}
             textClassName="!text-primary"
           >
-            Créer
+            {isCreatingPL ? "Création..." : "Créer"}
           </OutlinedButton>
         </View>
       </AppModal>

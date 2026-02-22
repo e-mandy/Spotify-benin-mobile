@@ -1,5 +1,4 @@
 import { useFetch } from "@/src/hooks/use-fetch-api";
-import { STREAM_URL } from "@env";
 import { useRouter } from "expo-router";
 import React from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
@@ -7,7 +6,9 @@ import { SingleMixe, StyledText } from "../common";
 import ShowData from "../common/ShowData";
 
 const MixDuJour = () => {
-  const { isLoading, data: mixes } = useFetch(`${STREAM_URL}/stream/daymix`);
+  const { isLoading, data: mixes } = useFetch(
+    `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix`,
+  );
 
   const router = useRouter();
 
