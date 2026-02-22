@@ -24,7 +24,7 @@ const DayMixDetails = () => {
 
   const playlistItems = mixe?.playlist?.map?.((mixe) => mixe.id);
   return (
-    <AppWrapper withScrollView={false}>
+    <AppWrapper>
       <GoBack pageTitle="Détails de cette mixe" />
       <View className="p-4">
         <ShowData isLoading={isLoading}>
