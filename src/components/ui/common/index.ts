@@ -1,3 +1,5 @@
+import CreatePlaylist from "../user-playlist/CreatePlaylist";
+import PlaylistCard from "../user-playlist/PlaylistCard";
 import AppBrand from "./AppBrand";
 import AppWrapper from "./AppWrapper";
 import Avatar from "./Avatar";
@@ -19,11 +21,13 @@ export {
   Avatar,
   Button,
   CircleBrand,
+  CreatePlaylist,
   DataLoader,
   GoBack,
   InfoRow,
   InputRow,
   OtpFormInput,
+  PlaylistCard,
   SingleMixe,
   StyledText,
   Title,

@@ -9,7 +9,7 @@ import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const AllMixes = () => {
-  const { isLoading, data: mixes } = useFetch(
+  const { data: mixes } = useFetch(
     `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix`,
   );
 

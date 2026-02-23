@@ -10,19 +10,22 @@ const Discoveries = () => {
     `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix/1`,
   );
 
+  const discoversItems = (discoveries as any).playlist ?? [];
   return (
     <View>
       <View className="flex flex-row items-center justify-between">
         <StyledText className="font-spline-bold mb-8">Découvertes</StyledText>
       </View>
       <ShowData isLoading={isLoading}>
-        {(discoveries as any).playlist?.map?.((track, i) => (
+        {discoversItems?.map?.((track, i) => (
           <TrackItem
             key={i}
             id={track.id}
             label={track.label}
             artistName={track.artistName}
             photo={track.photo}
+            playlistName="Découvertes"
+            playlistItems={discoversItems.map((song) => song.id)}
           />
         ))}
       </ShowData>

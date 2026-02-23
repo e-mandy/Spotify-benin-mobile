@@ -82,8 +82,8 @@ const Register = () => {
   };
 
   return (
-    <AppWrapper className="!bg-black/90">
-      <KeyboardPrevent>
+    <AppWrapper withScrollView={false} className="!bg-black/90">
+      <KeyboardPrevent scrollable={true}>
         <View>
           <AppBrand />
         </View>
@@ -112,7 +112,7 @@ const Register = () => {
               onPress={handleSubmit}
               prefixIcon="arrow-right-thin"
             >
-              S'inscrire
+              S’inscrire
             </Button>
           </View>
 
@@ -121,7 +121,7 @@ const Register = () => {
           <View>
             <View className="flex flex-row text-[15px] items-center mx-auto">
               <StyledText className="flex flex-row text-[15px] items-center">
-                Vous avez déjà un compte ?{" "}
+                Vous avez déjà un compte ?
               </StyledText>
               <StyledText>
                 <TouchableOpacity
@@ -131,7 +131,7 @@ const Register = () => {
                   <StyledText className="text-[15px] text-red-500 ms-2">
                     Se connecter
                   </StyledText>
-                </TouchableOpacity>{" "}
+                </TouchableOpacity>
               </StyledText>
             </View>
           </View>

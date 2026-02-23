@@ -14,9 +14,12 @@ const Divider = () => {
         <View className="divide-x-2 h-[0.3] bg-muted w-1/3"></View>
       </View>
       <View className="flex flex-row items-center justify-center gap-x-4">
-        <View style={{width:50, height:50}} className="bg-surface-dark/80  border-muted border rounded-full flex items-center justify-center place-content-center">
+        <View
+          style={{ width: 50, height: 50 }}
+          className="bg-surface-dark/80  border-muted border rounded-full flex items-center justify-center place-content-center"
+        >
           <StyledText>
-            <MaterialCommunityIcons size={24} name="google" />{" "}
+            <MaterialCommunityIcons size={24} name="google" />
           </StyledText>
         </View>
       </View>

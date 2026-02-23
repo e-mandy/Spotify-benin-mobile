@@ -5,10 +5,14 @@ import {
   Title,
   TrackShuffle,
 } from "@/src/components/ui/common";
+
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import ShowData from "@/src/components/ui/common/ShowData";
 import { useFetch } from "@/src/hooks/use-fetch-api";
-import { notifSuccess } from "@/src/utils/react-toast";
+import { useSubscription } from "@/src/hooks/use-has-subscribed";
+import { useTrackStore } from "@/src/store/track-play.store";
+import { notifError } from "@/src/utils/react-toast";
+import { truncate } from "@/src/utils/truncate";
 import {
   Entypo,
   FontAwesome,
@@ -16,8 +20,9 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import { useSearchParams } from "expo-router/build/hooks";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -38,20 +43,36 @@ const styles = StyleSheet.create({
 const LegendsDetails = () => {
   const searchParams = useSearchParams();
   const legendId = searchParams.get("legendId");
-  const [hasSubscribe, setSubscribe] = useState(false);
 
   const { isLoading, data: legend } = useFetch(
     `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/legends/${legendId}`,
   );
 
-  function handleSubscribe() {
-    setSubscribe(true);
-    notifSuccess("Vous venez de vous abonner");
-  }
+  const { subscribed, unsubscribed, hasSubscribed, error } = useSubscription(
+    parseInt(legendId),
+  );
 
   const mostKnownSongs = legend.songs ?? [];
 
   const albums = legend.albums ?? [];
+
+  const { currentSong, playFromPlaylist } = useTrackStore();
+  const isTheSongOnTrack = (id) => +id === +currentSong?.info?.id;
+
+  const play = async (id) => {
+    const playlist = mostKnownSongs.map((song) => song.id);
+    await playFromPlaylist(`Légende - ${legend.name}`, playlist, id);
+    router.push("/(player)");
+  };
+
+  useEffect(() => {
+    if (error) {
+      const messageLabel = hasSubscribed
+        ? "lors du désabonnement"
+        : "lors de l'abonnement";
+      notifError(`Une erreur est survenue ${messageLabel}`);
+    }
+  }, [error]);
 
   return (
     <AppWrapper className="!p-0">
@@ -69,7 +90,7 @@ const LegendsDetails = () => {
               <View className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background-dark"></View>
             </View>
             <View>
-              <View className="absolute bottom-5 flex-row mx-2 flex max-w-[40%] items-center px-3 py-1 rounded-full bg-red-800/90 border border-red-500">
+              <View className="absolute bottom-5 flex-row mx-2 flex  items-center px-3 py-1 rounded-full bg-red-800/90 border border-red-500">
                 <StyledText className="text-sm">
                   <MaterialIcons size={20} name="verified" />
                 </StyledText>
@@ -82,19 +103,18 @@ const LegendsDetails = () => {
           <Title className="text-center font-bold text-4xl font-spline-sans-regular  ">
             {legend.name}
           </Title>
-          <View className="flex items-center flex-row">
+          <View className="flex flex-wrap items-center flex-row">
             <StyledText className="text-xl !text-gray-400">
               <Text className="font-spline-bold text-white">1.2M</Text> écoutes
               mensuelles
             </StyledText>
             <Text className="text-xl">
-              {" "}
               <Entypo
                 size={40}
                 color="#6b7280"
                 className="text-gray-500"
                 name="dot-single"
-              />{" "}
+              />
             </Text>
             <StyledText className="text-xl !text-gray-400">
               <Text className="text-white">500k</Text> abonnés
@@ -102,23 +122,28 @@ const LegendsDetails = () => {
           </View>
           <View className="flex flex-row justify-between items-center">
             <View>
-              {!hasSubscribe ? (
+              {!hasSubscribed ? (
                 <OutlinedButton
                   className="rounded-full w-full border-muted/40"
-                  onPress={handleSubscribe}
+                  onPress={subscribed}
                 >
-                  S'abonner
+                  S’abonner
                 </OutlinedButton>
               ) : (
                 <OutlinedButton
-                  disable={true}
+                  onPress={unsubscribed}
                   className="rounded-full w-full border-primary/80 bg-red-800/80"
                 >
                   Abonné <FontAwesome size={20} name="check" />
                 </OutlinedButton>
               )}
             </View>
-            <TrackShuffle />
+            <View className="ms-4 items-end">
+              <TrackShuffle
+                songIds={mostKnownSongs.map((s) => s.id)}
+                playlistName={`Légende - ${legend.name}`}
+              />
+            </View>
           </View>
 
           <View className="my-3">
@@ -126,13 +151,17 @@ const LegendsDetails = () => {
             <View>
               {mostKnownSongs.map((song, index) => {
                 return (
-                  <TouchableOpacity activeOpacity={0.7} key={song.id}>
+                  <TouchableOpacity
+                    className={`mt-2 ${isTheSongOnTrack(song.id) ? "border rounded-3xl border-primary py-1 px-3" : ""}`}
+                    onPress={() => play(song.id)}
+                    activeOpacity={0.7}
+                    key={song.id}
+                  >
                     <View className="flex flex-row my-4 justify-between items-center">
                       <View className="flex flex-row items-center gap-x-4">
                         <View>
                           <Text className="font-spline-bold text-orange-800">
-                            {" "}
-                            {index + 1}{" "}
+                            {index + 1}
                           </Text>
                         </View>
                         <View className="h-14 w-14 rounded-ful">
@@ -144,7 +173,11 @@ const LegendsDetails = () => {
                           />
                         </View>
                         <View>
-                          <Title className="text-xl">{song.label}</Title>
+                          <Title
+                            className={`text-xl ${isTheSongOnTrack(song.id) ? "!text-primary" : ""}`}
+                          >
+                            {truncate(song.label, 22)}
+                          </Title>
                           <View className="flex flex-row items-center gap-x-2">
                             <Text>
                               <MaterialIcons
@@ -205,12 +238,10 @@ const LegendsDetails = () => {
                         </View>
                         <View>
                           <StyledText className="text-sm">
-                            {" "}
-                            {album.label}{" "}
+                            {album.label}
                           </StyledText>
                           <Text className="text-muted text-xl">
-                            {" "}
-                            {`${new Date(album.releaseDate).getFullYear()}-album`}{" "}
+                            {`${new Date(album.releaseDate).getFullYear()}-album`}
                           </Text>
                         </View>
                       </View>

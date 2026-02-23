@@ -8,6 +8,7 @@ import {
   Title,
 } from "@/src/components/ui/common";
 import { ModalEmailSent } from "@/src/components/ui/common/ModalEmailSent";
+import { notifError } from "@/src/utils/react-toast";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -19,15 +20,13 @@ const Login = () => {
   const [showEmailSentModal, setShowEmailSentModal] = useState(false);
   const [userEmail, setUserEmail] = useState("");
 
-  const onChange = (e) => setUserEmail(e);
+  const onChange = (_, text) => setUserEmail(text);
 
   const handleSubmit = () => {
-    console.log("123");
-
     const { error } = z.email().safeParse(userEmail);
-    console.log(error);
 
     if (error) {
+      notifError("Adresse email invalide!");
     } else {
       setShowEmailSentModal(true);
     }
@@ -37,7 +36,7 @@ const Login = () => {
 
   return (
     <AppWrapper withScrollView={false} className="!bg-black/90">
-      <KeyboardPrevent>
+      <KeyboardPrevent scrollable={true}>
         <View>
           <AppBrand />
         </View>
@@ -76,7 +75,7 @@ const Login = () => {
             <StyledText className="text-[15px] text-red-500 ms-2">
               Retourner à la page de connexion
             </StyledText>
-          </TouchableOpacity>{" "}
+          </TouchableOpacity>
         </StyledText>
       </View>
       <ModalEmailSent showModal={showEmailSentModal} onClose={onModalClose} />

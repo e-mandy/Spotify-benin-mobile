@@ -5,7 +5,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const TrackPlayPanel = () => {
-  const { isPlaying, pause, resume } = useTrackStore();
+  const { isPlaying, pause, resume, backToPrev, goToNext } = useTrackStore();
   const sound = useTrackPlay((state) => state.currentSong.sound);
   const { isBuffering } = useAudioPlayerStatus(sound);
 
@@ -22,7 +22,7 @@ const TrackPlayPanel = () => {
         </Text>
       </View>
       <View className="flex-row justify-between items-center w-[50%]">
-        <TouchableOpacity activeOpacity={0.7}>
+        <TouchableOpacity onPress={backToPrev} activeOpacity={0.7}>
           <MaterialIcons size={40} color="#fff" name="skip-previous" />
         </TouchableOpacity>
 
@@ -48,7 +48,7 @@ const TrackPlayPanel = () => {
           )}
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.7}>
+        <TouchableOpacity onPress={goToNext} activeOpacity={0.7}>
           <MaterialIcons size={40} color="#fff" name="skip-next" />
         </TouchableOpacity>
       </View>

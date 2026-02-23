@@ -9,10 +9,10 @@ import { ScrollView } from "react-native";
 
 export default function HomeScreen() {
   const user = useAuth((state) => state.user);
-  return (
-    <AppWrapper>
-      <TopBar user={user} />
 
+  return (
+    <AppWrapper withScrollView={false}>
+      <TopBar user={user} />
       <ScrollView className="flex-1 px-5" showsVerticalScrollIndicator={false}>
         <Patrimoine />
         <MixDuJour />

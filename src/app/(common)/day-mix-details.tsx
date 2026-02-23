@@ -20,8 +20,10 @@ const DayMixDetails = () => {
   const { isLoading, data: mixe } = useFetch(
     `${process.env.EXPO_PUBLIC_STREAM_URL}/stream/daymix/${dayMixId}`,
   );
+
+  const playlistItems = mixe?.playlist?.map?.((mixe) => mixe.id);
   return (
-    <AppWrapper withScrollView={false}>
+    <AppWrapper>
       <GoBack pageTitle="Détails de cette mixe" />
       <View className="p-4">
         <ShowData isLoading={isLoading}>
@@ -39,7 +41,7 @@ const DayMixDetails = () => {
             </Title>
           </View>
           <View className="flex flex-row justify-end mb-4">
-            <TrackShuffle />
+            <TrackShuffle playlistName={mixe.title} songIds={playlistItems} />
           </View>
           <FlatList
             data={mixe.playlist}
@@ -51,6 +53,8 @@ const DayMixDetails = () => {
                   photo={item.photo}
                   label={item.label}
                   artistName={item.artistName}
+                  playlistName="Mixe Du Jour"
+                  playlistItems={playlistItems}
                 />
               );
             }}
