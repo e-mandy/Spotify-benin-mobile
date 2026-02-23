@@ -1,3 +1,4 @@
+import { useSubscription } from "@/src/hooks/use-has-subscribed";
 import React from "react";
 import { ImageBackground, TouchableOpacity, View } from "react-native";
 import StyledText from "./StyledText";
@@ -5,6 +6,10 @@ import StyledText from "./StyledText";
 type ArtistType = {};
 
 const Artist = ({ photo, id, singerName: name }) => {
+  const { subscribed, unsubscribed, hasSubscribed } = useSubscription(
+    Number(id),
+  );
+
   return (
     <View className="flex-row justify-between mb-6 items-center">
       <View className="flex-row items-center">
@@ -21,8 +26,14 @@ const Artist = ({ photo, id, singerName: name }) => {
           <StyledText className="text-sm">Artiste</StyledText>
         </View>
       </View>
-      <TouchableOpacity className="border border-white py-1 px-3 rounded-3xl">
-        <StyledText className="text-lg">Suivre</StyledText>
+      <TouchableOpacity
+        onPress={subscribed}
+        disabled={hasSubscribed ? true : false}
+        className="border border-white py-1 px-3 rounded-3xl"
+      >
+        <StyledText className="text-lg">
+          {hasSubscribed ? "Suivi(e)" : "Suivre"}
+        </StyledText>
       </TouchableOpacity>
     </View>
   );

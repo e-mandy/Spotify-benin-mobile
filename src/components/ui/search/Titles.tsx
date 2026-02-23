@@ -6,7 +6,7 @@ import SearchCollectionHeader from "../common/SearchCollectionHeader";
 
 const Titles = () => {
   const searchTitles = useSearchStore((state) => state.searchResult?.titles);
-
+  console.log(searchTitles);
   if (!searchTitles) return null;
   return (
     <View>
