@@ -10,14 +10,14 @@ import {
 } from "react-native";
 import StyledText from "./StyledText";
 
-type MusicTitle = {
+type TMusicTitle = {
   id: string;
   label: string;
   photo: string;
   author: string[];
 };
 
-const MusicTitle = ({ label: title, author, photo, id }: MusicTitle) => {
+const MusicTitle = ({ label: title, author, photo, id }: TMusicTitle) => {
   const { trackHandler, isPlaying, currentSong } = useTrackStore();
 
   const musicHandler = async () => {

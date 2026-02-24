@@ -13,9 +13,10 @@ const Titles = () => {
     <View className="my-4">
       <SearchCollectionHeader title="Titres" path="/search" />
       <View className="w-full my-4">
-        {searchTitles.map((title) => (
-          <MusicTitle key={title.id} {...title} />
-        ))}
+        {searchTitles.map((title) => {
+          const author = title?.album?.Singers[0].Singer.singerName;
+          return <MusicTitle author={author} key={title.id} {...title} />;
+        })}
       </View>
     </View>
   );

@@ -1,5 +1,5 @@
 import { getAxiosInstance } from "@/src/lib/axios.config";
-import { notifSuccess, notifyInfo } from "@/src/utils/react-toast";
+import { notifyInfo } from "@/src/utils/react-toast";
 import { truncate } from "@/src/utils/truncate";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Coffee, Heart } from "lucide-react-native";
@@ -89,7 +89,7 @@ export const CoffeeModal = ({ artistName }) => {
         ))}
 
         <TouchableOpacity
-          onPress={() => notifSuccess("Soon guy! Soon")}
+          onPress={() => notifyInfo("Fonctionnalité bientôt disponible")}
           className="mt-4 flex-row items-center justify-center bg-transparent border border-primary p-4 rounded-2xl"
         >
           <Heart size={18} color="#d84141" className="mr-2" />

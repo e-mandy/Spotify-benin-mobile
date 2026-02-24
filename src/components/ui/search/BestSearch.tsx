@@ -1,4 +1,5 @@
 import { useSearchStore } from "@/src/store/search.store";
+import { useTrackStore } from "@/src/store/track-play.store";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -9,11 +10,17 @@ import ResearchNotFound from "../common/ResearchNotFound";
 const BestSearch = () => {
   const bestSearch = useSearchStore((state) => state.searchResult.bestMatch);
   const router = useRouter();
+  const { trackHandler } = useTrackStore();
 
   if (!bestSearch || !bestSearch?.data?.id)
     return <ResearchNotFound section="Meilleurs résultats" />;
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (bestSearch.type === "title") {
+      await trackHandler(bestSearch.data.id);
+      return;
+    }
+
     router.push(
       `/(common)/legends-details?legendId=${Number(bestSearch.data.id)}`,
     );
