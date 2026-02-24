@@ -11,6 +11,11 @@
     "ios": {
       "supportsTablet": true
     },
+    "updates": {
+      "requestHeaders": {
+        "expo-channel-name": "production"
+      }
+    },
     "android": {
       "package": "com.prosper19.m19",
       "adaptiveIcon": {
