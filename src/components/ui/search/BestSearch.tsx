@@ -11,7 +11,7 @@ const BestSearch = () => {
 
   const handleClick = () => {
     router.push(
-      `/(common)/legends-details?legendId=${Number(bestSearch.data.id)}`,
+      `/(common)/legends-details?legendId=${Number(bestSearch?.data?.id)}`,
     );
   };
 
