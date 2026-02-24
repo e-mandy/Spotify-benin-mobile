@@ -1,8 +1,10 @@
+import { useTrackStore } from "@/src/store/track-play.store";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
   ImageBackground,
   Pressable,
+  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,9 +17,18 @@ type MusicTitle = {
   author: string[];
 };
 
-const MusicTitle = ({ label: title, author, photo }: MusicTitle) => {
+const MusicTitle = ({ label: title, author, photo, id }: MusicTitle) => {
+  const { trackHandler, isPlaying, currentSong } = useTrackStore();
+
+  const musicHandler = async () => {
+    await trackHandler(id);
+  };
+
   return (
-    <Pressable className="w-full flex-row justify-between items-center p-2 my-2">
+    <Pressable
+      onPress={musicHandler}
+      className="w-full flex-row justify-between items-center p-2 my-2"
+    >
       <View className="flex-row items-center">
         <View className="h-12 w-12 rounded-lg overflow-hidden mr-3">
           <ImageBackground
@@ -29,9 +40,19 @@ const MusicTitle = ({ label: title, author, photo }: MusicTitle) => {
           />
         </View>
         <View className="flex-col justify-start">
-          <StyledText className="font-semibold text-lg text-white">
+          <Text
+            className="font-semibold text-lg text-white"
+            style={{
+              color:
+                currentSong !== undefined &&
+                currentSong?.info?.id === Number(id) &&
+                isPlaying
+                  ? "#d84141"
+                  : "white",
+            }}
+          >
             {title}
-          </StyledText>
+          </Text>
           <StyledText className="text-sm text-white opacity-40">
             {author}
           </StyledText>

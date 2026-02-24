@@ -1,16 +1,24 @@
 import { useSearchStore } from "@/src/store/search.store";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { StyledText } from "../common";
 
 const BestSearch = () => {
   const bestSearch = useSearchStore((state) => state.searchResult.bestMatch);
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(
+      `/(common)/legends-details?legendId=${Number(bestSearch.data.id)}`,
+    );
+  };
 
   if (!bestSearch) return null;
 
   return (
-    <TouchableOpacity className="w-full mb-5">
+    <TouchableOpacity onPress={handleClick} className="w-full mb-5">
       <StyledText className="mb-5 font-bold">Meilleur résultat</StyledText>
       <View className="w-full border p-4 rounded-2xl bg-surface-dark-300 border-surface-dark-100">
         <View className="relative h-20 w-20 my-4">
