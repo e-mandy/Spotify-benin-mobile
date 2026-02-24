@@ -5,7 +5,7 @@ import { StyledText } from "../common";
 
 const ReconnaissanceVocale = () => {
   return (
-    <TouchableOpacity className="w-full rounded-full bg-primary py-5 flex-row justify-center items-center gap-5">
+    <TouchableOpacity className="w-full rounded-full bg-primary py-4 flex-row justify-center items-center gap-5">
       <View className="object-contain  rounded-full">
         <Ionicons name="musical-notes" size={24} />
       </View>
