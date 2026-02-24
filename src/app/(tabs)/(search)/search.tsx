@@ -1,3 +1,4 @@
+import { DataLoader } from "@/src/components/ui/common";
 import AppWrapper from "@/src/components/ui/common/AppWrapper";
 import ScrollGenres from "@/src/components/ui/common/ScrollGenres";
 import SearchBar from "@/src/components/ui/common/SearchBar";
@@ -12,7 +13,7 @@ import Titles from "@/src/components/ui/search/Titles";
 import { useSearch } from "@/src/hooks/use-search";
 import { useSearchStore } from "@/src/store/search.store";
 import React from "react";
-import { ActivityIndicator, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 
 const Search = () => {
   const { searchResult } = useSearchStore();
@@ -25,7 +26,7 @@ const Search = () => {
         <SecondaryTopBar topic="Rechercher" />
         <SearchBar placeholder="Artistes, titres ou genres" />
         {isLoading ? (
-          <ActivityIndicator size={24} />
+          <DataLoader />
         ) : !searchResult || searchResult.length == 0 ? (
           <>
             <ReconnaissanceVocale />

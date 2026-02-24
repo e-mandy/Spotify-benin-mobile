@@ -4,7 +4,7 @@ import {
   ImageBackground,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 
 const { width } = Dimensions.get("screen");
@@ -16,7 +16,7 @@ const Exploration = ({ image, title, subtitle }) => {
       className="h-60 rounded-2xl overflow-hidden"
     >
       <ImageBackground
-        source={{ uri: image }}
+        source={image}
         resizeMode="cover"
         className="relative w-full h-full"
       >
