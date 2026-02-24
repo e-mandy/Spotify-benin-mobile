@@ -10,11 +10,7 @@ const Artists = () => {
   if (!searchArtists || searchArtists.length === 0) return null;
   return (
     <View className="mb-10">
-      <SearchCollectionHeader
-        title="Artistes"
-        path="/(tabs)/(search)/search"
-        isAll={false}
-      />
+      <SearchCollectionHeader title="Artistes" path="/search" isAll={false} />
       <View className="w-full mb-32 mt-5">
         {searchArtists.map((artist) => (
           <Artist key={artist.id} {...artist} />

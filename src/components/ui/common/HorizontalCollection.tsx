@@ -11,13 +11,12 @@ type HorizontalCollectionType = {
 const HorizontalCollection = ({
   name,
   isDynamic = false,
-  id,
 }: HorizontalCollectionType) => {
   return isDynamic ? (
     <Link
       href={{
-        pathname: "/(tabs)/(search)/genre",
-        params: { id: id },
+        pathname: "/[genre]",
+        params: { genre: name },
       }}
       asChild
     >

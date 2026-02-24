@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { useSearchStore } from "../store/search.store";
 
 export const useSearch = () => {
-  const { setResults, setGenreInfos, setGenreName } = useSearchStore.getState();
+  const { setResults, setGenreInfos, setGenreName, setCategories } =
+    useSearchStore.getState();
   const search = useSearchStore((state) => state.query);
   const currentGenre = useSearchStore((state) => state.currentGenre);
+  const categories = useSearchStore((state) => state.categories);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchBase = async (query: string) => {
@@ -60,8 +62,22 @@ export const useSearch = () => {
       setIsLoading(true);
       const genreName = await fetchBase(`/api/search/categories`);
       setGenreName(genreName.response);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  return { isLoading, fetchGenreName };
+  const fetchCategories = async () => {
+    try {
+      setIsLoading(true);
+      const categoriesInfos = await fetchBase(`/api/search/genreInfo`);
+      setCategories(categoriesInfos.response);
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { isLoading, fetchGenreName, fetchCategories };
 };

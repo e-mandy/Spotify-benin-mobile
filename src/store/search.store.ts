@@ -12,6 +12,8 @@ interface ISearch {
   allGenreName: any[];
   genreInfos: any[];
   setGenreInfos: (genreInfos: any[]) => void;
+  setCategories: (categories: any[]) => void;
+  categories: any;
 }
 
 export const useSearchStore = create<ISearch>((set) => ({
@@ -21,10 +23,12 @@ export const useSearchStore = create<ISearch>((set) => ({
   currentGenre: "",
   genreInfos: null,
   allGenreName: [],
+  categories: [],
 
   setQuery: (query: string) => set({ query: query }),
   setResults: (results: any[]) => set({ searchResult: results }),
   setCurrentGenre: (genre: string) => set({ currentGenre: genre }),
   setGenreInfos: (genreInfos: any[]) => set({ genreInfos: genreInfos }),
   setGenreName: async (genre: any[]) => set({ allGenreName: genre }),
+  setCategories: (categories: any) => set({ categories: categories }),
 }));

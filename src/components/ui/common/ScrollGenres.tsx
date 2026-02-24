@@ -14,7 +14,6 @@ const ScrollGenres = () => {
     };
 
     initializedGenre();
-    console.log(allGenre);
   }, []);
 
   if (!allGenre) return null;
