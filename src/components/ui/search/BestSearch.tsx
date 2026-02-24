@@ -4,18 +4,20 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { StyledText } from "../common";
+import ResearchNotFound from "../common/ResearchNotFound";
 
 const BestSearch = () => {
   const bestSearch = useSearchStore((state) => state.searchResult.bestMatch);
   const router = useRouter();
+
+  if (!bestSearch || !bestSearch?.data?.id)
+    return <ResearchNotFound section="Meilleurs résultats" />;
 
   const handleClick = () => {
     router.push(
       `/(common)/legends-details?legendId=${Number(bestSearch.data.id)}`,
     );
   };
-
-  if (!bestSearch) return null;
 
   return (
     <TouchableOpacity onPress={handleClick} className="w-full mb-5">

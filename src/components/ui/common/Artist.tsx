@@ -1,4 +1,5 @@
 import { useSubscription } from "@/src/hooks/use-has-subscribed";
+import { truncate } from "@/src/utils/truncate";
 import React from "react";
 import { ImageBackground, TouchableOpacity, View } from "react-native";
 import StyledText from "./StyledText";
@@ -22,7 +23,9 @@ const Artist = ({ photo, id, singerName: name }) => {
           />
         </View>
         <View>
-          <StyledText className="text-lg font-bold">{name}</StyledText>
+          <StyledText className="text-lg font-bold">
+            {truncate(name, 25)}
+          </StyledText>
           <StyledText className="text-sm">Artiste</StyledText>
         </View>
       </View>

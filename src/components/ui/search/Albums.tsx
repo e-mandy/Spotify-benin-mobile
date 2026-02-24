@@ -2,12 +2,14 @@ import { useSearchStore } from "@/src/store/search.store";
 import React from "react";
 import { FlatList, View } from "react-native";
 import Album from "../common/Album";
+import ResearchNotFound from "../common/ResearchNotFound";
 import SearchCollectionHeader from "../common/SearchCollectionHeader";
 
 const Albums = () => {
   const searchAllbums = useSearchStore((state) => state.searchResult?.albums);
 
-  if (!searchAllbums || searchAllbums.length === 0) return null;
+  if (!searchAllbums || searchAllbums.length === 0)
+    return <ResearchNotFound section="Albums" />;
   return (
     <View>
       <SearchCollectionHeader title="Albums" path="/search" />

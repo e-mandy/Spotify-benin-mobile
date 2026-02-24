@@ -21,13 +21,13 @@ const Search = () => {
   const { isLoading } = useSearch();
 
   return (
-    <AppWrapper>
+    <AppWrapper withScrollView={false} className="!px-3">
       <ScrollView showsVerticalScrollIndicator={false} className="px-3">
         <SecondaryTopBar topic="Rechercher" />
         <SearchBar placeholder="Artistes, titres ou genres" />
         {isLoading ? (
           <DataLoader />
-        ) : !searchResult || searchResult.length == 0 ? (
+        ) : !searchResult || searchResult.length === 0 ? (
           <>
             <ReconnaissanceVocale />
             <ScrollGenres />
