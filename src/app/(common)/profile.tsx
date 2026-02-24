@@ -3,7 +3,7 @@ import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import { defaultProfileUri } from "@/src/constants/url";
 import useAuth from "@/src/store/auth.store";
 import { convertDateToString } from "@/src/utils/date-to-string";
-import { notifSuccess } from "@/src/utils/react-toast";
+import { notifyInfo } from "@/src/utils/react-toast";
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Alert, Image, Text, View } from "react-native";
@@ -80,7 +80,7 @@ function ProfileScreen() {
         <View className="mx-5 mt-8 space-y-4">
           <OutlinedButton
             className="bg-[#9D2721] border-0"
-            onPress={() => notifSuccess("Fonctionnalité bientôt disponible")}
+            onPress={() => notifyInfo("Fonctionnalité bientôt disponible")}
             icon="edit"
             iconColor="#fff"
           >

@@ -2,7 +2,7 @@ import { AppWrapper, GoBack } from "@/src/components/ui/common";
 import OutlinedButton from "@/src/components/ui/common/OutlinedButton";
 import { useFetch } from "@/src/hooks/use-fetch-api";
 import { IMixeItem } from "@/src/interfaces/mixe-item.interface";
-import { notifSuccess } from "@/src/utils/react-toast";
+import { notifyInfo } from "@/src/utils/react-toast";
 import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
@@ -40,7 +40,7 @@ const AllMixes = () => {
           />
           <OutlinedButton
             icon="more"
-            onPress={() => notifSuccess("Hé hé ..Et bien plus!")}
+            onPress={() => notifyInfo("Bientôt plus d'options")}
           >
             Et bien plus
           </OutlinedButton>

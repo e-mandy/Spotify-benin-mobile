@@ -7,7 +7,7 @@ export const useSearch = () => {
     useSearchStore.getState();
   const search = useSearchStore((state) => state.query);
   const currentGenre = useSearchStore((state) => state.currentGenre);
-  const categories = useSearchStore((state) => state.categories);
+  // const categories = useSearchStore((state) => state.categories);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchBase = async (query: string) => {
@@ -21,7 +21,11 @@ export const useSearch = () => {
   };
 
   useEffect(() => {
-    if (!search.trim()) setResults(null);
+    if (!search.trim()) {
+      setResults(null);
+      setIsLoading(false);
+      return;
+    }
     const timetoutId = setTimeout(() => {
       const searchFetchData = async () => {
         try {
@@ -29,6 +33,7 @@ export const useSearch = () => {
           const result = await fetchBase(`/api/search/global/${search}`);
           setResults(result);
         } catch (error) {
+          console.log(error);
         } finally {
           setIsLoading(false);
         }
@@ -50,6 +55,7 @@ export const useSearch = () => {
         );
         setGenreInfos(genreInfos);
       } catch (error) {
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
@@ -63,6 +69,7 @@ export const useSearch = () => {
       const genreName = await fetchBase(`/api/search/categories`);
       setGenreName(genreName.response);
     } catch (error) {
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -74,6 +81,7 @@ export const useSearch = () => {
       const categoriesInfos = await fetchBase(`/api/search/genreInfo`);
       setCategories(categoriesInfos.response);
     } catch (error) {
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
