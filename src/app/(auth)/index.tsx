@@ -92,7 +92,6 @@ const Register = () => {
         <View>
           <AppBrand />
         </View>
-
         <View>
           <Title className="text-center text-4xl"> M19 </Title>
           <StyledText className="text-[16px] max-w-[85%]  mx-auto mt-4 text-muted font-spline-sans-regular text-center py-1">

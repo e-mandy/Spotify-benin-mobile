@@ -1,4 +1,8 @@
 {
+  "cli": {
+    "version": ">= 18.0.3",
+    "appVersionSource": "remote"
+  },
   "build": {
     "production": {
       "channel": "production",
@@ -6,7 +10,8 @@
     },
     "preview": {
       "channel": "staging",
-      "distribution": "internal"
+      "distribution": "internal",
+      "environment": "preview"
     }
   }
 }
