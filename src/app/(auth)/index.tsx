@@ -23,29 +23,34 @@ const Register = () => {
   const formFields: InputRowProps[] = [
     {
       prefixIcon: "account",
-      placeholder: "Nom complet",
+      label: "Nom complet",
       name: "username",
+      placeholder: "John Doe",
     },
     {
       prefixIcon: "email",
-      placeholder: "Adresse e-mail",
+      label: "Email",
       name: "email",
+      placeholder: "johndoe@gmail.com",
     },
     {
       prefixIcon: "earth",
-      placeholder: "Ethnie",
+      label: "Ethnie",
       name: "ethnicity",
+      placeholder: "Fon",
     },
     {
       prefixIcon: "calendar",
-      placeholder: "Date de naissance",
+      label: "Date de naissance",
+      placeholder: "01 Janvier 2000",
       isDateField: true,
       name: "birthday",
     },
     {
       prefixIcon: "lock",
-      placeholder: "Mot de passe",
+      label: "Mot de passe",
       secureTextEntry: true,
+      placeholder: "MotDePasse123",
       name: "password",
     },
   ];

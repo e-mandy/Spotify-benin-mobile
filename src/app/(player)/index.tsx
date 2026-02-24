@@ -54,7 +54,7 @@ const TrackPlayer = () => {
   }, [error]);
 
   return (
-    <AppWrapper withScrollView={false} className="px-4">
+    <AppWrapper withScrollView={true} className="px-4">
       <View className="flex-1">
         <View className="flex-row justify-between items-center">
           <View>
