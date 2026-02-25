@@ -2,6 +2,7 @@ import { MOCK_ALBUMS } from "@/mocks/albums.mock";
 import { AppWrapper, DataLoader, GoBack } from "@/src/components/ui/common";
 import ScrollItems from "@/src/components/ui/common/ScrollItems";
 import ArtistsGenre from "@/src/components/ui/genre/ArtistsGenre";
+import ArtistsGenreGrid from "@/src/components/ui/genre/ArtistsGenreGrid";
 import TitlesGenre from "@/src/components/ui/genre/TitlesGenre";
 import Albums from "@/src/components/ui/search/Albums";
 import { SCROLL_SECTION } from "@/src/constants/scroll_section";
@@ -36,7 +37,7 @@ const Genre = () => {
         isHeaderAll={false}
       />
     ),
-    Artistes: <ArtistsGenre />,
+    Artistes: <ArtistsGenreGrid />,
     Titres: <TitlesGenre />,
   };
   return (
