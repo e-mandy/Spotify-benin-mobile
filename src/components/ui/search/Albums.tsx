@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, View } from "react-native";
 import Album from "../common/Album";
+import ResearchNotFound from "../common/ResearchNotFound";
 import SearchCollectionHeader from "../common/SearchCollectionHeader";
 
 type AlbumType = {
@@ -10,7 +11,8 @@ type AlbumType = {
 };
 
 const Albums = ({ albums, headerTitle, isHeaderAll }: AlbumType) => {
-  if (!albums || albums === 0) return null;
+  if (!albums || albums.length === 0)
+    return <ResearchNotFound section="Albums" />;
   return (
     <View>
       <SearchCollectionHeader

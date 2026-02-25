@@ -11,7 +11,7 @@ import { useFetch } from "@/src/hooks/use-fetch-api";
 import { Image } from "expo-image";
 import { useSearchParams } from "expo-router/build/hooks";
 import React from "react";
-import { FlatList, View } from "react-native";
+import { View } from "react-native";
 
 const DayMixDetails = () => {
   const searchParams = useSearchParams();
@@ -43,22 +43,19 @@ const DayMixDetails = () => {
           <View className="flex flex-row justify-end mb-4">
             <TrackShuffle playlistName={mixe.title} songIds={playlistItems} />
           </View>
-          <FlatList
-            data={mixe.playlist}
-            contentContainerStyle={{ gap: 5 }}
-            renderItem={({ item }) => {
-              return (
-                <TrackItem
-                  id={item.id}
-                  photo={item.photo}
-                  label={item.label}
-                  artistName={item.artistName}
-                  playlistName="Mixe Du Jour"
-                  playlistItems={playlistItems}
-                />
-              );
-            }}
-          />
+          {mixe?.playlist?.map?.((item) => {
+            return (
+              <TrackItem
+                key={item.id}
+                id={item.id}
+                photo={item.photo}
+                label={item.label}
+                artistName={item.artistName}
+                playlistName="Mixe Du Jour"
+                playlistItems={playlistItems}
+              />
+            );
+          })}
         </ShowData>
       </View>
     </AppWrapper>

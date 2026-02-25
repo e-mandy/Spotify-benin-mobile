@@ -14,6 +14,7 @@ export interface InputRowProps {
   className?: string;
   prefixIcon?: MaterialCommunityIcons;
   placeholder?: string;
+  label: string;
   secureTextEntry?: boolean;
   isDateField?: boolean;
   onChangeText?: (fieldName: string, text: string) => void;

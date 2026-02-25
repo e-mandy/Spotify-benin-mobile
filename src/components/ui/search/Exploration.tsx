@@ -12,8 +12,9 @@ const { width } = Dimensions.get("screen");
 const Exploration = ({ image, title, subtitle }) => {
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       style={{ width: width * 0.45 }}
-      className="h-60 rounded-2xl overflow-hidden"
+      className="h-56 rounded-2xl overflow-hidden"
     >
       <ImageBackground
         source={image}

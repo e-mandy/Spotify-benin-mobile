@@ -13,7 +13,7 @@ import Titles from "@/src/components/ui/search/Titles";
 import { useSearch } from "@/src/hooks/use-search";
 import { useSearchStore } from "@/src/store/search.store";
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 
 const Search = () => {
   const { searchResult } = useSearchStore();
@@ -22,13 +22,15 @@ const Search = () => {
 
   const searchAllbums = useSearchStore((state) => state.searchResult?.albums);
   return (
-    <AppWrapper>
-      <ScrollView showsVerticalScrollIndicator={false} className="px-3">
+    <AppWrapper withScrollView={false} className="!px-3">
+      <View className="px-4">
         <SecondaryTopBar topic="Rechercher" />
         <SearchBar placeholder="Artistes, titres ou genres" />
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false} className="px-3">
         {isLoading ? (
           <DataLoader />
-        ) : !searchResult || searchResult.length == 0 ? (
+        ) : !searchResult || searchResult.length === 0 ? (
           <>
             <ReconnaissanceVocale />
             <ScrollGenres />
@@ -43,6 +45,7 @@ const Search = () => {
             <Artists />
           </>
         )}
+        <View className="h-32"></View>
       </ScrollView>
     </AppWrapper>
   );

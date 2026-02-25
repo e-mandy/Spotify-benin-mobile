@@ -22,14 +22,16 @@ const Login = () => {
   const formFields: InputRowProps[] = [
     {
       prefixIcon: "email",
+      label: "Email",
       name: "email",
-      placeholder: "Adresse e-mail",
+      placeholder: "johndoe@gmail.com",
     },
     {
       prefixIcon: "lock",
-      name: "password",
-      placeholder: "Mot de passe",
+      label: "Mot de passe",
       secureTextEntry: true,
+      placeholder: "MotDePasse123",
+      name: "password",
     },
   ];
 

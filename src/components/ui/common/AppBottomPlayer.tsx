@@ -43,9 +43,7 @@ const AppBottomPlayer = () => {
               </Text>
             </View>
           </View>
-          <View>
-            <MiniTrackPanel />
-          </View>
+          <MiniTrackPanel />
         </TouchableOpacity>
         <TrackSeeker className="!my-0" height={0} showDuration={false} />
       </View>

@@ -2,12 +2,14 @@ import { useSearchStore } from "@/src/store/search.store";
 import React from "react";
 import { View } from "react-native";
 import Artist from "../common/Artist";
+import ResearchNotFound from "../common/ResearchNotFound";
 import SearchCollectionHeader from "../common/SearchCollectionHeader";
 
 const Artists = () => {
   const searchArtists = useSearchStore((state) => state.searchResult.artists);
 
-  if (!searchArtists || searchArtists.length === 0) return null;
+  if (!searchArtists || searchArtists.length === 0)
+    return <ResearchNotFound section="Artistes" />;
   return (
     <View className="mb-10">
       <SearchCollectionHeader title="Artistes" path="/search" isAll={false} />

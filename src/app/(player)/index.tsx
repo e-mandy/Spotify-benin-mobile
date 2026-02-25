@@ -7,7 +7,7 @@ import { styles } from "@/src/constants/styles";
 import { useFavorite } from "@/src/hooks/use-favorite";
 import { useTrackStore } from "@/src/store/track-play.store";
 import { IPlaylist } from "@/src/store/types/playlist.type";
-import { notifError, notifSuccess } from "@/src/utils/react-toast";
+import { notifError, notifSuccess, notifyInfo } from "@/src/utils/react-toast";
 import { truncate } from "@/src/utils/truncate";
 import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
@@ -54,7 +54,7 @@ const TrackPlayer = () => {
   }, [error]);
 
   return (
-    <AppWrapper withScrollView={false} className="px-4">
+    <AppWrapper withScrollView={true} className="px-4">
       <View className="flex-1">
         <View className="flex-row justify-between items-center">
           <View>
@@ -98,7 +98,7 @@ const TrackPlayer = () => {
         <View
           style={{
             padding: 10,
-            height: height * 0.6,
+            height: height * 0.4,
             width: "100%",
             marginHorizontal: "auto",
             maxHeight: 350,
@@ -110,7 +110,7 @@ const TrackPlayer = () => {
             source={trackPlay?.cover}
           />
           <TouchableOpacity
-            onPress={() => notifSuccess("Hé hé.. Coming soon")}
+            onPress={() => notifyInfo("Fonctionnalité bientôt disponible")}
             activeOpacity={0.8}
             className="absolute right-5 bottom-5 flex-row items-center gap-x-2 font-spline-bold bg-muted rounded-full px-3 py-1"
           >

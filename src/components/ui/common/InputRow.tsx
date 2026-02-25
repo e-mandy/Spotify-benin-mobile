@@ -3,6 +3,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import React, { useState } from "react";
 import { TextInput, View } from "react-native";
 import { DateInput } from "./DateInput";
+import StyledText from "./StyledText";
 
 const InputRow = (props: InputRowProps) => {
   const defaultInputClass =
@@ -14,24 +15,30 @@ const InputRow = (props: InputRowProps) => {
       {props.prefixIcon && (
         <MaterialCommunityIcons
           name={props.prefixIcon}
-          className="absolute right-7 z-20 top-5"
+          className="absolute right-7 z-20 top-14"
           size={20}
           color="#B6A0A0"
         />
       )}
-      {props.isDateField ? (
-        <DateInput className={defaultInputClass} {...props} />
-      ) : (
-        <TextInput
-          {...props}
-          onChangeText={(text) =>
-            props.onChangeText(props.name, text?.trim?.())
-          }
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          className={`${defaultInputClass} ${props.className} ${isFocused ? " border border-red-500" : ""}`}
-        ></TextInput>
-      )}
+      <View>
+        <StyledText className="text-muted my-1 text-[16px]">
+          {" "}
+          {props.label}{" "}
+        </StyledText>
+        {props.isDateField ? (
+          <DateInput className={defaultInputClass} {...props} />
+        ) : (
+          <TextInput
+            {...props}
+            onChangeText={(text) =>
+              props.onChangeText(props.name, text?.trim?.())
+            }
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            className={`${defaultInputClass} ${props.className} ${isFocused ? " border border-red-500" : ""}`}
+          ></TextInput>
+        )}
+      </View>
     </View>
   );
 };

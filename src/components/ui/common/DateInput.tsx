@@ -29,7 +29,7 @@ export const DateInput = (props: InputRowProps) => {
       <TextInput
         ref={dateRef}
         value={isDateSelected ? convertDateToString(date.toString()) : ""}
-        placeholder="Date de naissance"
+        placeholder={props.placeholder}
         onFocus={handleFocus}
         className={props.className}
       ></TextInput>

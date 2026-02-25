@@ -63,7 +63,7 @@ const login = async (user: IUserLogin): Promise<IResponse> => {
       },
     };
   } catch (error) {
-    console.log("Error", error.response);
+    console.log("Error", error.response, error);
     notifError(error?.response?.data?.message);
     return {
       success: false,
