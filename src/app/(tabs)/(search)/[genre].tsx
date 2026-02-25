@@ -5,23 +5,43 @@ import ArtistsGenre from "@/src/components/ui/genre/ArtistsGenre";
 import TitlesGenre from "@/src/components/ui/genre/TitlesGenre";
 import Albums from "@/src/components/ui/search/Albums";
 import { SCROLL_SECTION } from "@/src/constants/scroll_section";
+import { useGenreStore } from "@/src/store/genre.store";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 
 const Genre = () => {
   const genre = useLocalSearchParams() as { genre: string };
-  console.log(genre);
-  return (
-    <AppWrapper>
-      <GoBack pageTitle={genre.genre} />
-      <ScrollItems data={SCROLL_SECTION} />
-      <ArtistsGenre />
+  const currentSection = useGenreStore((state) => state.currentSection);
+
+  // Le Record utilisé pour savoir exactement le type de clé et de valeur de l'objet
+  const sections: Record<string, React.ReactNode> = {
+    Tout: (
+      <>
+        <ArtistsGenre />
+        <Albums
+          headerTitle="Albums Incontournables"
+          albums={MOCK_ALBUMS}
+          isHeaderAll={false}
+        />
+        <TitlesGenre />
+      </>
+    ),
+    Albums: (
       <Albums
         headerTitle="Albums Incontournables"
         albums={MOCK_ALBUMS}
         isHeaderAll={false}
       />
-      <TitlesGenre />
+    ),
+    Artistes: <ArtistsGenre />,
+    Titres: <TitlesGenre />,
+  };
+  return (
+    <AppWrapper>
+      <GoBack pageTitle={genre.genre} />
+      <ScrollItems data={SCROLL_SECTION} />
+
+      {sections[currentSection]}
     </AppWrapper>
   );
 };
