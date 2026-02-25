@@ -1,14 +1,20 @@
 export const MOCK_TITRES = [
   {
-    title: "Agolo",
-    author: "Angélique Kidjo",
+    id: "1",
+    label: "Agolo",
+    photo: "",
+    author: ["Angélique Kidjo"],
   },
   {
-    title: "Agolo",
-    author: "Angélique Kidjo",
+    id: "2",
+    label: "Agolo",
+    photo: "",
+    author: ["Angélique Kidjo"],
   },
   {
-    title: "Psalm 21",
-    author: "Sunday Service",
+    id: "3",
+    label: "Psalm 21",
+    photo: "",
+    author: ["Sunday Service"],
   },
 ];
