@@ -1,29 +1,30 @@
+import { artistesGenre } from "@/mocks/genres.mock";
 import React from "react";
 import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import SearchCollectionHeader from "../common/SearchCollectionHeader";
 import Artist from "./Artist";
 
-const GenreArtists = () => {
+const ArtistsGenre = () => {
   return (
-    <View>
-      <SearchCollectionHeader title="Artistes Zinli" />
+    <View className="my-5">
+      <SearchCollectionHeader title="Artistes Zinli" isAll={false} />
       <View className="mb-4">
         <FlatList
           className="py-5"
-          data={}
+          data={artistesGenre}
           renderItem={({ item: artist }) => <Artist {...artist} />}
           horizontal
           contentContainerStyle={{
             flexDirection: "row",
-            gap: 20,
+            gap: 30,
           }}
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
     </View>
   );
 };
 
-export default GenreArtists;
+export default ArtistsGenre;

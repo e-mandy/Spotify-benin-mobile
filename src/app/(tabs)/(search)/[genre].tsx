@@ -1,6 +1,6 @@
 import { AppWrapper, GoBack } from "@/src/components/ui/common";
 import ScrollItems from "@/src/components/ui/common/ScrollItems";
-import GenreArtists from "@/src/components/ui/genre/ArtistsGenre";
+import ArtistsGenre from "@/src/components/ui/genre/ArtistsGenre";
 import { SCROLL_SECTION } from "@/src/constants/scroll_section";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
@@ -13,7 +13,7 @@ const Genre = () => {
     <AppWrapper>
       <GoBack pageTitle={genre.genre} />
       <ScrollItems data={SCROLL_SECTION} />
-      <GenreArtists />
+      <ArtistsGenre />
     </AppWrapper>
   );
 };
