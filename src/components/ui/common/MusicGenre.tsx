@@ -20,7 +20,7 @@ const MusicGenre = ({ name, id }: MusicGenre) => {
       onPress={handleGenre}
       className="py-2 px-3 rounded-full border border-surface-dark-100 bg-surface-dark-300"
     >
-      <Text className="fon t-semibold text-white text-center text-base">
+      <Text className="font-semibold text-white text-center text-base">
         {name}
       </Text>
     </TouchableOpacity>

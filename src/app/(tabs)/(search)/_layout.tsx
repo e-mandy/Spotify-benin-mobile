@@ -12,16 +12,8 @@ const _layout = () => {
       />
       <Stack.Screen
         name="[genre]"
-        options={({ route }) => {
-          const params = route.params as { genre: string };
-          return {
-            title: typeof params?.genre === "string" ? params?.genre : "Genre",
-            headerTintColor: "#fff",
-            headerStyle: {
-              backgroundColor: "transparent",
-            },
-            headerShadowVisible: false,
-          };
+        options={{
+          headerShown: false,
         }}
       />
     </Stack>
