@@ -20,6 +20,7 @@ const Search = () => {
 
   const { isLoading } = useSearch();
 
+  const searchAllbums = useSearchStore((state) => state.searchResult?.albums);
   return (
     <AppWrapper>
       <ScrollView showsVerticalScrollIndicator={false} className="px-3">
@@ -38,7 +39,7 @@ const Search = () => {
           <>
             <BestSearch />
             <Titles />
-            <Albums />
+            <Albums albums={searchAllbums} headerTitle="Albums" />
             <Artists />
           </>
         )}

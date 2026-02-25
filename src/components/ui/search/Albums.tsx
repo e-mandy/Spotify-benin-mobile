@@ -1,20 +1,27 @@
-import { useSearchStore } from "@/src/store/search.store";
 import React from "react";
 import { FlatList, View } from "react-native";
 import Album from "../common/Album";
 import SearchCollectionHeader from "../common/SearchCollectionHeader";
 
-const Albums = () => {
-  const searchAllbums = useSearchStore((state) => state.searchResult?.albums);
+type AlbumType = {
+  albums: any;
+  headerTitle: string;
+  isHeaderAll?: boolean;
+};
 
-  if (!searchAllbums || searchAllbums.length === 0) return null;
+const Albums = ({ albums, headerTitle, isHeaderAll }: AlbumType) => {
+  if (!albums || albums === 0) return null;
   return (
     <View>
-      <SearchCollectionHeader title="Albums" path="/search" />
+      <SearchCollectionHeader
+        title={headerTitle}
+        isAll={isHeaderAll}
+        path={isHeaderAll && "/search"}
+      />
       <View className="mb-4">
         <FlatList
           className="py-5"
-          data={searchAllbums}
+          data={albums}
           renderItem={({ item: album }) => <Album {...album} />}
           horizontal
           contentContainerStyle={{
