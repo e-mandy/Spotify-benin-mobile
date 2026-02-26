@@ -1,5 +1,4 @@
 import { MOCK_EXPLORATION } from "@/mocks/explorations.mock";
-import { Link } from "expo-router";
 import React from "react";
 import { FlatList, Text, View } from "react-native";
 import { StyledText } from "../common";
@@ -10,9 +9,7 @@ const MusicsExploration = () => {
     <View className="my-4">
       <View className="flex-row items-center justify-between">
         <StyledText className="font-bold">Explorez le Bénin</StyledText>
-        <Link href="/(player)" asChild>
-          <Text className="text-white font-semibold">VOIR TOUT</Text>
-        </Link>
+        <Text className="text-white font-semibold">VOIR TOUT</Text>
       </View>
       <FlatList
         className="py-6"

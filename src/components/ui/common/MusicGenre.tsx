@@ -2,12 +2,12 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
-type MusicGenre = {
+type TMusicGenre = {
   name: string;
   id: string;
 };
 
-const MusicGenre = ({ name, id }: MusicGenre) => {
+const MusicGenre = ({ name, id }: TMusicGenre) => {
   const router = useRouter();
   const handleGenre = () => {
     router.push({

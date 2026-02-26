@@ -18,7 +18,6 @@ const Genre = () => {
   const currentSection = useGenreStore((state) => state.currentSection);
   const albumsGenre = useGenreStore((state) => state.currentGenreInfo?.albums);
 
-  if (isLoading) return <DataLoader />;
   // Le Record utilisé pour savoir exactement le type de clé et de valeur de l'objet
   const sections: Record<string, React.ReactNode> = {
     Tout: (
@@ -41,11 +40,10 @@ const Genre = () => {
     Titres: <TitlesGenre />,
   };
   return (
-    <AppWrapper>
-      <GoBack pageTitle={genre.genre} />
+    <AppWrapper className="px-4">
+      <GoBack pageTitle={`Genre - ${genre.genre}`} />
       <ScrollItems data={SCROLL_SECTION} />
-
-      {sections[currentSection]}
+      {isLoading ? <DataLoader /> : <>{sections[currentSection]}</>}
     </AppWrapper>
   );
 };
