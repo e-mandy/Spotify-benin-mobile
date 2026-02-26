@@ -16,7 +16,7 @@ const AlbumGrid = ({ name: title, photo, releaseDate: year }) => {
         />
       </View>
       <View>
-        <StyledText className="text-base font-bold">{title}</StyledText>
+        <StyledText className="text-lg font-bold">{title}</StyledText>
         <View className="flex-row items-center gap-2">
           <StyledText className="text-xs text-white opacity-40 font-semibold">
             {getYear(year)}
