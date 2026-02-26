@@ -18,7 +18,7 @@ const SearchCollectionHeader = ({
     <View className="flex-row justify-between items-center">
       <StyledText className="font-bold">{title}</StyledText>
       {isAll && (
-        <Link href={path}>
+        <Link href={path ?? ""}>
           <StyledText className="text-sm font-bold">VOIR TOUT</StyledText>
         </Link>
       )}
