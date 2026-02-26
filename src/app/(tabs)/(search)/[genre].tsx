@@ -1,7 +1,9 @@
-import { MOCK_ALBUMS } from "@/mocks/albums.mock";
 import { AppWrapper, DataLoader, GoBack } from "@/src/components/ui/common";
+import ResearchNotFound from "@/src/components/ui/common/ResearchNotFound";
 import ScrollItems from "@/src/components/ui/common/ScrollItems";
+import AlbumsGenreGrid from "@/src/components/ui/genre/AlbumsGenreGrid";
 import ArtistsGenre from "@/src/components/ui/genre/ArtistsGenre";
+import ArtistsGenreGrid from "@/src/components/ui/genre/ArtistsGenreGrid";
 import TitlesGenre from "@/src/components/ui/genre/TitlesGenre";
 import Albums from "@/src/components/ui/search/Albums";
 import { SCROLL_SECTION } from "@/src/constants/scroll_section";
@@ -14,6 +16,7 @@ const Genre = () => {
   const genre = useLocalSearchParams() as { genre: string };
   const { isLoading } = useGenre(genre.genre);
   const currentSection = useGenreStore((state) => state.currentSection);
+  const albumsGenre = useGenreStore((state) => state.currentGenreInfo?.albums);
 
   if (isLoading) return <DataLoader />;
   // Le Record utilisé pour savoir exactement le type de clé et de valeur de l'objet
@@ -21,22 +24,20 @@ const Genre = () => {
     Tout: (
       <>
         <ArtistsGenre />
-        <Albums
-          headerTitle="Albums Incontournables"
-          albums={MOCK_ALBUMS}
-          isHeaderAll={false}
-        />
+        {!albumsGenre || albumsGenre.length === 0 ? (
+          <ResearchNotFound section="Albums Incontournables" />
+        ) : (
+          <Albums
+            headerTitle="Albums Incontournables"
+            albums={albumsGenre}
+            isHeaderAll={false}
+          />
+        )}
         <TitlesGenre />
       </>
     ),
-    Albums: (
-      <Albums
-        headerTitle="Albums Incontournables"
-        albums={MOCK_ALBUMS}
-        isHeaderAll={false}
-      />
-    ),
-    Artistes: <ArtistsGenre />,
+    Albums: <AlbumsGenreGrid />,
+    Artistes: <ArtistsGenreGrid />,
     Titres: <TitlesGenre />,
   };
   return (

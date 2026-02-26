@@ -2,7 +2,7 @@ import React from "react";
 import { ImageBackground, View } from "react-native";
 import { StyledText } from "../common";
 
-const Artist = ({ name }) => {
+const Artist = ({ name, photo }) => {
   return (
     <View className="flex-col items-center gap-2">
       <View className="h-24 w-24 rounded-full overflow-hidden">
