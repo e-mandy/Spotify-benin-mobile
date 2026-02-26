@@ -1,21 +1,23 @@
 import { MOCK_ALBUMS } from "@/mocks/albums.mock";
 import React from "react";
 import { FlatList } from "react-native-gesture-handler";
-import Album from "../common/Album";
+import AlbumGrid from "./AlbumGrid";
 
 const AlbumsGenreGrid = () => {
   return (
     <FlatList
       className="py-5"
       data={MOCK_ALBUMS}
-      renderItem={({ item: album }) => <Album {...album} />}
-      horizontal
+      scrollEnabled={false}
+      renderItem={({ item: album }) => <AlbumGrid {...album} />}
       contentContainerStyle={{
-        flexDirection: "row",
         gap: 20,
       }}
-      showsHorizontalScrollIndicator={false}
+      columnWrapperStyle={{
+        justifyContent: "space-between",
+      }}
       keyExtractor={(item) => item.id}
+      numColumns={2}
     />
   );
 };
