@@ -15,6 +15,7 @@ const AlbumsGenreGrid = () => {
       }}
       columnWrapperStyle={{
         justifyContent: "space-between",
+        paddingHorizontal: 8,
       }}
       keyExtractor={(item) => item.id}
       numColumns={2}
