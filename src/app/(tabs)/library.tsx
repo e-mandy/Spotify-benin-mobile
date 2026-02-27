@@ -10,11 +10,15 @@ import { ScrollView, View } from "react-native";
 const Library = () => {
   const { currentSong } = useTrackStore();
   return (
-    <AppWrapper withScrollView={false}>
-      <SecondaryTopBar topic="Ma Bibliothèque" />
+    <AppWrapper className="!px-3" withScrollView={false}>
+      <View className="px-4">
+        <SecondaryTopBar topic="Ma Bibliothèque" />
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollGenres />
-        <PinnedPlaylist />
+        <View className="px-3">
+          <ScrollGenres />
+          <PinnedPlaylist />
+        </View>
         <CollectionElementSection />
         {currentSong?.info?.id ? (
           <View className="h-48"></View>

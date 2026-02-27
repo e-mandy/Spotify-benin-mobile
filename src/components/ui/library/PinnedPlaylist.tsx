@@ -5,7 +5,7 @@ import { StyledText } from "../common";
 
 const PinnedPlaylist = () => {
   return (
-    <View className="px-3">
+    <View>
       <View className="w-full h-40 relative mb-3 px-2 bg-red-900 py-5 rounded-[42px] overflow-hidden">
         <View className="h-full flex-col justify-center pl-6">
           <View className="flex-row items-center gap-x-2 mb-3">

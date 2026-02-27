@@ -19,7 +19,7 @@ const BuyACoffee = ({ artistName }) => {
           <MaterialIcons size={26} name="coffee" color="#d84141" />
         </View>
         <View>
-          <Text className="font-spline-bold text-white items-center text-xl">
+          <Text className="font-spline-bold text-white items-center text-sm">
             Offrir un verre de Sodabi
           </Text>
         </View>

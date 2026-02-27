@@ -39,7 +39,7 @@ const AppBottomPlayer = () => {
                 {currentSong?.info.title}
               </Text>
               <Text numberOfLines={1} className="text-gray-300 text-sm">
-                {truncate(currentSong?.info.singer, 30)}
+                {truncate(currentSong?.info.singer, 22)}
               </Text>
             </View>
           </View>
