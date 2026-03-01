@@ -1,15 +1,16 @@
+import { truncate } from "@/src/utils/truncate";
 import React from "react";
 import {
   Dimensions,
   ImageBackground,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { StyledText } from "../common";
 
 const { width } = Dimensions.get("screen");
 
-const ArtistGrid = ({ name }) => {
+const ArtistGrid = ({ singerName: name, photo }) => {
   return (
     <TouchableOpacity className="flex-col items-center gap-2">
       <View
@@ -21,10 +22,14 @@ const ArtistGrid = ({ name }) => {
       >
         <ImageBackground
           className="h-full w-full"
-          source={require("@/assets/images/mkay.jpeg")}
+          source={{
+            uri: photo,
+          }}
         />
       </View>
-      <StyledText className="text-xl font-semibold">Nom artiste</StyledText>
+      <StyledText className="text-xl font-semibold">
+        {truncate(name, 20)}
+      </StyledText>
       <StyledText className="text-sm opacity-50">Artiste</StyledText>
     </TouchableOpacity>
   );
