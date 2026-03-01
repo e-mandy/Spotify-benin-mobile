@@ -15,7 +15,7 @@ const InputRow = (props: InputRowProps) => {
       {props.prefixIcon && (
         <MaterialCommunityIcons
           name={props.prefixIcon}
-          className="absolute right-7 z-20 top-14"
+          className="absolute right-7 z-20 top-16"
           size={20}
           color="#B6A0A0"
         />
