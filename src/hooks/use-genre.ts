@@ -17,7 +17,6 @@ export const useGenre = (currentGenre: string) => {
             ? response.data.data.response
             : response.data.response,
         );
-        console.log(response.data.response);
       } catch (error) {
       } finally {
         setIsLoading(false);

@@ -36,7 +36,7 @@ const AppBottomPlayer = () => {
                 className="font-spline-bold text-white text-xl"
                 numberOfLines={1}
               >
-                {currentSong?.info.title}
+                {truncate(currentSong?.info.title, 22)}
               </Text>
               <Text numberOfLines={1} className="text-gray-300 text-sm">
                 {truncate(currentSong?.info.singer, 22)}
