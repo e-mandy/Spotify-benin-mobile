@@ -102,7 +102,7 @@ const Register = () => {
             Créez votre compte
           </Title>
         </View>
-        <View className="mt-4 flex gap-y-6 w-[95%] max-w-[400px] mx-auto">
+        <View className="mt-4 flex gap-y-2 w-[95%] max-w-[400px] mx-auto">
           {formFields.map((field) => (
             <InputRow
               onChangeText={onChange}

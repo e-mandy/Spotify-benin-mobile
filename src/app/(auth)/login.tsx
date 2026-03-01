@@ -52,7 +52,7 @@ const Login = () => {
       const res = await login(userInfo);
       if (res.data.tempToken) {
         router.push(
-          `/(auth)/send-forgot-pass-mail?tempToken=${res.data.tempToken}`,
+          `/(auth)/verify-account?tempToken=${res.data.tempToken}&email=${userInfo.email}`,
         );
       }
       setLoading(false);
@@ -77,7 +77,7 @@ const Login = () => {
             Bon retour parmi nous
           </Title>
         </View>
-        <View className="mt-4 flex gap-y-6 w-[95%] max-w-[400px] mx-auto">
+        <View className="mt-4 flex gap-y-2 w-[95%] max-w-[400px] mx-auto">
           {formFields.map((field) => (
             <InputRow
               key={field.prefixIcon}
