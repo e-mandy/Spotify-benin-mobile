@@ -1,14 +1,13 @@
 import { useTrackStore } from "@/src/store/track-play.store";
-import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
   ImageBackground,
   Pressable,
   Text,
-  TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import StyledText from "./StyledText";
+import TitleMenu from "./TitleMenu";
 
 type TMusicTitle = {
   id: string;
@@ -58,9 +57,7 @@ const MusicTitle = ({ label: title, author, photo, id }: TMusicTitle) => {
           </StyledText>
         </View>
       </View>
-      <TouchableOpacity className="p-1 rounded-lg">
-        <Ionicons name="ellipsis-vertical" color="white" size={20} />
-      </TouchableOpacity>
+      <TitleMenu id={id} />
     </Pressable>
   );
 };

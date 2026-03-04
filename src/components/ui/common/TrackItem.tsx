@@ -2,13 +2,13 @@ import { useFavorite } from "@/src/hooks/use-favorite";
 import { useTrackStore } from "@/src/store/track-play.store";
 import { IPlaylist } from "@/src/store/types/playlist.type";
 import { notifError, notifSuccess } from "@/src/utils/react-toast";
-import { Entypo, FontAwesome6, MaterialIcons } from "@expo/vector-icons";
+import { Entypo, FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Divider, Menu } from "react-native-paper";
 import AddToPlayslist from "./AddToPlayslist";
 import { SwipeableTrack } from "./Swipeable";
+import TitleMenu from "./TitleMenu";
 
 export const TrackItem = ({
   id,
@@ -131,29 +131,7 @@ export const TrackItem = ({
             )}
           </TouchableOpacity>
 
-          <Menu
-            visible={visible}
-            onDismiss={closeMenu}
-            anchorPosition="top"
-            anchor={
-              <TouchableOpacity
-                onPress={openMenu}
-                className="h-8 w-8 items-center justify-center"
-              >
-                <MaterialIcons name="more-vert" size={24} color="#9ca3af" />
-              </TouchableOpacity>
-            }
-          >
-            <Menu.Item
-              onPress={() => setModalOpen(true)}
-              title="Ajouter à la playlist"
-            />
-            {!isFavorite && (
-              <Menu.Item onPress={onFavorite} title="Ajouter aux favoris" />
-            )}
-            <Divider />
-            <Menu.Item onPress={() => setVisible(false)} title="Fermer" />
-          </Menu>
+          <TitleMenu id={id} />
         </TouchableOpacity>
       </SwipeableTrack>
       <AddToPlayslist
