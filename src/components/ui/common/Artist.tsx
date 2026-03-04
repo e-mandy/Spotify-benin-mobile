@@ -4,8 +4,6 @@ import React from "react";
 import { ImageBackground, TouchableOpacity, View } from "react-native";
 import StyledText from "./StyledText";
 
-type ArtistType = {};
-
 const Artist = ({ photo, id, singerName: name }) => {
   const { subscribed, unsubscribed, hasSubscribed } = useSubscription(
     Number(id),

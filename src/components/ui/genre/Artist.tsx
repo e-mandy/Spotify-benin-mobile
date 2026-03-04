@@ -1,10 +1,18 @@
+import { truncate } from "@/src/utils/truncate";
+import { useRouter } from "expo-router";
 import React from "react";
-import { ImageBackground, View } from "react-native";
+import { ImageBackground, Pressable, View } from "react-native";
 import { StyledText } from "../common";
 
-const Artist = ({ singerName: name, photo }) => {
+const Artist = ({ id, singerName: name, photo }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/(common)/legends-details?legendId=${id}`);
+  };
+
   return (
-    <View className="flex-col items-center gap-2">
+    <Pressable onPress={handleClick} className="flex-col items-center gap-2">
       <View className="h-24 w-24 rounded-full overflow-hidden">
         <ImageBackground
           className="h-full w-full"
@@ -13,8 +21,8 @@ const Artist = ({ singerName: name, photo }) => {
           }}
         />
       </View>
-      <StyledText className="text-xl">{name}</StyledText>
-    </View>
+      <StyledText className="text-xl">{truncate(name, 20)}</StyledText>
+    </Pressable>
   );
 };
 

@@ -1,18 +1,27 @@
 import { truncate } from "@/src/utils/truncate";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   Dimensions,
   ImageBackground,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { StyledText } from "../common";
 
 const { width } = Dimensions.get("screen");
 
-const ArtistGrid = ({ singerName: name, photo }) => {
+const ArtistGrid = ({ id, singerName: name, photo }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/(common)/legends-details?legendId=${id}`);
+  };
   return (
-    <TouchableOpacity className="flex-col items-center gap-2">
+    <TouchableOpacity
+      onPress={handleClick}
+      className="flex-col items-center gap-2"
+    >
       <View
         style={{
           width: (width * 40) / 100,
