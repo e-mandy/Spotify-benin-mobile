@@ -54,7 +54,7 @@ const PlaylistListItem = ({
 
   const handlePlaylistDelete = () => {
     /**
-     * if type of playlists is string then it means user is clicking int the favorites bloc
+     * if type of playlists is string then it means user is clicking into the favorites bloc
      * so nothing to delete
      */
     if (typeof playlistId === "string") return;

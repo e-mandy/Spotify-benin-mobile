@@ -36,6 +36,7 @@ const CreatePlaylist = () => {
             Entrer le nom de la playlist:
           </StyledText>
           <InputRow
+            label=""
             onChangeText={(_, text) => setInputText(text)}
             name="playlist-name"
             className="!bg-white border !text-black"

@@ -24,7 +24,7 @@ const PlaylistCard = ({
         onPress={onPress}
       >
         <View
-          className={`m-2 justify-center items-center w-44 aspect-square rounded-lg bg-[#2A2020]  border-white/10 ${isCreationCard ? "border-2 border-dashed" : ""} `}
+          className={`m-2 justify-center items-center w-40 aspect-square rounded-lg bg-[#2A2020]  border-white/10 ${isCreationCard ? "border-2 border-dashed" : ""} `}
         >
           {iconChild}
         </View>

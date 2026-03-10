@@ -61,7 +61,7 @@ const CollectionElementSection = () => {
           showsVerticalScrollIndicator={false}
           columnWrapperStyle={{
             justifyContent: "space-between",
-            flexWrap: "nowrap",
+            flexWrap: "wrap",
             columnGap: "15px",
           }}
           numColumns={2}
